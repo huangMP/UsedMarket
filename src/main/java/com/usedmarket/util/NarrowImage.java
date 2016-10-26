@@ -69,6 +69,6 @@ public class NarrowImage {
 	}
 
 	public static void main(String args[]){
-		imageNarrow("H:\\图片", "50.jpg", "6.jpg");
+		imageNarrow("H:\\图片", "50.jpg", "555.jpg");
 	}
 }
