@@ -38,22 +38,22 @@ public class UserInfoController {
      * @param phone 手机
      * @return
      */
-    @RequestMapping(value = "/insertUserInfo")
+    @RequestMapping(value = "/insert")
     @ResponseBody
     public String insertUserInfo(
-                                 @RequestParam(value="headPortrait") MultipartFile headPortrait,
-                                 @RequestParam(value="username") String username,
-                                 @RequestParam(value="password") String password,
-                                 @RequestParam(value="sex") int sex,
-                                 @RequestParam(value="phone") String phone
+            @RequestParam(value="headPortrait") MultipartFile headPortrait,
+            @RequestParam(value="username") String username,
+            @RequestParam(value="password") String password,
+            @RequestParam(value = "sex", defaultValue = "9") int sex,
+            @RequestParam(value="phone") String phone
                                  ) throws IOException {
 
         //判断接受到的信息是否正确
         if(
-                ("".equals(password.trim()) || null == password ) &&
-                        ("".equals(username.trim()) || null == username) &&
-                        ("".equals(phone.trim()) || null == phone ) &&
-                        (sex != 0 && sex != 1) &&
+                ("".equals(password.trim()) || null == password) ||
+                        ("".equals(username.trim()) || null == username) ||
+                        ("".equals(phone.trim()) || null == phone) ||
+                        (sex != 0 && sex != 1) ||
                         (headPortrait == null || headPortrait.isEmpty())
                 ){
             System.out.println("接收到的信息不完全");
@@ -80,12 +80,18 @@ public class UserInfoController {
         userInfo.setSex(sex);
         //设置手机
         userInfo.setPhone(phone);
+        //设置时间
+        userInfo.setRegistrationDate(new Date());
 
         //执行上传 返回真实文件名
         String headPortraitFileName = FileUpload.fileUp(headPortrait, ResourcesPath.headPortraitAbsoluteath , UuidUtil.get32UUID() );
+        //得到压缩图文件名
+        String narrowImageFileName = NarrowImage.getNarrowImageFileName(headPortraitFileName);
+        //进行压缩
+        NarrowImage.imageNarrow(ResourcesPath.headPortraitAbsoluteath, narrowImageFileName, headPortraitFileName, 5);
 
-        //设置保存路径
-        userInfo.setHeadPortrait( ResourcesPath.headPortraitRelativePath + headPortraitFileName );
+        //设置保存路径  (保存压缩图路径)
+        userInfo.setHeadPortrait(ResourcesPath.headPortraitRelativePath + narrowImageFileName);
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
@@ -98,9 +104,18 @@ public class UserInfoController {
      * @param userInfo //用户名：username  密码：password
      * @return
      */
-    @RequestMapping(value = "/UserLogin")
+    @RequestMapping(value = "/login")
     @ResponseBody
-    public String UserLogin(UserInfo userInfo) {
+    public String login(UserInfo userInfo) {
+
+        //判断接受到的信息是否正确
+        if (
+                null == userInfo.getUsername().trim() || "".equals(userInfo.getUsername().trim()) ||
+                        null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim())
+                ) {
+            System.out.println("接收到的信息不完全");
+            return "登录失败";
+        }
 
         //通过用户名向数据库查询UserInfo
         UserInfo userInfoInDatabase = userInfoService.findByUsername( userInfo.getUsername().trim() );
@@ -122,27 +137,25 @@ public class UserInfoController {
 
     /**
      * 修改密码
-     * @param userInfo //用户名：username  密码：password  新密码：newPassword
+     * @param userInfo //用户Id：userId  密码：password  新密码：newPassword
      * @return
      */
-    @RequestMapping(value = "/EditPassword")
+    @RequestMapping(value = "/editPassword")
     @ResponseBody
-    public String EditPassword(UserInfo userInfo,String newPassword) {
+    public String editPassword(UserInfo userInfo, String newPassword) {
 
         //判断接受到的信息是否正确
         if(
-                null == userInfo.getUserId().trim() || "".equals( userInfo.getUserId().trim() ) &&
-                null == userInfo.getPassword().trim() || "".equals( userInfo.getPassword().trim() ) &&
+                null == userInfo.getUserId().trim() || "".equals(userInfo.getUserId().trim()) ||
+                        null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim()) ||
                 null == newPassword.trim() || "".equals( newPassword.trim() )
                 ){
             System.out.println("接收到的信息不完全");
             return "修改失败";
         }
 
-        userInfo.setPassword( userInfo.getPassword().trim() );
-
         //通过用户Id向数据库查询UserInfo
-        UserInfo userInfoInDatabase = userInfoService.findByUsername( userInfo.getUserId().trim() );
+        UserInfo userInfoInDatabase = userInfoService.findByUserId(userInfo.getUserId().trim());
 
         //判断该用户是否存在
         if( null == userInfoInDatabase ){
@@ -161,6 +174,60 @@ public class UserInfoController {
         }
         System.out.println("密码不正确");
         return "修改失败";
+    }
+
+    /**
+     * 修改头像
+     *
+     * @param headPortrait //用户Id：userId  头像：headPortrait
+     * @return
+     */
+    @RequestMapping(value = "/editHeadPortrait")
+    @ResponseBody
+    public String editHeadPortrait(
+            @RequestParam(value = "headPortrait") MultipartFile headPortrait,
+            @RequestParam(value = "userId") String userId
+    ) {
+
+        //判断接受到的信息是否正确
+        if (
+                ("".equals(userId.trim()) || null == userId) ||
+                        (headPortrait == null || headPortrait.isEmpty())
+                ) {
+            System.out.println("接收到的信息不完全");
+            return "修改失败";
+        }
+
+        //通过用户Id向数据库查询UserInfo
+        UserInfo userInfoInDatabase = userInfoService.findByUserId(userId.trim());
+
+        //判断该用户是否存在
+        if (null == userInfoInDatabase) {
+            System.out.println("该用户不存在");
+            return "修改失败";
+        }
+
+        //得到数据库保存的缩略图的相对路径
+        String narrowImageFileNameInDatabase = userInfoInDatabase.getHeadPortrait();
+        //得到相应的原图文件名
+        String originalImageFileNameInDatabase = NarrowImage.getOriginalFileName(narrowImageFileNameInDatabase.replaceAll(ResourcesPath.headPortraitRelativePath, ""));
+        //执行删除操作
+        FileUtil.delFile(ResourcesPath.headPortraitAbsoluteath.replaceAll("WEB-INF/classes/../../static/headportrait/", "") + narrowImageFileNameInDatabase);
+        FileUtil.delFile(ResourcesPath.headPortraitAbsoluteath.replaceAll("WEB-INF/classes/../../static/headportrait/", "") + ResourcesPath.headPortraitRelativePath + originalImageFileNameInDatabase);
+
+        //执行上传 返回真实文件名
+        String headPortraitFileName = FileUpload.fileUp(headPortrait, ResourcesPath.headPortraitAbsoluteath, UuidUtil.get32UUID());
+        //得到压缩图文件名
+        String narrowImageFileName = NarrowImage.getNarrowImageFileName(headPortraitFileName);
+        //进行压缩
+        NarrowImage.imageNarrow(ResourcesPath.headPortraitAbsoluteath, narrowImageFileName, headPortraitFileName, 5);
+        //设置保存路径  (保存压缩图路径)
+        userInfoInDatabase.setHeadPortrait(ResourcesPath.headPortraitRelativePath + narrowImageFileName);
+
+        //保存到数据库
+        userInfoService.updateUserInfo(userInfoInDatabase);
+
+        return "修改成功";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.CommodityDao;
+import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.CommodityService;
@@ -37,7 +38,7 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public boolean deleteByCommodityId(int commodityId) {
+	public boolean deleteByCommodityId(String commodityId) {
 		return commodityDao.deleteByCommodityId(commodityId);
 	}
 
@@ -48,7 +49,7 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public boolean updateByCommodityId(int commodityId) {
+	public boolean updateByCommodityId(String commodityId) {
 		return commodityDao.updateByCommodityId(commodityId);
 	}
 
@@ -59,7 +60,7 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public Commodity findByCommodityId(int commodityId) {
+	public Commodity findByCommodityId(String commodityId) {
 		return commodityDao.findByCommodityId(commodityId);
 	}
 
@@ -69,7 +70,7 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public List<Commodity> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
+	public List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
 		return commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
 	}
 }

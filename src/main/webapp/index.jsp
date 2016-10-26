@@ -17,7 +17,7 @@
     <div>
         <span>----------------------------------------------</span>
         <h3>测试注册</h3><br/>
-        <form action="/UserInfo/insertUserInfo" method="post" enctype="multipart/form-data" >
+        <form action="UserInfo/insert" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>用户名</td>
@@ -45,7 +45,7 @@
 
         <span>----------------------------------------------</span>
         <h3>测试登录</h3><br/>
-        <form action="/UserInfo/UserLogin" method="post" enctype="multipart/form-data" >
+        <form action="UserInfo/login" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>用户名</td>
@@ -60,12 +60,12 @@
         </form>
 
         <span>----------------------------------------------</span>
-        <h3>测试登录</h3><br/>
-        <form action="/UserInfo/EditPassword" method="post" enctype="multipart/form-data" >
+        <h3>测试修改密码</h3><br/>
+        <form action="UserInfo/editPassword" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td>用户名</td>
-                    <td><input name="username" /></td>
+                    <td>用户Id</td>
+                    <td><input name="userId"/></td>
                 </tr>
                 <tr>
                     <td>密码</td>
@@ -76,7 +76,103 @@
                     <td><input name="newPassword" /></td>
                 </tr>
             </table>
-            <input type="submit" value="登录">
+            <input type="submit" value="修改">
+        </form>
+
+        <span>----------------------------------------------</span>
+        <h3>测试修改头像</h3><br/>
+        <form action="UserInfo/editHeadPortrait" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>用户Id</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>新头像</td>
+                    <td><input type="file" name="headPortrait"></td>
+                </tr>
+            </table>
+            <input type="submit" value="修改">
+        </form>
+
+        <span>----------------------------------------------</span>
+        <h4>上传</h4>
+        <form action="Commodity/upload" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>用户id</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>店铺id</td>
+                    <td><input name="storeId"/></td>
+                </tr>
+                <tr>
+                    <td>商品名称</td>
+                    <td><input name="commodityName"/></td>
+                </tr>
+                <tr>
+                    <td>类别</td>
+                    <td><input name="category"/></td>
+                </tr>
+                <tr>
+                    <td>价格</td>
+                    <td><input name="price"/></td>
+                </tr>
+                <tr>
+                    <td>数量</td>
+                    <td><input name="amount"/></td>
+                </tr>
+                <tr>
+                    <td>描述</td>
+                    <td><input name="description"/></td>
+                </tr>
+                <tr>
+                    <td>图片1</td>
+                    <td><input type="file" name="images"></td>
+                </tr>
+                <tr>
+                    <td>图片2</td>
+                    <td><input type="file" name="images"></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>----------------------------------------------</span>
+        <h4>查找</h4>
+        <form action="Commodity/search" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td><input name="type"/></td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>----------------------------------------------</span>
+        <h4>删除</h4>
+        <form action="Commodity/delete" method="post">
+            <table>
+                <tr>
+                    <td>商品id</td>
+                    <td><input name="commodityId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
         </form>
     </div>
 </div>

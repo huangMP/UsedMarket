@@ -1,5 +1,6 @@
 package com.usedmarket.controller;
 
+import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.CommodityService;
@@ -28,13 +29,13 @@ public class CommodityController {
 
 	@RequestMapping(value = "/search")
 	@ResponseBody
-	public List<Commodity> searchCommodityByCondition(CommodityQueryCondition commodityQueryCondition) {
+	public List<CommodityCustom> searchCommodityByCondition(CommodityQueryCondition commodityQueryCondition) {
 		return commodityService.findCommodityByQueryCondition(commodityQueryCondition);
 	}
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
-	public String deleteCommodity(int commodityId) {
+	public String deleteCommodity(String commodityId) {
 		if (commodityService.deleteByCommodityId(commodityId)) {
 			return "删除成功";
 		}
@@ -44,8 +45,13 @@ public class CommodityController {
 	@RequestMapping(value = "/upload")
 	@ResponseBody
 	public String uploadCommodity(@RequestParam(value="images") MultipartFile[] images,
-	                            String userId, String storeId, String commodityName,
-	                            String category, double price, int amount, String description){
+								  String userId,
+								  String storeId,
+								  String commodityName,
+								  String category,
+								  @RequestParam(value = "price", defaultValue = "0") double price,
+								  @RequestParam(value = "amount", defaultValue = "0") int amount,
+								  String description) {
 		Commodity commodity = new Commodity(
 				UuidUtil.get32UUID(),
 				userId,
@@ -65,20 +71,26 @@ public class CommodityController {
 			String imagesStr = "";
 
 			for (MultipartFile image : images) {
-				//头像存放路径
-				String filePath = ResourcesPath.commodityImagesAbsoluteath+ "static/commodityImages";
 				//执行上传 返回真实文件名
-				String imageFileName = FileUpload.fileUp(image, filePath, UuidUtil.get32UUID() );
+				String imageFileName = FileUpload.fileUp(image, ResourcesPath.commodityImagesAbsoluteath, UuidUtil.get32UUID());
+				//得到压缩图文件名
+				String narrowImageFileName = NarrowImage.getNarrowImageFileName(imageFileName);
+				//进行压缩
+				NarrowImage.imageNarrow(ResourcesPath.commodityImagesAbsoluteath, narrowImageFileName, imageFileName, 5);
 				//设置头像真实文件名
-				imagesStr += ResourcesPath.commodityImagesRelativePath + imageFileName + ",";
+				imagesStr += ResourcesPath.commodityImagesRelativePath + narrowImageFileName + ";";
 			}
 
-			commodity.setImages(imagesStr.substring(0, imagesStr.lastIndexOf(",")));
+			commodity.setImages(imagesStr.substring(0, imagesStr.lastIndexOf(";")));
 		}
 
-		commodityService.addCommodity(commodity);
+		if (commodityService.addCommodity(commodity)) {
+			return "商品上传成功";
+		}
 
-		return "操作成功：" + commodity.getImages();
+		return "商品上传失败";
+
+
 
 	}
 

@@ -19,6 +19,7 @@ public class Comment {
      * 众筹Id
      */
     private String crowdfundingId;
+
     /**
      * 留言内容
      */

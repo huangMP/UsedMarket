@@ -300,13 +300,15 @@ public class FileUtil {
 
 	public static void main(String[] args) {
 		try {
+
+			delFile(ResourcesPath.headPortraitAbsoluteath.replaceAll("classes/../../", "UsedMarket/") + "_a1df74a810af41898343064e4e59b593.jpg");
+			System.out.println("ok");
 			//F:/tomcat_work/apache-tomcat-7.0.62/webapps/pn_archives/static/practices/e673824670024a29ad7fedb86b07acb1
 			// readFile("F:/tomcat_work/apache-tomcat-7.0.62/webapps/pn_archives/static/papers/8684f73516394a5c81247e6e48544e76");
 			//deleteFile("F://tomcat_work//apache-tomcat-7.0.62//webapps//pn_archives//static//practices//11fdb7b0dddd4279a7d129f0ab10d9a0");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		System.out.println("ok");
 	}
 
 }
