@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedmarket.dao.CommodityDao">
+
+    <!--表名 -->
+    <sql id="tableName">
+        t_commodity
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        commodity_id,
+        user_id,
+        store_id,
+        commodity_name,
+        category,
+        price,
+        amount,
+        images,
+        description,
+        prefer_num,
+        launch_date,
+        sales_volume
+    </sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{commodityId},
+        #{userId},
+        #{storeId},
+        #{commodityName},
+        #{category},
+        #{price},
+        #{amount},
+        #{images},
+        #{description},
+        #{preferNum},
+        #{launchDate},
+        #{salesVolume}
+    </sql>
+
+    <!-- 新增-->
+    <insert id="insert" parameterType="Commodity">
+        insert into
+          <include refid="tableName"></include>
+        (
+          <include refid="Field"></include>
+        ) values (
+          <include refid="FieldValue"></include>
+        )
+    </insert>
+
+    <!-- 删除-->
+    <delete id="deleteByCommodityId" parameterType="String">
+        delete from
+          <include refid="tableName"></include>
+        where
+          commodity_id = #{commodityId}
+    </delete>
+
+    <!-- 通过 CommodityId 查找 Commodity -->
+    <select id="findByCommodityId" resultType="Commodity">
+        SELECT
+        *
+        FROM
+          <include refid="tableName"></include>
+        WHERE commodity_id=#{commodityId}
+    </select>
+
+    <update id="updateByCommodityId" parameterType="Commodity">
+        UPDATE <include refid="tableName"></include>
+        SET
+        commodity_name=#{commodityName},
+        category=#{category},
+        price=#{price},
+        images=#{images},
+        description=#{description}
+        WHERE commodity_id=#{commodityId}
+    </update>
+
+    <!-- 通过种类查找商品 -->
+    <select id="findCommodityByQueryCondition" resultType="Commodity" parameterType="CommodityQueryCondition">
+        SELECT * FROM
+        <include refid="tableName"></include>
+        WHERE 1=1
+        <if test="type != 'all'">
+            AND ${type} = #{queryValue}
+        </if>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND commodity_name like '%${indistinctField}%'
+        </if>
+        ORDER BY launch_date DESC
+        LIMIT #{index},10
+    </select>
+
+</mapper>
