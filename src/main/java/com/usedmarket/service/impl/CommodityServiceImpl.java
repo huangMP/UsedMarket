@@ -66,6 +66,8 @@ public class CommodityServiceImpl implements CommodityService {
 
 
 	/**
+	 * 通过条件查找商品
+	 *
 	 * @param commodityQueryCondition 查询条件
 	 * @return
 	 */
@@ -73,4 +75,17 @@ public class CommodityServiceImpl implements CommodityService {
 	public List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
 		return commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
 	}
+
+	/**
+	 * 通过商品名称以及商品详情查找商品
+	 *
+	 * @param indistinctField 查询条件
+	 * @return
+	 */
+	@Override
+	public List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField) {
+		return commodityDao.findCommodityByNameAndDescription(indistinctField);
+	}
+
+
 }

@@ -41,6 +41,12 @@
         #{salesVolume}
     </sql>
 
+    <resultMap id="commodityAndUserMap" type="CommodityCustom" autoMapping="true">
+        <association property="commodity" javaType="Commodity" autoMapping="true">
+            <id column="commodity_id" property="commodityId"/>
+        </association>
+    </resultMap>
+
     <!-- 新增-->
     <insert id="insert" parameterType="Commodity">
         insert into
@@ -81,9 +87,9 @@
     </update>
 
     <!-- 通过种类查找商品 -->
-    <select id="findCommodityByQueryCondition" resultType="Commodity" parameterType="CommodityQueryCondition">
-        SELECT * FROM
-        <include refid="tableName"></include>
+    <select id="findCommodityByQueryCondition" resultType="CommodityCustom" parameterType="CommodityQueryCondition">
+        SELECT `t_commodity`.*,`t_user_info`.`username`,`t_user_info`.`head_portrait` FROM
+        `t_commodity` INNER JOIN `t_user_info` ON `t_commodity`.`user_id` = `t_user_info`.`user_id`
         WHERE 1=1
         <if test="type != 'all'">
             AND ${type} = #{queryValue}
@@ -93,6 +99,13 @@
         </if>
         ORDER BY launch_date DESC
         LIMIT #{index},10
+    </select>
+
+    <!-- 通过详情以及商品名称模糊查找全部商品 -->
+    <select id="findCommodityByNameAndDescription" resultType="CommodityCustom" parameterType="String">
+        SELECT `t_commodity`.*,`t_user_info`.`username`,`t_user_info`.`head_portrait` FROM
+        `t_commodity` INNER JOIN `t_user_info` ON `t_commodity`.`user_id` = `t_user_info`.`user_id`
+        WHERE `commodity_name` LIKE '%${value}%' OR `description` LIKE '%${value}%'
     </select>
 
 </mapper>

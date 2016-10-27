@@ -44,14 +44,14 @@ public class CommodityController {
 
 	@RequestMapping(value = "/upload")
 	@ResponseBody
-	public String uploadCommodity(@RequestParam(value="images") MultipartFile[] images,
-								  String userId,
-								  String storeId,
-								  String commodityName,
-								  String category,
-								  @RequestParam(value = "price", defaultValue = "0") double price,
-								  @RequestParam(value = "amount", defaultValue = "0") int amount,
-								  String description) {
+	public String uploadCommodity(@RequestParam(value = "images") MultipartFile[] images,
+	                              String userId,
+	                              String storeId,
+	                              String commodityName,
+	                              String category,
+	                              @RequestParam(value = "price", defaultValue = "0") double price,
+	                              @RequestParam(value = "amount", defaultValue = "0") int amount,
+	                              String description) {
 		Commodity commodity = new Commodity(
 				UuidUtil.get32UUID(),
 				userId,
@@ -90,8 +90,13 @@ public class CommodityController {
 
 		return "商品上传失败";
 
-
-
 	}
+
+	@RequestMapping(value = "/searchByDescription")
+	@ResponseBody
+	public List<CommodityCustom> searchCommodityByNameAndDescription(String indistinctField) {
+		return commodityService.findCommodityByNameAndDescription(indistinctField);
+	}
+
 
 }
