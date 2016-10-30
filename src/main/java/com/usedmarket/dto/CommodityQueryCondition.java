@@ -26,14 +26,17 @@ public class CommodityQueryCondition {
 	 */
 	private int index;
 
-	public CommodityQueryCondition() {
-	}
+	/**
+	 * 排序方式（DESC, ASC）
+	 */
+	private String order;
 
-	public CommodityQueryCondition(String type, String indistinctField, String queryValue, int index) {
-		this.type = type;
-		this.indistinctField = indistinctField;
-		this.queryValue = queryValue;
-		this.index = index;
+	/**
+	 * 排序依据
+	 */
+	private String orderBy;
+
+	public CommodityQueryCondition() {
 	}
 
 	public String getType() {
@@ -68,13 +71,19 @@ public class CommodityQueryCondition {
 		this.index = index;
 	}
 
-	@Override
-	public String toString() {
-		return "CommodityQueryCondition{" +
-				"type='" + type + '\'' +
-				", indistinctField='" + indistinctField + '\'' +
-				", queryValue='" + queryValue + '\'' +
-				", index='" + index + '\'' +
-				'}';
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
 	}
 }
