@@ -3,7 +3,7 @@ package com.usedmarket.service.impl;
 import com.usedmarket.dao.AttachmentDao;
 import com.usedmarket.entity.Attachment;
 import com.usedmarket.service.AttachmentService;
-import com.usedmarket.util.UuidUtil;
+import com.usedmarket.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,26 +28,20 @@ public class AttachmentServiceImpl implements AttachmentService {
 
         Attachment attachment = new Attachment();
         attachment.setAttachmentId(UuidUtil.get32UUID());
+        attachment.setFileType(fileType);
 
-        //fileType，不同类型不同处理
-        //fileType == 0 ,即该附件是用户头像
-        if ("0" == fileType) {
+        String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
+        String relativePath = ResourcesPath.attachmentRelativePath;
 
-        } else if ("0" == fileType) {
-
-        }
-/*
         //执行上传 返回真实文件名
-        String headPortraitFileName = FileUpload.fileUp(headPortrait, ResourcesPath.headPortraitAbsoluteath , UuidUtil.get32UUID() );
+        String fileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
         //得到压缩图文件名
-        String narrowImageFileName = NarrowImage.getNarrowImageFileName(headPortraitFileName);
+        String narrowImageFileName = "_" + fileName;
         //进行压缩
-        NarrowImage.imageNarrow(ResourcesPath.headPortraitAbsoluteath, narrowImageFileName, headPortraitFileName, 5);
+        NarrowImage.imageNarrow(fileAbsoluteathPath, narrowImageFileName, fileName, 5);
 
-        //设置保存路径  (保存压缩图路径)
-        userInfo.setHeadPortrait(ResourcesPath.headPortraitRelativePath + narrowImageFileName);
-
-*/
+        attachment.setFilePath(relativePath + fileName);
+        attachment.setNarrowImagePath(relativePath + narrowImageFileName);
 
         attachmentDao.insert(attachment);
 
@@ -66,11 +60,34 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     /**
      * 修改
-     *
-     * @param attachment
+     * @param attachmentId
+     * @param file
      * @return 成功修改的信息条数
      */
-    public int update(Attachment attachment) {
+    public int update(String attachmentId, MultipartFile file) {
+        Attachment attachment = findByAttachmentId(attachmentId);
+
+        String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
+        String relativePath = ResourcesPath.attachmentRelativePath;
+
+        //得到当前的原图文件名
+        String originalImageFileName = attachment.getFilePath().replaceAll(ResourcesPath.attachmentRelativePath, "");
+        //得到当前的缩略图文件名
+        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(ResourcesPath.attachmentRelativePath, "");
+        //执行删除操作
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + ResourcesPath.attachmentRelativePath + originalImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + ResourcesPath.attachmentRelativePath + narrowImageFileName);
+
+        //执行上传 返回真实文件名
+        originalImageFileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
+        //得到压缩图文件名
+        narrowImageFileName = "_" + originalImageFileName;
+        //进行压缩
+        NarrowImage.imageNarrow(fileAbsoluteathPath, narrowImageFileName, originalImageFileName, 5);
+
+        attachment.setFilePath(relativePath + originalImageFileName);
+        attachment.setNarrowImagePath(relativePath + narrowImageFileName);
+
         return attachmentDao.update(attachment);
     }
 

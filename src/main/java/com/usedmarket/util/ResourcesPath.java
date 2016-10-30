@@ -26,4 +26,15 @@ public class ResourcesPath {
      */
     final public static String commodityImagesAbsoluteath = PathUtil.getClasspath()+ commodityImagesRelativePath;
 
+
+    /**
+     * 附件相对路径
+     */
+    final public static String attachmentRelativePath = "static/attachment/";
+
+    /**
+     * 附件绝对路径
+     */
+    final public static String attachmentAbsoluteathPath = PathUtil.getClasspath() + attachmentRelativePath;
+
 }

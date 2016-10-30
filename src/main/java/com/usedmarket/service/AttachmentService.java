@@ -10,8 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface AttachmentService {
     /**
      * 插入一条信息
-     *
      * @param file
+     * @param fileType
      * @return attachmentId
      */
     public String insert(MultipartFile file, String fileType);
@@ -26,11 +26,11 @@ public interface AttachmentService {
 
     /**
      * 修改
-     *
-     * @param attachment
+     * @param attachmentId
+     * @param file
      * @return 成功修改的信息条数
      */
-    public int update(Attachment attachment);
+    public int update(String attachmentId, MultipartFile file);
 
     /**
      * 删除一条信息
