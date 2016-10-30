@@ -4,13 +4,16 @@ import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.CommodityService;
+import com.usedmarket.util.FileUpload;
+import com.usedmarket.util.NarrowImage;
+import com.usedmarket.util.ResourcesPath;
+import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.usedmarket.util.*;
 
 import java.util.Date;
 import java.util.List;
@@ -74,7 +77,7 @@ public class CommodityController {
 				//执行上传 返回真实文件名
 				String imageFileName = FileUpload.fileUp(image, ResourcesPath.commodityImagesAbsoluteath, UuidUtil.get32UUID());
 				//得到压缩图文件名
-				String narrowImageFileName = NarrowImage.getNarrowImageFileName(imageFileName);
+				String narrowImageFileName = "_" + imageFileName;
 				//进行压缩
 				NarrowImage.imageNarrow(ResourcesPath.commodityImagesAbsoluteath, narrowImageFileName, imageFileName, 5);
 				//设置头像真实文件名
