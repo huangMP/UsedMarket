@@ -20,6 +20,7 @@
         amount,
         images,
         description,
+        location,
         prefer_num,
         launch_date,
         sales_volume
@@ -36,6 +37,7 @@
         #{amount},
         #{images},
         #{description},
+        #{location},
         #{preferNum},
         #{launchDate},
         #{salesVolume}
@@ -97,7 +99,7 @@
         <if test="indistinctField != null and indistinctField != '' ">
             AND commodity_name like '%${indistinctField}%'
         </if>
-        ORDER BY launch_date DESC
+        ORDER BY ${orderBy} ${order}
         LIMIT #{index},10
     </select>
 
