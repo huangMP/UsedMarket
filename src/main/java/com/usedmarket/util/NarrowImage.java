@@ -18,29 +18,6 @@ public class NarrowImage {
 		//System.out.println( getNarrowImageFileName("6b6326ebf5584c83ab81ba177a458252.jpg") );
 		//System.out.println( getOriginalFileName("1_.jsp") );
 	}
-
-	/**
-	 * 得到压缩图文件名
-	 *
-	 * @param originalFileName 原图文件名
-	 * @return 压缩图文件名 （有下滑线）
-	 */
-	public static String getNarrowImageFileName(String originalFileName) {
-		String narrowImageFileName = "_" + originalFileName;
-		return narrowImageFileName;
-	}
-
-	/**
-	 * 得到原图文件名
-	 *
-	 * @param narrowImageFileName 压缩图文件名
-	 * @return 原图文件名 （没有下滑线）
-	 */
-	public static String getOriginalFileName(String narrowImageFileName) {
-		String originalFileName = narrowImageFileName.substring(1);
-		return originalFileName;
-	}
-
 	/**
 	 * @param inputFoler       原图路径
 	 * @param newFileName      压缩图片的文件名

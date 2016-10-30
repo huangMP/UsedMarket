@@ -47,6 +47,7 @@ public class FileUtil {
 	public static void delFile(String filePathAndName) {
 		try {
 			String filePath = filePathAndName;
+			System.out.println(filePathAndName);
 			filePath = filePath.toString();
 			File myDelFile = new File(filePath);
 			myDelFile.delete();

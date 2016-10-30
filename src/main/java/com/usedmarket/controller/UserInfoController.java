@@ -2,6 +2,7 @@ package com.usedmarket.controller;
 
 import com.google.gson.Gson;
 import com.usedmarket.entity.UserInfo;
+import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.UserInfoService;
 import com.usedmarket.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class UserInfoController {
 
     @Autowired
     UserInfoService userInfoService;
+    @Autowired
+    AttachmentService attachmentService;
 
     /**
      * 用户注册
@@ -83,15 +86,8 @@ public class UserInfoController {
         //设置时间
         userInfo.setRegistrationDate(new Date());
 
-        //执行上传 返回真实文件名
-        String headPortraitFileName = FileUpload.fileUp(headPortrait, ResourcesPath.headPortraitAbsoluteath , UuidUtil.get32UUID() );
-        //得到压缩图文件名
-        String narrowImageFileName = NarrowImage.getNarrowImageFileName(headPortraitFileName);
-        //进行压缩
-        NarrowImage.imageNarrow(ResourcesPath.headPortraitAbsoluteath, narrowImageFileName, headPortraitFileName, 5);
-
-        //设置保存路径  (保存压缩图路径)
-        userInfo.setHeadPortrait(ResourcesPath.headPortraitRelativePath + narrowImageFileName);
+        String attachmentId = attachmentService.insert(headPortrait, "0");
+        userInfo.setHeadPortrait(attachmentId);
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
@@ -207,22 +203,7 @@ public class UserInfoController {
             return "修改失败";
         }
 
-        //得到数据库保存的缩略图的相对路径
-        String narrowImageFileNameInDatabase = userInfoInDatabase.getHeadPortrait();
-        //得到相应的原图文件名
-        String originalImageFileNameInDatabase = NarrowImage.getOriginalFileName(narrowImageFileNameInDatabase.replaceAll(ResourcesPath.headPortraitRelativePath, ""));
-        //执行删除操作
-        FileUtil.delFile(ResourcesPath.headPortraitAbsoluteath.replaceAll("WEB-INF/classes/../../static/headportrait/", "") + narrowImageFileNameInDatabase);
-        FileUtil.delFile(ResourcesPath.headPortraitAbsoluteath.replaceAll("WEB-INF/classes/../../static/headportrait/", "") + ResourcesPath.headPortraitRelativePath + originalImageFileNameInDatabase);
-
-        //执行上传 返回真实文件名
-        String headPortraitFileName = FileUpload.fileUp(headPortrait, ResourcesPath.headPortraitAbsoluteath, UuidUtil.get32UUID());
-        //得到压缩图文件名
-        String narrowImageFileName = NarrowImage.getNarrowImageFileName(headPortraitFileName);
-        //进行压缩
-        NarrowImage.imageNarrow(ResourcesPath.headPortraitAbsoluteath, narrowImageFileName, headPortraitFileName, 5);
-        //设置保存路径  (保存压缩图路径)
-        userInfoInDatabase.setHeadPortrait(ResourcesPath.headPortraitRelativePath + narrowImageFileName);
+        attachmentService.update(userInfoInDatabase.getHeadPortrait(), headPortrait);
 
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);
