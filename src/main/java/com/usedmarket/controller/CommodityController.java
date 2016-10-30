@@ -51,7 +51,8 @@ public class CommodityController {
 	                              String category,
 	                              @RequestParam(value = "price", defaultValue = "0") double price,
 	                              @RequestParam(value = "amount", defaultValue = "0") int amount,
-	                              String description) {
+	                              String description,
+	                              String location) {
 		Commodity commodity = new Commodity(
 				UuidUtil.get32UUID(),
 				userId,
@@ -62,14 +63,14 @@ public class CommodityController {
 				amount,
 				"",
 				description,
+				location,
 				0,
 				new Date(),
 				0
 		);
 
-		if (images != null) {
+		if (!images[0].isEmpty()) {
 			String imagesStr = "";
-
 			for (MultipartFile image : images) {
 				//执行上传 返回真实文件名
 				String imageFileName = FileUpload.fileUp(image, ResourcesPath.commodityImagesAbsoluteath, UuidUtil.get32UUID());
