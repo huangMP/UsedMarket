@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Description：enter your comment
+ * Description：商品service实现类
  * Created by Peivxuan on 2016/10/24.
  */
 @Service
@@ -73,6 +73,12 @@ public class CommodityServiceImpl implements CommodityService {
 	 */
 	@Override
 	public List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
+		if (commodityQueryCondition.getOrder().trim() == "" || commodityQueryCondition.getOrder() == null) {
+			commodityQueryCondition.setOrder("DESC");
+		}
+		if (commodityQueryCondition.getOrderBy().trim() == "" || commodityQueryCondition.getOrderBy() == null) {
+			commodityQueryCondition.setOrderBy("launch_date");
+		}
 		return commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
 	}
 
