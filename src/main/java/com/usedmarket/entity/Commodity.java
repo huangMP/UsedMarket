@@ -54,6 +54,11 @@ public class Commodity {
 	private String description;
 
 	/**
+	 * 当前定位
+	 */
+	private String location;
+
+	/**
 	 * 收藏人数
 	 */
 	private int preferNum;
@@ -71,7 +76,7 @@ public class Commodity {
 	public Commodity() {
 	}
 
-	public Commodity(String commodityId, String userId, String storeId, String commodityName, String category, double price, int amount, String images, String description, int preferNum, Date launchDate, int salesVolume) {
+	public Commodity(String commodityId, String userId, String storeId, String commodityName, String category, double price, int amount, String images, String description, String location, int preferNum, Date launchDate, int salesVolume) {
 		this.commodityId = commodityId;
 		this.userId = userId;
 		this.storeId = storeId;
@@ -81,6 +86,7 @@ public class Commodity {
 		this.amount = amount;
 		this.images = images;
 		this.description = description;
+		this.location = location;
 		this.preferNum = preferNum;
 		this.launchDate = launchDate;
 		this.salesVolume = salesVolume;
@@ -182,6 +188,14 @@ public class Commodity {
 		this.salesVolume = salesVolume;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	@Override
 	public String toString() {
 		return "Commodity{" +
@@ -197,6 +211,7 @@ public class Commodity {
 				", preferNum=" + preferNum +
 				", launchDate=" + launchDate +
 				", salesVolume=" + salesVolume +
+				", location=" + location +
 				'}';
 	}
 }
