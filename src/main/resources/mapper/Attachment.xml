@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedmarket.dao.AttachmentDao">
+
+    <!--表名 -->
+    <sql id="tableName">
+        t_attachment
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        attachment_id,
+        file_path,
+        narrow_image_path,
+        file_type
+    </sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{attachmentId},
+        #{filePath},
+        #{narrowImagePath},
+        #{fileType}
+    </sql>
+
+    <!-- 通过 attachmentId 查找 -->
+    <select id="findByAttachmentId" resultType="Attachment">
+        SELECT * FROM
+        <include refid="tableName"></include>
+        WHERE attachment_id=#{attachmentId}
+    </select>
+
+    <!-- 新增-->
+    <insert id="insert" parameterType="Attachment">
+        insert into
+        <include refid="tableName"></include>
+        (
+        <include refid="Field"></include>
+        ) values (
+        <include refid="FieldValue"></include>
+        )
+    </insert>
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="String">
+        delete from
+        <include refid="tableName"></include>
+        where
+        attachment_id = #{attachmentId}
+    </delete>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="Attachment">
+        UPDATE
+        <include refid="tableName"></include>
+        SET
+        attachment_id=#{attachmentId},
+        file_path=#{filePath},
+        narrow_image_path=#{narrowImagePath},
+        file_type=#{fileType}
+        WHERE attachment_id=#{attachmentId}
+    </update>
+</mapper>
