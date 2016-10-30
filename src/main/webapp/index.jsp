@@ -128,6 +128,10 @@
                     <td><input name="description"/></td>
                 </tr>
                 <tr>
+                    <td>定位</td>
+                    <td><input name="location"/></td>
+                </tr>
+                <tr>
                     <td>图片1</td>
                     <td><input type="file" name="images"></td>
                 </tr>
@@ -151,6 +155,14 @@
                 <tr>
                     <td>查询值</td>
                     <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td><input name="order"/></td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td><input name="orderBy"/></td>
                 </tr>
                 <tr>
                     <td>模糊查询字段</td>
