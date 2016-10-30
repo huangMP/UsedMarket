@@ -42,10 +42,17 @@ public interface CommodityService {
 
 
     /**
-     *
+     * 通过条件查找商品
      * @param commodityQueryCondition 查询条件
      * @return
      */
     List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
+
+    /**
+     * 通过商品名称以及商品详情查找商品
+     * @param indistinctField 查询条件
+     * @return
+     */
+    List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField);
 
 }
