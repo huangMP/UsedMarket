@@ -1,21 +1,18 @@
 package com.usedmarket.controller;
 
-import com.google.gson.Gson;
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.UserInfoService;
-import com.usedmarket.util.*;
+import com.usedmarket.util.JsonUtil;
+import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.UUIDEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -73,21 +70,16 @@ public class UserInfoController {
         }
 
         UserInfo userInfo = new UserInfo();
-        //设置UUID主键
-        userInfo.setUserId( UuidUtil.get32UUID() );
-        //设置用户名
-        userInfo.setUsername(username);
-        //设置密码
-        userInfo.setPassword( password.trim() );
-        //设置性别
-        userInfo.setSex(sex);
-        //设置手机
-        userInfo.setPhone(phone);
-        //设置时间
-        userInfo.setRegistrationDate(new Date());
+
+        userInfo.setUserId(UuidUtil.get32UUID());    //设置UUID主键
+        userInfo.setUsername(username);    //设置用户名
+        userInfo.setPassword(password.trim());    //设置密码
+        userInfo.setSex(sex);    //设置性别
+        userInfo.setPhone(phone);    //设置手机
+        userInfo.setRegistrationDate(new Date());    //设置时间
 
         String attachmentId = attachmentService.insert(headPortrait, "0");
-        userInfo.setHeadPortrait(attachmentId);
+        userInfo.setAttachmentId(attachmentId);
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
@@ -114,18 +106,18 @@ public class UserInfoController {
         }
 
         //通过用户名向数据库查询UserInfo
-        UserInfo userInfoInDatabase = userInfoService.findByUsername( userInfo.getUsername().trim() );
+        UserInfoCustom userInfoCustom = userInfoService.findUserInfoCustomByUsername(userInfo.getUsername().trim());
 
         //判断该用户是否存在
-        if( null == userInfoInDatabase ){
+        if (null == userInfoCustom) {
             System.out.println("该用户不存在");
             return "登录失败";
         }
 
         //判断密码是否输入正确
-        if( userInfoInDatabase.getPassword().trim().equals( userInfo.getPassword().trim() ) ){
+        if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
             System.out.println("登录成功");
-            return JsonUtil.toJson(userInfoInDatabase);
+            return JsonUtil.toJson(userInfoCustom);
         }
         System.out.println("密码不正确");
         return "登录失败";
@@ -203,7 +195,8 @@ public class UserInfoController {
             return "修改失败";
         }
 
-        attachmentService.update(userInfoInDatabase.getHeadPortrait(), headPortrait);
+        //更新附件路径
+        attachmentService.update(userInfoInDatabase.getAttachmentId(), headPortrait);
 
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);

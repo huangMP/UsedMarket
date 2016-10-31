@@ -1,5 +1,6 @@
 package com.usedmarket.dao;
 
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 
 /**
@@ -27,6 +28,14 @@ public interface UserInfoDao {
      * @return UserInfo
      */
     public UserInfo findByUsername(String username) ;
+
+    /**
+     * 通过username查找UserInfoCustom
+     *
+     * @param username
+     * @return UserInfoCustom
+     */
+    public UserInfoCustom findUserInfoCustomByUsername(String username);
 
     /**
      * 修改用户信息
