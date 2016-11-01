@@ -27,7 +27,7 @@
         #{fileType}
     </sql>
 
-    <!-- 通过 attachmentId 查找 -->
+    <!-- 通过 attachmentId 查找 Attachment -->
     <select id="findByAttachmentId" resultType="Attachment">
         SELECT * FROM
         <include refid="tableName"></include>
@@ -35,7 +35,7 @@
     </select>
 
     <!-- 新增-->
-    <insert id="insert" parameterType="Attachment">
+    <insert id="insert" parameterType="UserInfo">
         insert into
         <include refid="tableName"></include>
         (
@@ -53,7 +53,6 @@
         attachment_id = #{attachmentId}
     </delete>
 
-    <!-- 更新 -->
     <update id="update" parameterType="Attachment">
         UPDATE
         <include refid="tableName"></include>
@@ -63,6 +62,6 @@
         file_path=#{filePath},
         narrow_image_path=#{narrowImagePath},
         file_type=#{fileType}
-        WHERE attachment_id=#{attachmentId}
     </update>
+
 </mapper>

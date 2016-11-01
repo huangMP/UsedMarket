@@ -34,9 +34,9 @@ public class UserInfo {
     private int sex;
 
     /**
-     * 头像
+     * 附件Id
      */
-    private String headPortrait;
+    private String attachmentId;
 
     /**
      * 生日
@@ -108,12 +108,12 @@ public class UserInfo {
         this.sex = sex;
     }
 
-    public String getHeadPortrait() {
-        return headPortrait;
+    public String getAttachmentId() {
+        return attachmentId;
     }
 
-    public void setHeadPortrait(String headPortrait) {
-        this.headPortrait = headPortrait;
+    public void setAttachmentId(String attachmentId) {
+        this.attachmentId = attachmentId;
     }
 
     public Date getBirthday() {
@@ -171,7 +171,7 @@ public class UserInfo {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", sex=" + sex +
-                ", headPortrait='" + headPortrait + '\'' +
+                ", attachmentId='" + attachmentId + '\'' +
                 ", birthday=" + birthday +
                 ", IDNum='" + IDNum + '\'' +
                 ", realName='" + realName + '\'' +

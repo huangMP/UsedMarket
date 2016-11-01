@@ -1,10 +1,11 @@
 package com.usedmarket.controller;
 
-import com.google.gson.Gson;
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.UserInfoService;
-import com.usedmarket.util.*;
+import com.usedmarket.util.JsonUtil;
+import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.UUIDEditor;
 import org.springframework.stereotype.Controller;
@@ -114,18 +115,18 @@ public class UserInfoController {
         }
 
         //通过用户名向数据库查询UserInfo
-        UserInfo userInfoInDatabase = userInfoService.findByUsername( userInfo.getUsername().trim() );
+        UserInfoCustom userInfoCustom = userInfoService.findUserInfoCustomByUsername(userInfo.getUsername().trim());
 
         //判断该用户是否存在
-        if( null == userInfoInDatabase ){
+        if (null == userInfoCustom) {
             System.out.println("该用户不存在");
             return "登录失败";
         }
 
         //判断密码是否输入正确
-        if( userInfoInDatabase.getPassword().trim().equals( userInfo.getPassword().trim() ) ){
+        if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
             System.out.println("登录成功");
-            return JsonUtil.toJson(userInfoInDatabase);
+            return JsonUtil.toJson(userInfoCustom);
         }
         System.out.println("密码不正确");
         return "登录失败";
@@ -203,7 +204,8 @@ public class UserInfoController {
             return "修改失败";
         }
 
-        attachmentService.update(userInfoInDatabase.getHeadPortrait(), headPortrait);
+        //更新附件路径
+        attachmentService.update(userInfoInDatabase.getAttachmentId(), headPortrait);
 
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);

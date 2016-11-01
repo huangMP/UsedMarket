@@ -1,6 +1,7 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.UserInfoDao;
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,10 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     public int delete(String userId) {
         return userInfoDao.delete(userId);
+    }
+
+    @Override
+    public UserInfoCustom findUserInfoCustomByUsername(String username) {
+        return userInfoDao.findUserInfoCustomByUsername(username);
     }
 }

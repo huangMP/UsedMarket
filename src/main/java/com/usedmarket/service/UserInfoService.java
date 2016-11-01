@@ -1,5 +1,6 @@
 package com.usedmarket.service;
 
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 
 /**
@@ -41,4 +42,10 @@ public interface UserInfoService {
      * @return 成功删除的信息条数
      */
     public int delete(String userId);
+
+    /**
+     * @param username
+     * @return UserInfoCustom
+     */
+    public UserInfoCustom findUserInfoCustomByUsername(String username);
 }
