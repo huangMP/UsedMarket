@@ -18,7 +18,6 @@
         category,
         price,
         amount,
-        images,
         description,
         location,
         prefer_num,
@@ -35,7 +34,6 @@
         #{category},
         #{price},
         #{amount},
-        #{images},
         #{description},
         #{location},
         #{preferNum},
@@ -43,10 +41,11 @@
         #{salesVolume}
     </sql>
 
-    <resultMap id="commodityAndUserMap" type="CommodityCustom" autoMapping="true">
-        <association property="commodity" javaType="Commodity" autoMapping="true">
-            <id column="commodity_id" property="commodityId"/>
-        </association>
+    <resultMap id="findCommodityMap" type="CommodityCustom" autoMapping="true">
+        <id property="commodityId" column="commodity_id" />
+        <collection property="images"  javaType="java.util.List" ofType="java.lang.String">
+            <result column="narrow_image_path" />
+        </collection>
     </resultMap>
 
     <!-- 新增-->
@@ -83,15 +82,15 @@
         commodity_name=#{commodityName},
         category=#{category},
         price=#{price},
-        images=#{images},
         description=#{description}
         WHERE commodity_id=#{commodityId}
     </update>
 
     <!-- 通过种类查找商品 -->
-    <select id="findCommodityByQueryCondition" resultType="CommodityCustom" parameterType="CommodityQueryCondition">
-        SELECT `t_commodity`.*,`t_user_info`.`username`,`t_user_info`.`head_portrait` FROM
-        `t_commodity` INNER JOIN `t_user_info` ON `t_commodity`.`user_id` = `t_user_info`.`user_id`
+    <select id="findCommodityByQueryCondition" resultMap="findCommodityMap" parameterType="CommodityQueryCondition">
+        SELECT `t_commodity`.*,`t_user_info`.`username`,`t_user_info`.`head_portrait`, `t_attachment`.`narrow_image_path`
+        FROM (`t_commodity` INNER JOIN `t_user_info` ON `t_commodity`.`user_id` = `t_user_info`.`user_id`)
+        LEFT JOIN `t_attachment` ON `t_commodity`.`commodity_id` = `t_attachment`.`content_id`
         WHERE 1=1
         <if test="type != 'all'">
             AND ${type} = #{queryValue}

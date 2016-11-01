@@ -14,7 +14,7 @@ public interface AttachmentService {
      * @param fileType
      * @return attachmentId
      */
-    public String insert(MultipartFile file, String fileType);
+    public String insert(MultipartFile file, String contentId, String fileType);
 
     /**
      * 查找通过attachmentId

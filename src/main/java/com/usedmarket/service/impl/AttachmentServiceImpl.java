@@ -24,11 +24,12 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @param file
      * @return attachmentId
      */
-    public String insert(MultipartFile file, String fileType) {
+    public String insert(MultipartFile file, String contentId,String fileType) {
 
         Attachment attachment = new Attachment();
         attachment.setAttachmentId(UuidUtil.get32UUID());
         attachment.setFileType(fileType);
+        attachment.setContentId(contentId);
 
         String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
         String relativePath = ResourcesPath.attachmentRelativePath;

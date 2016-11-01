@@ -3,6 +3,7 @@ package com.usedmarket.controller;
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.entity.Commodity;
+import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
 import com.usedmarket.util.FileUpload;
 import com.usedmarket.util.NarrowImage;
@@ -29,6 +30,9 @@ public class CommodityController {
 
 	@Autowired
 	CommodityService commodityService;
+
+	@Autowired
+	AttachmentService attachmentService;
 
 	@RequestMapping(value = "/search")
 	@ResponseBody
@@ -64,7 +68,6 @@ public class CommodityController {
 				category,
 				price,
 				amount,
-				"",
 				description,
 				location,
 				0,
@@ -73,19 +76,11 @@ public class CommodityController {
 		);
 
 		if (!images[0].isEmpty()) {
-			String imagesStr = "";
 			for (MultipartFile image : images) {
-				//执行上传 返回真实文件名
-				String imageFileName = FileUpload.fileUp(image, ResourcesPath.commodityImagesAbsoluteath, UuidUtil.get32UUID());
-				//得到压缩图文件名
-				String narrowImageFileName = "_" + imageFileName;
-				//进行压缩
-				NarrowImage.imageNarrow(ResourcesPath.commodityImagesAbsoluteath, narrowImageFileName, imageFileName, 5);
-				//设置头像真实文件名
-				imagesStr += ResourcesPath.commodityImagesRelativePath + narrowImageFileName + ";";
+				//执行上传
+				attachmentService.insert(image, commodity.getCommodityId(), "1");
 			}
 
-			commodity.setImages(imagesStr.substring(0, imagesStr.lastIndexOf(";")));
 		}
 
 		if (commodityService.addCommodity(commodity)) {

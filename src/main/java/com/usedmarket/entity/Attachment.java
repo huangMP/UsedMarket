@@ -6,12 +6,21 @@ package com.usedmarket.entity;
  */
 public class Attachment {
     private String attachmentId;
+    private String contentId;
     private String filePath;
     private String narrowImagePath;
     private String fileType;
 
     public String getAttachmentId() {
         return attachmentId;
+    }
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
     }
 
     public void setAttachmentId(String attachmentId) {
@@ -46,6 +55,7 @@ public class Attachment {
     public String toString() {
         return "Attachment{" +
                 "attachmentId='" + attachmentId + '\'' +
+                ", commodityId='" + contentId + '\'' +
                 ", filePath='" + filePath + '\'' +
                 ", narrowImagePath='" + narrowImagePath + '\'' +
                 ", fileType='" + fileType + '\'' +

@@ -1,6 +1,7 @@
 package com.usedmarket.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Description：商品类
@@ -46,7 +47,7 @@ public class Commodity {
 	/**
 	 * 图片
 	 */
-	private String images;
+	private List<String> images;
 
 	/**
 	 * 描述
@@ -76,7 +77,7 @@ public class Commodity {
 	public Commodity() {
 	}
 
-	public Commodity(String commodityId, String userId, String storeId, String commodityName, String category, double price, int amount, String images, String description, String location, int preferNum, Date launchDate, int salesVolume) {
+	public Commodity(String commodityId, String userId, String storeId, String commodityName, String category, double price, int amount, String description, String location, int preferNum, Date launchDate, int salesVolume) {
 		this.commodityId = commodityId;
 		this.userId = userId;
 		this.storeId = storeId;
@@ -84,7 +85,6 @@ public class Commodity {
 		this.category = category;
 		this.price = price;
 		this.amount = amount;
-		this.images = images;
 		this.description = description;
 		this.location = location;
 		this.preferNum = preferNum;
@@ -148,11 +148,11 @@ public class Commodity {
 		this.amount = amount;
 	}
 
-	public String getImages() {
+	public List<String> getImages() {
 		return images;
 	}
 
-	public void setImages(String images) {
+	public void setImages(List<String> images) {
 		this.images = images;
 	}
 

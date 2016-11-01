@@ -12,6 +12,7 @@
     <!-- 字段 -->
     <sql id="Field">
         attachment_id,
+        content_id,
         file_path,
         narrow_image_path,
         file_type
@@ -20,6 +21,7 @@
     <!-- 字段值 -->
     <sql id="FieldValue">
         #{attachmentId},
+        #{contentId},
         #{filePath},
         #{narrowImagePath},
         #{fileType}
@@ -56,6 +58,7 @@
         <include refid="tableName"></include>
         SET
         attachment_id=#{attachmentId},
+        content_id=#{contentId},
         file_path=#{filePath},
         narrow_image_path=#{narrowImagePath},
         file_type=#{fileType}
