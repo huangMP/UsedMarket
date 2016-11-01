@@ -86,7 +86,7 @@ public class UserInfoController {
         //设置时间
         userInfo.setRegistrationDate(new Date());
 
-        String attachmentId = attachmentService.insert(headPortrait, "0");
+        String attachmentId = attachmentService.insert(headPortrait, userInfo.getUserId(), "0");
         userInfo.setHeadPortrait(attachmentId);
 
         //向数据库添加一条用户信息

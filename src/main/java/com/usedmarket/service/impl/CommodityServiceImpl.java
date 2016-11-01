@@ -73,10 +73,10 @@ public class CommodityServiceImpl implements CommodityService {
 	 */
 	@Override
 	public List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
-		if (commodityQueryCondition.getOrder().trim() == "" || commodityQueryCondition.getOrder() == null) {
+		if ("".equals(commodityQueryCondition.getOrder().trim()) || commodityQueryCondition.getOrder() == null) {
 			commodityQueryCondition.setOrder("DESC");
 		}
-		if (commodityQueryCondition.getOrderBy().trim() == "" || commodityQueryCondition.getOrderBy() == null) {
+		if ("".equals(commodityQueryCondition.getOrderBy().trim()) || commodityQueryCondition.getOrderBy() == null) {
 			commodityQueryCondition.setOrderBy("launch_date");
 		}
 		return commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
