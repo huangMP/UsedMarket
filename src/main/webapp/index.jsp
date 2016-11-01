@@ -96,6 +96,44 @@
         </form>
 
         <span>----------------------------------------------</span>
+        <h3>测试按列修改</h3><br/>
+        <h4>注意：修改成功返回UserInfoCustom，修改失败返回null</h4><br/>
+        <form action="UserInfo/edit" method="post">
+            <table>
+                <tr>
+                    <td>用户Id</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>要修改的列</td>
+                    <td>
+                        <select name="index">
+                            <option value="password">密码：password</option>
+                            <option value="phone">手机：phone</option>
+                            <option value="sex">性别：sex</option>
+                            <option value="birthday">生日：birthday</option>
+                            <option value="IDNum">身份证号：IDNum</option>
+                            <option value="realName">真实姓名：realName</option>
+                            <option value="school">学校：school</option>
+                            <option value="shippingAddress">收货地址：shippingAddress</option>
+                            <option value="constellation">星座：constellation</option>
+                            <option value="bloodType">血型：bloodType</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>当前值</td>
+                    <td><input name="currentValue"/></td>
+                </tr>
+                <tr>
+                    <td>未来值</td>
+                    <td><input name="futureValue"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="修改">
+        </form>
+
+        <span>----------------------------------------------</span>
         <h4>上传</h4>
         <form action="Commodity/upload" method="post" enctype="multipart/form-data">
             <table>

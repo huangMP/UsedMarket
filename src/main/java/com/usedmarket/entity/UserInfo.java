@@ -62,10 +62,20 @@ public class UserInfo {
      * 所属学校
      */
     private String school;
+
     /**
      * 收获地址
+
      */
     private String shippingAddress;
+    /**
+     * 星座
+     */
+    private String constellation;
+    /**
+     * 血型
+     */
+    private String bloodType;
 
 
     public String getUserId() {
@@ -163,6 +173,23 @@ public class UserInfo {
         this.shippingAddress = shippingAddress;
     }
 
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -178,6 +205,8 @@ public class UserInfo {
                 ", registrationDate=" + registrationDate +
                 ", school='" + school + '\'' +
                 ", shippingAddress='" + shippingAddress + '\'' +
+                ", constellation='" + constellation + '\'' +
+                ", bloodType='" + bloodType + '\'' +
                 '}';
     }
 }

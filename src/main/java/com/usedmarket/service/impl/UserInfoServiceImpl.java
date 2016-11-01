@@ -4,8 +4,11 @@ import com.usedmarket.dao.UserInfoDao;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.UserInfoService;
+import com.usedmarket.util.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -51,6 +54,47 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     public int updateUserInfo(UserInfo userInfo){
         return userInfoDao.update(userInfo);
+    }
+
+    /**
+     * 按列修改用户信息
+     *
+     * @param userId
+     * @param index
+     * @param currentValue
+     * @param futureValue
+     * @return UserInfo
+     */
+    public UserInfo update(String userId, String index, String currentValue, String futureValue) {
+
+        UserInfo userInfo = findByUserId(userId);
+        Map map = MapUtils.transBean2Map(userInfo);
+        String currentValueInDatabase = (String) map.get(index);
+
+        if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {
+            System.out.println("此处不能修改 : " + index);
+            return null;
+        } else if ("password".equals(index) || "phone".equals(index) || "IDNum".equals(index) || "realName".equals(index)) {
+
+            if (null == currentValueInDatabase || "".equals(currentValueInDatabase)) {
+                System.out.println("第一次添加 : " + index + ",无需验证");
+                map.put(index, futureValue);
+            } else if (currentValueInDatabase.equals(currentValue)) {
+                System.out.println(index + "验证成功,修改为" + futureValue);
+                map.put(index, futureValue);
+            } else {
+                System.out.println(index + "验证失败.");
+                return null;
+            }
+
+        } else {
+            System.out.println("修改 : " + index + ",无需验证");
+            map.put(index, futureValue);
+        }
+        userInfo = (UserInfo) MapUtils.transMap2Bean(map, userInfo);
+        userInfoDao.update(userInfo);
+        System.out.println("修改完成");
+        return userInfo;
     }
 
     /**
