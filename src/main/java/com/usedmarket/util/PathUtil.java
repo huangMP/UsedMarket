@@ -1,16 +1,13 @@
 package com.usedmarket.util;
 
-import java.io.File;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+
 /** 
  * 说明：路径工具类
- * 创建人：liangzhilin
- * 修改时间：2014年9月20日
  * @version
  */
 public class PathUtil {

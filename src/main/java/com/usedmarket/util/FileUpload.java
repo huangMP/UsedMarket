@@ -1,21 +1,14 @@
 package com.usedmarket.util;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * 上传文件
- * 创建人：liangzhilin
- * 创建时间：2014年12月23日
  * @version
  */
 public class FileUpload {

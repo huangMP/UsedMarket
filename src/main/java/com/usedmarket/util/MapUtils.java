@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * Created by huangMP on 2016/11/1.
- * decription :
+ * decription : Map 和 javaBean 的转换
  */
 public class MapUtils {
 
