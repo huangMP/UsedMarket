@@ -7,16 +7,12 @@ import com.usedmarket.service.UserInfoService;
 import com.usedmarket.util.JsonUtil;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.UUIDEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -88,7 +84,7 @@ public class UserInfoController {
         userInfo.setRegistrationDate(new Date());
 
         String attachmentId = attachmentService.insert(headPortrait, userInfo.getUserId(), "0");
-        userInfo.setHeadPortrait(attachmentId);
+        userInfo.setAttachmentId(attachmentId);
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
