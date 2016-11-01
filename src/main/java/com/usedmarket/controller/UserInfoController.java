@@ -204,4 +204,24 @@ public class UserInfoController {
         return "修改成功";
     }
 
+    /**
+     * 按列修改 (修改头像不可用)
+     *
+     * @param userId
+     * @param index
+     * @param currentValue
+     * @param futureValue
+     * @return UserInfo
+     */
+    @RequestMapping(value = "/edit")
+    @ResponseBody
+    public UserInfo edit(String userId, String index, String currentValue, String futureValue) {
+        UserInfo userInfo = userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
+        if (null == userInfo) {
+            return null;
+        } else {
+            return userInfo;
+        }
+    }
+
 }

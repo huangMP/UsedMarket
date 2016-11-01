@@ -37,6 +37,16 @@ public interface UserInfoService {
     public int updateUserInfo(UserInfo userInfo);
 
     /**
+     * 按列修改用户信息
+     * @param userId
+     * @param index
+     * @param currentValue
+     * @param futureValue
+     * @return UserInfo
+     */
+    public UserInfo update(String userId, String index, String currentValue, String futureValue);
+
+    /**
      * 删除一条信息
      * @param userId
      * @return 成功删除的信息条数
