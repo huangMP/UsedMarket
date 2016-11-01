@@ -97,7 +97,7 @@
 
         <span>----------------------------------------------</span>
         <h3>测试按列修改</h3><br/>
-        <h4>注意：修改成功返回UserInfoCustom，修改失败返回null</h4><br/>
+        <h4>注意：修改成功返回dto的UserInfoCustom，修改失败返回null</h4><br/>
         <form action="UserInfo/edit" method="post">
             <table>
                 <tr>
