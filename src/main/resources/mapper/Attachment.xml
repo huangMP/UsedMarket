@@ -62,6 +62,8 @@
         file_path=#{filePath},
         narrow_image_path=#{narrowImagePath},
         file_type=#{fileType}
+        where
+        attachment_id = #{attachmentId}
     </update>
 
 </mapper>
