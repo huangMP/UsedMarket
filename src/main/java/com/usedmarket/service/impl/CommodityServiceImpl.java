@@ -3,6 +3,7 @@ package com.usedmarket.service.impl;
 import com.usedmarket.dao.CommodityDao;
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
+import com.usedmarket.dto.ImageCustom;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,13 +74,27 @@ public class CommodityServiceImpl implements CommodityService {
 	 */
 	@Override
 	public List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
-		if ("".equals(commodityQueryCondition.getOrder().trim()) || commodityQueryCondition.getOrder() == null) {
+		if (commodityQueryCondition.getOrder() == null || "".equals(commodityQueryCondition.getOrder().trim())) {
 			commodityQueryCondition.setOrder("DESC");
 		}
-		if ("".equals(commodityQueryCondition.getOrderBy().trim()) || commodityQueryCondition.getOrderBy() == null) {
+		if (commodityQueryCondition.getOrderBy() == null || "".equals(commodityQueryCondition.getOrderBy().trim())) {
 			commodityQueryCondition.setOrderBy("launch_date");
 		}
-		return commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
+		//取出10条commodity
+		List<CommodityCustom> commodityCustoms = commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
+		//找出10条commodity的图片
+		List<ImageCustom> imageCustoms = commodityDao.loadImages(commodityCustoms);
+		//10commodity填入images
+		for (int i = 0; i < commodityCustoms.size(); i++) {
+			for (int j = 0; j < imageCustoms.size(); j++) {
+				if (commodityCustoms.get(i).getCommodityId().equals(imageCustoms.get(j).getCommodityId())) {
+					commodityCustoms.get(i).setImages(imageCustoms.get(j).getImages());
+					break;
+				}
+			}
+		}
+
+		return commodityCustoms;
 	}
 
 	/**
@@ -90,7 +105,23 @@ public class CommodityServiceImpl implements CommodityService {
 	 */
 	@Override
 	public List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField) {
-		return commodityDao.findCommodityByNameAndDescription(indistinctField);
+//		return commodityDao.findCommodityByNameAndDescription(indistinctField);
+
+		//取出commodity
+		List<CommodityCustom> commodityCustoms = commodityDao.findCommodityByNameAndDescription(indistinctField);
+		//找出commodity的图片
+		List<ImageCustom> imageCustoms = commodityDao.loadImages(commodityCustoms);
+		//commodity填入images
+		for (int i = 0; i < commodityCustoms.size(); i++) {
+			for (int j = 0; j < imageCustoms.size(); j++) {
+				if (commodityCustoms.get(i).getCommodityId().equals(imageCustoms.get(j).getCommodityId())) {
+					commodityCustoms.get(i).setImages(imageCustoms.get(j).getImages());
+					break;
+				}
+			}
+		}
+
+		return commodityCustoms;
 	}
 
 
