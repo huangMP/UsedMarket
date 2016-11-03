@@ -77,21 +77,15 @@ public class UserInfoController {
         }
 
         UserInfo userInfo = new UserInfo();
-        //设置UUID主键
-        userInfo.setUserId( UuidUtil.get32UUID() );
-        //设置用户名
-        userInfo.setUsername(username);
-        //设置密码
-        userInfo.setPassword( password.trim() );
-        //设置性别
-        userInfo.setSex(sex);
-        //设置手机
-        userInfo.setPhone(phone);
-        //设置时间
-        userInfo.setRegistrationDate(new Date());
+        userInfo.setUserId(UuidUtil.get32UUID());    //设置UUID主键
+        userInfo.setUsername(username);    //设置用户名
+        userInfo.setPassword(password.trim());    //设置密码
+        userInfo.setSex(sex);    //设置性别
+        userInfo.setPhone(phone);    //设置手机
+        userInfo.setRegistrationDate(new Date());    //设置时间
 
         String attachmentId = attachmentService.insert(headPortrait, userInfo.getUserId(), "0");
-        userInfo.setAttachmentId(attachmentId);
+        userInfo.setAttachmentId(attachmentId);    //设置附件Id
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
