@@ -1,7 +1,11 @@
 package com.usedmarket.dao;
 
+import com.usedmarket.dto.CommodityCustom;
+import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
+
+import java.util.List;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -51,4 +55,10 @@ public interface UserInfoDao {
      */
     public int delete(String userId);
 
+
+    /**
+     * @param commodityQueryCondition
+     * @return
+     */
+    List<CommodityCustom> findCommodityCustomByCommodityQueryCondition(CommodityQueryCondition commodityQueryCondition);
 }

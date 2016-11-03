@@ -41,7 +41,7 @@ public class UserInfo {
     /**
      * 生日
      */
-    private Date birthday;
+    private String yearOfBirth;
 
     /**
      * 身份证号码
@@ -77,6 +77,18 @@ public class UserInfo {
      */
     private String bloodType;
 
+    /**
+     * 个性签名
+     */
+    private String signature;
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getUserId() {
         return userId;
@@ -126,12 +138,12 @@ public class UserInfo {
         this.attachmentId = attachmentId;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getYearOfBirth() {
+        return yearOfBirth;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
     public String getIDNum() {
         return IDNum;
@@ -199,7 +211,7 @@ public class UserInfo {
                 ", phone='" + phone + '\'' +
                 ", sex=" + sex +
                 ", attachmentId='" + attachmentId + '\'' +
-                ", birthday=" + birthday +
+                ", yearOfBirth='" + yearOfBirth + '\'' +
                 ", IDNum='" + IDNum + '\'' +
                 ", realName='" + realName + '\'' +
                 ", registrationDate=" + registrationDate +
@@ -207,6 +219,7 @@ public class UserInfo {
                 ", shippingAddress='" + shippingAddress + '\'' +
                 ", constellation='" + constellation + '\'' +
                 ", bloodType='" + bloodType + '\'' +
+                ", signature='" + signature + '\'' +
                 '}';
     }
 }

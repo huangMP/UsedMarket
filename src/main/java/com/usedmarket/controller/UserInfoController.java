@@ -1,8 +1,11 @@
 package com.usedmarket.controller;
 
+import com.usedmarket.dto.CommodityCustom;
+import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
+import com.usedmarket.service.CommodityService;
 import com.usedmarket.service.UserInfoService;
 import com.usedmarket.util.JsonUtil;
 import com.usedmarket.util.UuidUtil;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -23,6 +27,9 @@ import java.util.Date;
 @Controller
 @RequestMapping("/UserInfo")
 public class UserInfoController {
+
+    @Autowired
+    CommodityService commodityService;
 
     @Autowired
     UserInfoService userInfoService;
@@ -70,21 +77,15 @@ public class UserInfoController {
         }
 
         UserInfo userInfo = new UserInfo();
-        //设置UUID主键
-        userInfo.setUserId( UuidUtil.get32UUID() );
-        //设置用户名
-        userInfo.setUsername(username);
-        //设置密码
-        userInfo.setPassword( password.trim() );
-        //设置性别
-        userInfo.setSex(sex);
-        //设置手机
-        userInfo.setPhone(phone);
-        //设置时间
-        userInfo.setRegistrationDate(new Date());
+        userInfo.setUserId(UuidUtil.get32UUID());    //设置UUID主键
+        userInfo.setUsername(username);    //设置用户名
+        userInfo.setPassword(password.trim());    //设置密码
+        userInfo.setSex(sex);    //设置性别
+        userInfo.setPhone(phone);    //设置手机
+        userInfo.setRegistrationDate(new Date());    //设置时间
 
         String attachmentId = attachmentService.insert(headPortrait, userInfo.getUserId(), "0");
-        userInfo.setAttachmentId(attachmentId);
+        userInfo.setAttachmentId(attachmentId);    //设置附件Id
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
@@ -212,21 +213,31 @@ public class UserInfoController {
     /**
      * 按列修改 (修改头像不可用)
      *
-     * @param userId
-     * @param index
-     * @param currentValue
-     * @param futureValue
+     * @param userId 用户Id
+     * @param index 修改的属性
+     * @param currentValue 当前值
+     * @param futureValue 未来值
      * @return UserInfo
      */
     @RequestMapping(value = "/edit")
     @ResponseBody
     public UserInfo edit(String userId, String index, String currentValue, String futureValue) {
-        UserInfo userInfo = userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
-        if (null == userInfo) {
-            return null;
-        } else {
-            return userInfo;
-        }
+        return userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
+    }
+
+    /**
+     * 根据userId查询该用户上传的二手商品数量
+     *
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/findCommodityCustomByUserId")
+    @ResponseBody
+    public List<CommodityCustom> findCommodityCustomByUserId(String userId) {
+        CommodityQueryCondition commodityQueryCondition = new CommodityQueryCondition();
+        commodityQueryCondition.setType("t_commodity.user_id");
+        commodityQueryCondition.setQueryValue(userId.trim());
+        return commodityService.findCommodityByQueryCondition(commodityQueryCondition);
     }
 
 }

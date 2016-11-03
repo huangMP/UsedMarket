@@ -17,14 +17,15 @@
         phone,
         sex,
         attachment_id,
-        birthday,
+        year_of_birth,
         ID_num,
         real_name,
         registration_date,
         school,
         shipping_address,
         constellation,
-        blood_type
+        blood_type,
+        signature
     </sql>
 
     <!-- 字段值 -->
@@ -35,30 +36,15 @@
         #{phone},
         #{sex},
         #{attachmentId},
-        #{birthday},
+        #{yearOfBirth},
         #{IDNum},
         #{realName},
         #{registrationDate},
         #{school},
         #{shippingAddress},
         #{constellation},
-        #{bloodType}
-    </sql>
-
-    <!-- 字段别名 -->
-    <sql id="FieldAlias">
-        user_id "userId",
-        username "username",
-        password "password",
-        phone "phone",
-        sex "sex",attachmentId
-        attachment_id "attachmentId",
-        birthday "birthday",
-        ID_num "IDNum",
-        real_name "realName",
-        registration_date "registrationDate",
-        school "school",
-        shipping_address "shippingAddress"
+        #{bloodType},
+        #{signature}
     </sql>
 
     <!-- 查找 -->
@@ -78,12 +64,13 @@
         t_user_info.sex "sex",
         t_attachment.file_path "headPortraitPath",
         t_attachment.narrow_image_path "narrowHeadPortraitPath",
-        t_user_info.birthday "birthday",
+        t_user_info.year_of_birth "yearOfBirth",
         t_user_info.ID_num "IDNum",
         t_user_info.real_name "realName",
         t_user_info.registration_date "registrationDate",
         t_user_info.school "school",
-        t_user_info.shipping_address "shippingAddress"
+        t_user_info.shipping_address "shippingAddress",
+        t_user_info.signature "signature"
         FROM
         t_user_info
         INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id
@@ -127,14 +114,16 @@
         phone=#{phone},
         sex=#{sex},
         attachment_id=#{attachmentId},
-        birthday=#{birthday},
+        year_of_birth=#{yearOfBirth},
         ID_num=#{IDNum},
         real_name=#{realName},
         registration_date=#{registrationDate},
         school=#{school},
         shipping_address=#{shippingAddress},
         blood_type=#{bloodType},
-        constellation=#{constellation}
+        constellation=#{constellation},
+        signature=#{signature}
         WHERE user_id=#{userId}
     </update>
+
 </mapper>

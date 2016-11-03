@@ -65,7 +65,6 @@ public class CommodityServiceImpl implements CommodityService {
 		return commodityDao.findByCommodityId(commodityId);
 	}
 
-
 	/**
 	 * 通过条件查找商品
 	 *

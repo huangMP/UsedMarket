@@ -19,6 +19,15 @@ public class AttachmentServiceImpl implements AttachmentService {
     AttachmentDao attachmentDao;
 
     /**
+     * 绝对路劲
+     */
+    String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
+    /**
+     * 相对路径
+     */
+    String fileRelativePath = ResourcesPath.attachmentRelativePath;
+
+    /**
      * 插入一条信息
      *
      * @param file
@@ -31,9 +40,6 @@ public class AttachmentServiceImpl implements AttachmentService {
         attachment.setFileType(fileType);
         attachment.setContentId(contentId);
 
-        String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
-        String relativePath = ResourcesPath.attachmentRelativePath;
-
         //执行上传 返回真实文件名
         String fileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
         //得到压缩图文件名
@@ -41,8 +47,8 @@ public class AttachmentServiceImpl implements AttachmentService {
         //进行压缩
         NarrowImage.imageNarrow(fileAbsoluteathPath, narrowImageFileName, fileName, 5);
 
-        attachment.setFilePath(relativePath + fileName);
-        attachment.setNarrowImagePath(relativePath + narrowImageFileName);
+        attachment.setFilePath(fileRelativePath + fileName);
+        attachment.setNarrowImagePath(fileRelativePath + narrowImageFileName);
 
         attachmentDao.insert(attachment);
 
@@ -68,16 +74,13 @@ public class AttachmentServiceImpl implements AttachmentService {
     public int update(String attachmentId, MultipartFile file) {
         Attachment attachment = findByAttachmentId(attachmentId);
 
-        String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
-        String relativePath = ResourcesPath.attachmentRelativePath;
-
         //得到当前的原图文件名
-        String originalImageFileName = attachment.getFilePath().replaceAll(ResourcesPath.attachmentRelativePath, "");
+        String originalImageFileName = attachment.getFilePath().replaceAll(fileRelativePath, "");
         //得到当前的缩略图文件名
-        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(ResourcesPath.attachmentRelativePath, "");
+        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(fileRelativePath, "");
         //执行删除操作
-        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + ResourcesPath.attachmentRelativePath + originalImageFileName);
-        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + ResourcesPath.attachmentRelativePath + narrowImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + fileRelativePath + originalImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + fileRelativePath + narrowImageFileName);
 
         //执行上传 返回真实文件名
         originalImageFileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
@@ -86,8 +89,8 @@ public class AttachmentServiceImpl implements AttachmentService {
         //进行压缩
         NarrowImage.imageNarrow(fileAbsoluteathPath, narrowImageFileName, originalImageFileName, 5);
 
-        attachment.setFilePath(relativePath + originalImageFileName);
-        attachment.setNarrowImagePath(relativePath + narrowImageFileName);
+        attachment.setFilePath(fileRelativePath + originalImageFileName);
+        attachment.setNarrowImagePath(fileRelativePath + narrowImageFileName);
 
         return attachmentDao.update(attachment);
     }

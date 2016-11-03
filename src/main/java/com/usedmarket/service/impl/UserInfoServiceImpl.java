@@ -69,13 +69,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfo userInfo = findByUserId(userId);
         Map map = MapUtils.transBean2Map(userInfo);
-        String currentValueInDatabase = (String) map.get(index);
 
         if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {
             System.out.println("此处不能修改 : " + index);
             return null;
         } else if ("password".equals(index) || "phone".equals(index) || "IDNum".equals(index) || "realName".equals(index)) {
 
+            String currentValueInDatabase = (String) map.get(index);    //获取数据库保存的当前值
             if (null == currentValueInDatabase || "".equals(currentValueInDatabase)) {
                 System.out.println("第一次添加 : " + index + ",无需验证");
                 map.put(index, futureValue);
