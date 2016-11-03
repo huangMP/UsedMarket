@@ -2,6 +2,7 @@ package com.usedmarket.dao;
 
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
+import com.usedmarket.dto.ImageCustom;
 import com.usedmarket.entity.Commodity;
 
 import java.util.List;
@@ -53,5 +54,12 @@ public interface CommodityDao {
 	 * @return
 	 */
 	List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField);
+
+	/**
+	 * 读取图片
+	 * @param commodityCustom 需要其中的commodityId
+	 * @return
+	 */
+	List<ImageCustom> loadImages(List<CommodityCustom> commodityCustom);
 
 }
