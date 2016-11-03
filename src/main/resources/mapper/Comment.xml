@@ -16,7 +16,8 @@
         crowdfunding_id,
         comment_text,
         comment_date,
-        comment_user
+        user_id,
+        comment_location
     </sql>
 
     <!-- 字段值 -->
@@ -26,7 +27,8 @@
         #{crowdfundingId},
         #{commentText},
         #{commentDate},
-        #{commentUser}
+        #{userId},
+        #{commentLocation}
     </sql>
 
     <!-- 通过 commentId 查找 Comment -->
@@ -76,17 +78,17 @@
         crowdfunding_id=#{crowdfundingId},
         comment_text=#{commentText},
         comment_date=#{commentDate},
-        comment_user=#{commentUser}
+        user_id=#{userId},
+        comment_location=#{commentLocation}
         WHERE comment_id=#{commentId}
     </update>
 
     <!-- 通过 commodityId 查找 Comment -->
-    <select id="findByCommodityId" resultType="Comment">
-        SELECT
-        *
-        FROM
-        <include refid="tableName"></include>
-        WHERE commodity_id=#{commodityId}
+    <select id="findByCommodityId" resultType="CommentCustom">
+        SELECT `t_comment`.*, `t_user_info`.`username`, `t_attachment`.`narrow_image_path` head_portrait
+        FROM (`t_comment` INNER JOIN `t_user_info` ON `t_comment`.`user_id` = `t_user_info`.`user_id`)
+        INNER JOIN `t_attachment` ON `t_user_info`.`user_id` = `t_attachment`.`content_id`
+        WHERE `commodity_id` = #{commodityId}
     </select>
 
     <!-- 通过 crowdfundingId 查找 Comment -->
