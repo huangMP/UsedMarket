@@ -18,6 +18,9 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Autowired
     AttachmentDao attachmentDao;
 
+    String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
+    String relativePath = ResourcesPath.attachmentRelativePath;
+
     /**
      * 插入一条信息
      *
@@ -30,9 +33,6 @@ public class AttachmentServiceImpl implements AttachmentService {
         attachment.setAttachmentId(UuidUtil.get32UUID());
         attachment.setFileType(fileType);
         attachment.setContentId(contentId);
-
-        String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
-        String relativePath = ResourcesPath.attachmentRelativePath;
 
         //执行上传 返回真实文件名
         String fileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
@@ -68,16 +68,13 @@ public class AttachmentServiceImpl implements AttachmentService {
     public int update(String attachmentId, MultipartFile file) {
         Attachment attachment = findByAttachmentId(attachmentId);
 
-        String fileAbsoluteathPath = ResourcesPath.attachmentAbsoluteathPath;
-        String relativePath = ResourcesPath.attachmentRelativePath;
-
         //得到当前的原图文件名
-        String originalImageFileName = attachment.getFilePath().replaceAll(ResourcesPath.attachmentRelativePath, "");
+        String originalImageFileName = attachment.getFilePath().replaceAll(relativePath, "");
         //得到当前的缩略图文件名
-        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(ResourcesPath.attachmentRelativePath, "");
+        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(relativePath, "");
         //执行删除操作
-        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + ResourcesPath.attachmentRelativePath + originalImageFileName);
-        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + ResourcesPath.attachmentRelativePath + narrowImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + relativePath + originalImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + relativePath + narrowImageFileName);
 
         //执行上传 返回真实文件名
         originalImageFileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
