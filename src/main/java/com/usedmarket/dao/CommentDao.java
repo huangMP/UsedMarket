@@ -1,6 +1,7 @@
 package com.usedmarket.dao;
 
 
+import com.usedmarket.dto.CommentCustom;
 import com.usedmarket.entity.Comment;
 
 import java.util.List;
@@ -18,11 +19,11 @@ public interface CommentDao {
     public int insert(Comment comment) ;
 
     /**
-     * 通过commodityId查找Comment
+     * 通过commodityId查找CommentCustom
      * @param commodityId
      * @return List<Comment>
      */
-    public List<Comment> findByCommodityId(String commodityId) ;
+    public List<CommentCustom> findByCommodityId(String commodityId) ;
 
     /**
      * 通过crowdfundingId查找Comment
@@ -50,20 +51,20 @@ public interface CommentDao {
      * @param commentId
      * @return 成功删除的信息条数
      */
-    public int deleteByCommentId(String commentId);
+    public boolean deleteByCommentId(String commentId);
 
     /**
      * 删除通过commodityId
      * @param commodityId
      * @return 成功删除的信息条数
      */
-    public int deleteByCommodityId(String commodityId) ;
+    public boolean deleteByCommodityId(String commodityId) ;
 
     /**
      * 删除通过crowdfundingId
      * @param crowdfundingId
      * @return 成功删除的信息条数
      */
-    public int deleteByCrowdfundingId(String crowdfundingId) ;
+    public boolean deleteByCrowdfundingId(String crowdfundingId) ;
 
 }
