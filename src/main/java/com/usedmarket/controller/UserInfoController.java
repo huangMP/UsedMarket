@@ -219,21 +219,16 @@ public class UserInfoController {
     /**
      * 按列修改 (修改头像不可用)
      *
-     * @param userId
-     * @param index
-     * @param currentValue
-     * @param futureValue
+     * @param userId 用户Id
+     * @param index 修改的属性
+     * @param currentValue 当前值
+     * @param futureValue 未来值
      * @return UserInfo
      */
     @RequestMapping(value = "/edit")
     @ResponseBody
     public UserInfo edit(String userId, String index, String currentValue, String futureValue) {
-        UserInfo userInfo = userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
-        if (null == userInfo) {
-            return null;
-        } else {
-            return userInfo;
-        }
+        return userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
     }
 
     /**
