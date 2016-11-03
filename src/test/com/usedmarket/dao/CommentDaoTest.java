@@ -1,7 +1,9 @@
 package com.usedmarket.dao;
 
 import com.usedmarket.dao.CommentDao;
+import com.usedmarket.dto.CommentCustom;
 import com.usedmarket.entity.Comment;
+import com.usedmarket.service.CommentService;
 import com.usedmarket.util.UuidUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +19,14 @@ import java.util.List;
  * decription : CommentDaoTest 测试类
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/spring-mybatis.xml"})
+@ContextConfiguration({"classpath:spring/*.xml"})
 public class CommentDaoTest {
 
     @Autowired
     CommentDao commentDao;
+
+    @Autowired
+    CommentService commentService;
 
     @Test
     public void testInsert() {
@@ -36,7 +41,7 @@ public class CommentDaoTest {
 
     @Test
     public void testFindByCommodityId() {
-        List<Comment> commentList = commentDao.findByCommodityId("1");
+        List<CommentCustom> commentList = commentService.findByCommodityId("1");
         for( Comment comment: commentList ){
             System.out.println(comment.toString());
         }
