@@ -1,8 +1,11 @@
 package com.usedmarket.controller;
 
+import com.usedmarket.dto.CommodityCustom;
+import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
+import com.usedmarket.service.CommodityService;
 import com.usedmarket.service.UserInfoService;
 import com.usedmarket.util.JsonUtil;
 import com.usedmarket.util.UuidUtil;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -23,6 +27,9 @@ import java.util.Date;
 @Controller
 @RequestMapping("/UserInfo")
 public class UserInfoController {
+
+    @Autowired
+    CommodityService commodityService;
 
     @Autowired
     UserInfoService userInfoService;
@@ -227,6 +234,21 @@ public class UserInfoController {
         } else {
             return userInfo;
         }
+    }
+
+    /**
+     * 根据userId查询该用户上传的二手商品数量
+     *
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/findCommodityCustomByUserId")
+    @ResponseBody
+    public List<CommodityCustom> findCommodityCustomByUserId(String userId) {
+        CommodityQueryCondition commodityQueryCondition = new CommodityQueryCondition();
+        commodityQueryCondition.setType("t_commodity.user_id");
+        commodityQueryCondition.setQueryValue(userId.trim());
+        return commodityService.findCommodityByQueryCondition(commodityQueryCondition);
     }
 
 }

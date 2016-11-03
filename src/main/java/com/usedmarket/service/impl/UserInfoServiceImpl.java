@@ -69,6 +69,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfo userInfo = findByUserId(userId);
         Map map = MapUtils.transBean2Map(userInfo);
+
+        System.out.println("index:" + index);
+        System.out.println(userInfo.toString());
+
         String currentValueInDatabase = (String) map.get(index);
 
         if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {

@@ -58,4 +58,5 @@ public interface UserInfoService {
      * @return UserInfoCustom
      */
     public UserInfoCustom findUserInfoCustomByUsername(String username);
+
 }

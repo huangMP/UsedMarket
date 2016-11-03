@@ -9,6 +9,11 @@ import com.usedmarket.entity.Commodity;
 public class CommodityCustom extends Commodity {
 
     /**
+     * 查询得到的二手商品数目
+     */
+    private String commodityNum;
+
+    /**
      * 用户名
      */
     private String username;
@@ -34,12 +39,20 @@ public class CommodityCustom extends Commodity {
         this.headPortrait = headPortrait;
     }
 
+    public String getCommodityNum() {
+        return commodityNum;
+    }
+
+    public void setCommodityNum(String commodityNum) {
+        this.commodityNum = commodityNum;
+    }
+
     @Override
     public String toString() {
         return "CommodityCustom{" +
-                super.toString() +
-                "username='" + username + '\'' +
+                "commodityNum='" + commodityNum + '\'' +
+                ", username='" + username + '\'' +
                 ", headPortrait='" + headPortrait + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }
