@@ -43,6 +43,7 @@
 
     <sql id="findCommoditySql">
         SELECT `t_commodity`.*,`t`.`username`,t.`narrow_image_path` `head_portrait`, `t_attachment`.`narrow_image_path`
+        , count(*) commodityNum
         FROM (`t_commodity` INNER JOIN
 	          ( SELECT `narrow_image_path`,`user_id`,`username` FROM `t_attachment` INNER JOIN `t_user_info` ON `t_attachment`.`content_id` = `t_user_info`.`user_id`) t
 	    ON `t_commodity`.`user_id` = `t`.`user_id`)
