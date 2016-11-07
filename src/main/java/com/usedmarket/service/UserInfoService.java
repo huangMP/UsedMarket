@@ -59,4 +59,9 @@ public interface UserInfoService {
      */
     public UserInfoCustom findUserInfoCustomByUsername(String username);
 
+    /**
+     * @param userId
+     * @return UserInfoCustom
+     */
+    public UserInfoCustom findUserInfoCustomByUserId(String userId);
 }

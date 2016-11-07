@@ -47,6 +47,25 @@
         #{signature}
     </sql>
 
+    <!-- 别名 -->
+    <sql id="FieldAlias">
+        t_user_info.user_id "userId",
+        t_user_info.username "username",
+        t_user_info.password "password",
+        t_user_info.phone "phone",
+        t_user_info.sex "sex",
+        t_user_info.attachment_id "attachmentId",
+        t_user_info.year_of_birth "yearOfBirth",
+        t_user_info.ID_num "IDNum",
+        t_user_info.real_name "realName",
+        t_user_info.registration_date "registrationDate",
+        t_user_info.school "school",
+        t_user_info.shipping_address "shippingAddress",
+        t_user_info.constellation "constellation",
+        t_user_info.blood_type "bloodType",
+        t_user_info.signature "signature"
+    </sql>
+
     <!-- 查找 -->
     <select id="findByUserId" resultType="UserInfo">
         SELECT * FROM
@@ -54,25 +73,26 @@
         WHERE user_id=#{userId}
     </select>
 
+    <!-- 查找 UserInfoCustom By userId -->
+    <select id="findUserInfoCustomByUserId" resultType="UserInfoCustom">
+        SELECT
+        <include refid="FieldAlias"></include>,
+        t_attachment.file_path "headPortraitPath",
+        t_attachment.narrow_image_path "narrowHeadPortraitPath"
+        FROM
+        <include refid="tableName"></include>
+        INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id
+        WHERE user_id=#{userId}
+    </select>
+
     <!-- 查找 UserInfoCustom -->
     <select id="findUserInfoCustomByUsername" resultType="UserInfoCustom">
         SELECT
-        t_user_info.user_id "userId",
-        t_user_info.username "username",
-        t_user_info.password "password",
-        t_user_info.phone "phone",
-        t_user_info.sex "sex",
+        <include refid="FieldAlias"></include>,
         t_attachment.file_path "headPortraitPath",
-        t_attachment.narrow_image_path "narrowHeadPortraitPath",
-        t_user_info.year_of_birth "yearOfBirth",
-        t_user_info.ID_num "IDNum",
-        t_user_info.real_name "realName",
-        t_user_info.registration_date "registrationDate",
-        t_user_info.school "school",
-        t_user_info.shipping_address "shippingAddress",
-        t_user_info.signature "signature"
+        t_attachment.narrow_image_path "narrowHeadPortraitPath"
         FROM
-        t_user_info
+        <include refid="tableName"></include>
         INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id
         WHERE username=#{username}
     </select>
