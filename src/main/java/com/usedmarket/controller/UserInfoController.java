@@ -100,7 +100,7 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/login")
     @ResponseBody
-    public String login(UserInfo userInfo) {
+    public UserInfoCustom login(UserInfo userInfo) {
 
         //判断接受到的信息是否正确
         if (
@@ -108,7 +108,7 @@ public class UserInfoController {
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim())
                 ) {
             System.out.println("接收到的信息不完全");
-            return "登录失败";
+            return null;
         }
 
         //通过用户名向数据库查询UserInfo
@@ -117,16 +117,16 @@ public class UserInfoController {
         //判断该用户是否存在
         if (null == userInfoCustom) {
             System.out.println("该用户不存在");
-            return "登录失败";
+            return null;
         }
 
         //判断密码是否输入正确
         if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
             System.out.println("登录成功");
-            return JsonUtil.toJson(userInfoCustom);
+            return userInfoCustom;
         }
         System.out.println("密码不正确");
-        return "登录失败";
+        return null;
     }
 
     /**
@@ -233,11 +233,24 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/findCommodityCustomByUserId")
     @ResponseBody
-    public List<CommodityCustom> findCommodityCustomByUserId(String userId) {
+    public List<CommodityCustom> findCommodityCustomByUserId(String userId,int index) {
         CommodityQueryCondition commodityQueryCondition = new CommodityQueryCondition();
         commodityQueryCondition.setType("t_commodity.user_id");
+        commodityQueryCondition.setIndex(index);
         commodityQueryCondition.setQueryValue(userId.trim());
         return commodityService.findCommodityByQueryCondition(commodityQueryCondition);
+    }
+
+    /**
+     * 根据 userId 查找得到 UserInfoCustom
+     *
+     * @param userId
+     * @return UserInfoCustom
+     */
+    @RequestMapping(value = "/findUserInfoCustomByUserId")
+    @ResponseBody
+    public UserInfoCustom findUserInfoCustomByUserId(String userId){
+        return userInfoService.findUserInfoCustomByUserId(userId.trim());
     }
 
 }

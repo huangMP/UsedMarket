@@ -57,7 +57,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     /**
-     * 按列修改用户信息
+     * 按列修改
      *
      * @param userId
      * @param index
@@ -106,8 +106,23 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoDao.delete(userId);
     }
 
+    /**
+     * 查找 UserInfoCustom 通过 username
+     * @param username
+     * @return UserInfoCustom
+     */
     @Override
     public UserInfoCustom findUserInfoCustomByUsername(String username) {
         return userInfoDao.findUserInfoCustomByUsername(username);
+    }
+
+    /**
+     * 查找 UserInfoCustom 通过 UserId
+     * @param userId
+     * @return UserInfoCustom
+     */
+    @Override
+    public UserInfoCustom findUserInfoCustomByUserId(String userId) {
+        return userInfoDao.findUserInfoCustomByUserId(userId);
     }
 }

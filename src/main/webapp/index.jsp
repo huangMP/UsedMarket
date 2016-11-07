@@ -111,13 +111,14 @@
                             <option value="password">密码：password</option>
                             <option value="phone">手机：phone</option>
                             <option value="sex">性别：sex</option>
-                            <option value="birthday">生日：birthday</option>
+                            <option value="yearOfBirth">出生年：yearOfBirth</option>
                             <option value="IDNum">身份证号：IDNum</option>
                             <option value="realName">真实姓名：realName</option>
                             <option value="school">学校：school</option>
                             <option value="shippingAddress">收货地址：shippingAddress</option>
                             <option value="constellation">星座：constellation</option>
                             <option value="bloodType">血型：bloodType</option>
+                            <option value="signature">个性签名：signature</option>
                         </select>
                     </td>
                 </tr>
@@ -133,6 +134,34 @@
             <input type="submit" value="修改">
         </form>
 
+        <span>----------------------------------------------</span>
+        <h4>根据userId查询该用户发布的二手商品及数量</h4>
+        <form action="UserInfo/findCommodityCustomByUserId" method="post">
+            <table>
+                <tr>
+                    <td>userId</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>从第</td>
+                    <td><input name="index" /><span>条开始查</span></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>----------------------------------------------</span>
+        <h3>根据用户Id查询返回用户信息</h3><br/>
+        <h4>注意：该用户存在返回dto的UserInfoCustom，没有该用户返回null</h4><br/>
+        <form action="UserInfo/findUserInfoCustomByUserId" method="post">
+            <table>
+                <tr>
+                    <td>用户Id</td>
+                    <td><input name="userId" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
         <span>----------------------------------------------</span>
         <h4>上传</h4>
         <form action="Commodity/upload" method="post" enctype="multipart/form-data">
@@ -245,16 +274,20 @@
 <script src="js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
 
-  /*  $(function(){
+/*    $(function(){
         $.ajax({
             type:'post',
-            url:'/UserInfo/insertUserInfo',
+            url:'/UserInfo/login',
             //请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
             //contentType:'application/json;charset=utf-8',
             //数据格式是json串，商品信息
-            data:{username:"zpx",password:"zpx"},
-                    //"username=zpx&&password=zpx",
+            data:{username:"11111",password:"1111"},
             success:function(data){//返回json结果
+                if( "" == data ){
+                    alert("是null");
+                }else{
+                    alert("不是null");
+                }
                 alert(data);
             }
         });
