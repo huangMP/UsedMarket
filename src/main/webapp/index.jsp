@@ -216,18 +216,6 @@
 
         <span>----------------------------------------------</span>
 
-        <h4>查找2</h4>
-        <form action="Commodity/searchByDescription" method="post">
-            <table>
-                <tr>
-                    <td>查询值</td>
-                    <td><input name="indistinctField"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
-
-        <span>----------------------------------------------</span>
         <h4>删除</h4>
         <form action="Commodity/delete" method="post">
             <table>

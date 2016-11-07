@@ -49,13 +49,6 @@ public interface CommodityDao {
 	List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
 
 	/**
-	 * 通过种类查找商品
-	 * @param indistinctField 查找条件
-	 * @return
-	 */
-	List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField);
-
-	/**
 	 * 读取图片
 	 * @param commodityCustom 需要其中的commodityId
 	 * @return

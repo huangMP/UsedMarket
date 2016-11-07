@@ -16,7 +16,7 @@ public interface CommentService {
 	 * @param comment
 	 * @return 插入成功的数量
 	 */
-	int insert(Comment comment) ;
+	boolean insert(Comment comment) ;
 
 	/**
 	 * 通过commodityId查找CommentCustom

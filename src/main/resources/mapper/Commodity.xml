@@ -108,20 +108,22 @@
     <select id="findCommodityByQueryCondition" resultType="CommodityCustom" parameterType="CommodityQueryCondition">
         <include refid="findCommoditySql"/>
         WHERE 1=1
-        <if test="type != 'all'">
-            AND ${type} = #{queryValue}
-        </if>
+        <choose>
+            <when test="type == 'all'"/>
+
+            <when test="type == 'hobby'">
+                AND `commodity_name` LIKE '%${queryValue}%' OR `description` LIKE '%${queryValue}%'
+            </when>
+
+            <otherwise>
+                AND ${type} = #{queryValue}
+            </otherwise>
+        </choose>
         <if test="indistinctField != null and indistinctField != '' ">
             AND commodity_name like '%${indistinctField}%'
         </if>
         ORDER BY ${orderBy} ${order}
         LIMIT ${index},10
-    </select>
-
-    <!-- 通过详情以及商品名称模糊查找全部商品 -->
-    <select id="findCommodityByNameAndDescription" resultType="CommodityCustom" parameterType="String">
-        <include refid="findCommoditySql"/>
-        WHERE `commodity_name` LIKE '%${value}%' OR `description` LIKE '%${value}%'
     </select>
 
     <!-- 读取图片的map -->

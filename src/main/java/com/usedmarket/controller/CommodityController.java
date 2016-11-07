@@ -91,11 +91,4 @@ public class CommodityController {
 
 	}
 
-	@RequestMapping(value = "/searchByDescription")
-	@ResponseBody
-	public List<CommodityCustom> searchCommodityByNameAndDescription(String indistinctField) {
-		return commodityService.findCommodityByNameAndDescription(indistinctField);
-	}
-
-
 }
