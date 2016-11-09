@@ -44,7 +44,7 @@ public interface UserInfoService {
      * @param futureValue
      * @return UserInfo
      */
-    public UserInfo update(String userId, String index, String currentValue, String futureValue);
+    public UserInfoCustom update(String userId, String index, String currentValue, String futureValue);
 
     /**
      * 删除一条信息

@@ -65,10 +65,10 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param futureValue
      * @return UserInfo
      */
-    public UserInfo update(String userId, String index, String currentValue, String futureValue) {
+    public UserInfoCustom update(String userId, String index, String currentValue, String futureValue) {
 
-        UserInfo userInfo = findByUserId(userId);
-        Map map = MapUtils.transBean2Map(userInfo);
+        UserInfoCustom userInfoCustom = findUserInfoCustomByUserId(userId);
+        Map map = MapUtils.transBean2Map(userInfoCustom);
 
         if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {
             System.out.println("此处不能修改 : " + index);
@@ -91,10 +91,10 @@ public class UserInfoServiceImpl implements UserInfoService {
             System.out.println("修改 : " + index + ",无需验证");
             map.put(index, futureValue);
         }
-        userInfo = (UserInfo) MapUtils.transMap2Bean(map, userInfo);
-        userInfoDao.update(userInfo);
+        userInfoCustom = (UserInfoCustom) MapUtils.transMap2Bean(map, userInfoCustom);
+        userInfoDao.update(userInfoCustom);
         System.out.println("修改完成");
-        return userInfo;
+        return userInfoCustom;
     }
 
     /**

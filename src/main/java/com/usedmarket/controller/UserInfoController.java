@@ -221,7 +221,7 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/edit")
     @ResponseBody
-    public UserInfo edit(String userId, String index, String currentValue, String futureValue) {
+    public UserInfoCustom edit(String userId, String index, String currentValue, String futureValue) {
         return userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
     }
 
