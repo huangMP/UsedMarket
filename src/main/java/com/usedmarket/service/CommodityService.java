@@ -49,10 +49,10 @@ public interface CommodityService {
     List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
 
     /**
-     * 通过商品名称以及商品详情查找商品
-     * @param indistinctField 查询条件
+     * 更新常用数据 --> 数量、销量、收藏人数、价格
+     * @param commodity 商品
      * @return
      */
-    List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField);
+    boolean updateNumByCommodityId(Commodity commodity);
 
 }

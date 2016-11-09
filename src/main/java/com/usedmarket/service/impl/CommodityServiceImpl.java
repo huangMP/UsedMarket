@@ -85,6 +85,9 @@ public class CommodityServiceImpl implements CommodityService {
 		//取出10条commodity
 		List<CommodityCustom> commodityCustoms = commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
 		//找出10条commodity的图片
+		if (commodityCustoms.size() == 0) {
+			return commodityCustoms;
+		}
 		List<ImageCustom> imageCustoms = commodityDao.loadImages(commodityCustoms);
 		//10commodity填入images
 		for (int i = 0; i < commodityCustoms.size(); i++) {
@@ -100,30 +103,14 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	/**
-	 * 通过商品名称以及商品详情查找商品
+	 * 更新常用数据 --> 数量、销量、收藏人数、价格
 	 *
-	 * @param indistinctField 查询条件
+	 * @param commodity 商品
 	 * @return
 	 */
 	@Override
-	public List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField) {
-//		return commodityDao.findCommodityByNameAndDescription(indistinctField);
-
-		//取出commodity
-		List<CommodityCustom> commodityCustoms = commodityDao.findCommodityByNameAndDescription(indistinctField);
-		//找出commodity的图片
-		List<ImageCustom> imageCustoms = commodityDao.loadImages(commodityCustoms);
-		//commodity填入images
-		for (int i = 0; i < commodityCustoms.size(); i++) {
-			for (int j = 0; j < imageCustoms.size(); j++) {
-				if (commodityCustoms.get(i).getCommodityId().equals(imageCustoms.get(j).getCommodityId())) {
-					commodityCustoms.get(i).setImages(imageCustoms.get(j).getImages());
-					break;
-				}
-			}
-		}
-
-		return commodityCustoms;
+	public boolean updateNumByCommodityId(Commodity commodity) {
+		return commodityDao.updateNumByCommodityId(commodity);
 	}
 
 

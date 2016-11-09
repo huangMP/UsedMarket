@@ -72,19 +72,19 @@ public class CommentDaoTest {
 
     @Test
     public void testDelete() {
-        int i = commentDao.deleteByCommentId("1");
-        System.out.println("删除数量:"+i);
+//        int i = commentDao.deleteByCommentId("1");
+//        System.out.println("删除数量:"+i);
     }
 
     @Test
     public void testDeleteByCommodityId() {
-        int i = commentDao.deleteByCommodityId("1");
-        System.out.println("删除数量:"+i);
+//        int i = commentDao.deleteByCommodityId("1");
+//        System.out.println("删除数量:"+i);
     }
 
     @Test
     public void testDeleteByCrowdfundingId() {
-        int i = commentDao.deleteByCrowdfundingId("1");
-        System.out.println("删除数量:"+i);
+//        int i = commentDao.deleteByCrowdfundingId("1");
+//        System.out.println("删除数量:"+i);
     }
 }

@@ -37,12 +37,12 @@ public class Commodity {
 	/**
 	 * 价格
 	 */
-	private double price;
+	private Double price;
 
 	/**
 	 * 数量
 	 */
-	private int amount;
+	private Integer amount;
 
 	/**
 	 * 图片
@@ -62,7 +62,7 @@ public class Commodity {
 	/**
 	 * 收藏人数
 	 */
-	private int preferNum;
+	private Integer preferNum;
 
 	/**
 	 * 上架时间
@@ -72,12 +72,17 @@ public class Commodity {
 	/**
 	 * 销售量
 	 */
-	private int salesVolume;
+	private Integer salesVolume;
+
+	/**
+	 * 销售状态：0.在售；1.交易中；2.已售出
+	 */
+	private Integer status;
 
 	public Commodity() {
 	}
 
-	public Commodity(String commodityId, String userId, String storeId, String commodityName, String category, double price, int amount, String description, String location, int preferNum, Date launchDate, int salesVolume) {
+	public Commodity(String commodityId, String userId, String storeId, String commodityName, String category, double price, Integer amount, String description, String location, Integer preferNum, Date launchDate, Integer salesVolume, Integer status) {
 		this.commodityId = commodityId;
 		this.userId = userId;
 		this.storeId = storeId;
@@ -90,6 +95,7 @@ public class Commodity {
 		this.preferNum = preferNum;
 		this.launchDate = launchDate;
 		this.salesVolume = salesVolume;
+		this.status = status;
 	}
 
 	public String getCommodityId() {
@@ -132,19 +138,19 @@ public class Commodity {
 		this.category = category;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 
@@ -164,11 +170,19 @@ public class Commodity {
 		this.description = description;
 	}
 
-	public int getPreferNum() {
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Integer getPreferNum() {
 		return preferNum;
 	}
 
-	public void setPreferNum(int preferNum) {
+	public void setPreferNum(Integer preferNum) {
 		this.preferNum = preferNum;
 	}
 
@@ -180,20 +194,20 @@ public class Commodity {
 		this.launchDate = launchDate;
 	}
 
-	public int getSalesVolume() {
+	public Integer getSalesVolume() {
 		return salesVolume;
 	}
 
-	public void setSalesVolume(int salesVolume) {
+	public void setSalesVolume(Integer salesVolume) {
 		this.salesVolume = salesVolume;
 	}
 
-	public String getLocation() {
-		return location;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Override
@@ -206,12 +220,13 @@ public class Commodity {
 				", category='" + category + '\'' +
 				", price=" + price +
 				", amount=" + amount +
-				", images='" + images + '\'' +
+				", images=" + images +
 				", description='" + description + '\'' +
+				", location='" + location + '\'' +
 				", preferNum=" + preferNum +
 				", launchDate=" + launchDate +
 				", salesVolume=" + salesVolume +
-				", location=" + location +
+				", status=" + status +
 				'}';
 	}
 }

@@ -44,15 +44,16 @@ public class CommodityDaoTest {
 	}
 
 	@Test
-	public void addCommodity() throws Exception {
+	public void updateCommodity() throws Exception {
 		Commodity commodity = new Commodity();
-		commodity.setCommodityId("234234243");
+		commodity.setCommodityId("1");
+		commodity.setPreferNum(100);
+		commodity.setAmount(1000);
+		commodity.setPrice(1000.10);
+		commodity.setSalesVolume(500);
+		commodity.setStatus(1);
+		commodityService.updateNumByCommodityId(commodity);
 		//System.out.println(commodityService.insert(commodity));
-	}
-
-	@Test
-	public void findCommodityByOtherAttribute() throws Exception {
-		System.out.println(commodityService.findCommodityByNameAndDescription("衣"));
 	}
 
 	@Test

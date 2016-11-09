@@ -211,6 +211,38 @@
         </form>
 
         <span>----------------------------------------------</span>
+        <h4>更新数据</h4>
+        <form action="Commodity/updateCommodityNum" method="post">
+            <table>
+                <tr>
+                    <td>商品id</td>
+                    <td><input name="commodityId"/></td>
+                </tr>
+                <tr>
+                    <td>数量</td>
+                    <td><input name="amount"/></td>
+                </tr>
+                <tr>
+                    <td>价格</td>
+                    <td><input name="price"/></td>
+                </tr>
+                <tr>
+                    <td>销售量</td>
+                    <td><input name="salesVolume"/></td>
+                </tr>
+                <tr>
+                    <td>收藏人数</td>
+                    <td><input name="preferNum"/></td>
+                </tr>
+                <tr>
+                    <td>销售状态</td>
+                    <td><input name="status"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>----------------------------------------------</span>
 
         <h4>查找1</h4>
         <form action="Commodity/search" method="post">
@@ -245,18 +277,6 @@
 
         <span>----------------------------------------------</span>
 
-        <h4>查找2</h4>
-        <form action="Commodity/searchByDescription" method="post">
-            <table>
-                <tr>
-                    <td>查询值</td>
-                    <td><input name="indistinctField"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
-
-        <span>----------------------------------------------</span>
         <h4>删除</h4>
         <form action="Commodity/delete" method="post">
             <table>

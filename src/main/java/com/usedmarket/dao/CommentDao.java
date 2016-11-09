@@ -16,7 +16,7 @@ public interface CommentDao {
      * @param comment
      * @return 插入成功的数量
      */
-    public int insert(Comment comment) ;
+    public boolean insert(Comment comment) ;
 
     /**
      * 通过commodityId查找CommentCustom

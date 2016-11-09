@@ -22,7 +22,8 @@
         location,
         prefer_num,
         launch_date,
-        sales_volume
+        sales_volume,
+        status
     </sql>
 
     <!-- 字段值 -->
@@ -38,7 +39,8 @@
         #{location},
         #{preferNum},
         #{launchDate},
-        #{salesVolume}
+        #{salesVolume},
+        #{status}
     </sql>
 
     <sql id="findCommoditySql">
@@ -93,14 +95,27 @@
         WHERE commodity_id=#{commodityId}
     </select>
 
-    <update id="updateByCommodityId" parameterType="Commodity">
+    <!-- 数量、销量、收藏人数、价格、状态 -->
+    <update id="updateNumByCommodityId" parameterType="Commodity">
         UPDATE
         <include refid="tableName"></include>
-        SET
-        commodity_name=#{commodityName},
-        category=#{category},
-        price=#{price},
-        description=#{description}
+        <set>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="salesVolume != null">
+                sales_volume = #{salesVolume},
+            </if>
+            <if test="preferNum != null ">
+                prefer_num = #{preferNum},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
         WHERE commodity_id=#{commodityId}
     </update>
 
@@ -108,20 +123,24 @@
     <select id="findCommodityByQueryCondition" resultType="CommodityCustom" parameterType="CommodityQueryCondition">
         <include refid="findCommoditySql"/>
         WHERE 1=1
-        <if test="type != 'all'">
-            AND ${type} = #{queryValue}
-        </if>
+        <choose>
+            <when test="type == 'all'"/>
+
+            <when test="type == 'hobby'">
+                AND `commodity_name`
+                LIKE CONCAT(CONCAT('%', #{queryValue}),'%')
+                OR `description` LIKE CONCAT(CONCAT('%', #{queryValue}),'%')
+            </when>
+
+            <otherwise>
+                AND ${type} = #{queryValue}
+            </otherwise>
+        </choose>
         <if test="indistinctField != null and indistinctField != '' ">
-            AND commodity_name like '%${indistinctField}%'
+            AND commodity_name like CONCAT(CONCAT('%', #{indistinctField}),'%')
         </if>
         ORDER BY ${orderBy} ${order}
         LIMIT ${index},10
-    </select>
-
-    <!-- 通过详情以及商品名称模糊查找全部商品 -->
-    <select id="findCommodityByNameAndDescription" resultType="CommodityCustom" parameterType="String">
-        <include refid="findCommoditySql"/>
-        WHERE `commodity_name` LIKE '%${value}%' OR `description` LIKE '%${value}%'
     </select>
 
     <!-- 读取图片的map -->

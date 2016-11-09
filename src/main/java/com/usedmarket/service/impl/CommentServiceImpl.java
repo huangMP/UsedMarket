@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
 	 * @return 插入成功的数量
 	 */
 	@Override
-	public int insert(Comment comment) {
+	public boolean insert(Comment comment) {
 		return commentDao.insert(comment);
 	}
 

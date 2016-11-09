@@ -49,17 +49,17 @@ public interface CommodityDao {
 	List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
 
 	/**
-	 * 通过种类查找商品
-	 * @param indistinctField 查找条件
-	 * @return
-	 */
-	List<CommodityCustom> findCommodityByNameAndDescription(String indistinctField);
-
-	/**
 	 * 读取图片
 	 * @param commodityCustom 需要其中的commodityId
 	 * @return
 	 */
 	List<ImageCustom> loadImages(List<CommodityCustom> commodityCustom);
+
+	/**
+	 * 更新常用数据 --> 数量、销量、收藏人数、价格
+	 * @param commodity 商品
+	 * @return
+	 */
+	boolean updateNumByCommodityId(Commodity commodity);
 
 }

@@ -3,11 +3,13 @@ package com.usedmarket.controller;
 import com.usedmarket.dto.CommentCustom;
 import com.usedmarket.entity.Comment;
 import com.usedmarket.service.CommentService;
+import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/Comment")
-public class CommentController {
+public class CommentsController {
 
 	@Autowired
 	CommentService commentService;
@@ -28,10 +30,15 @@ public class CommentController {
 		return commentService.findByCommodityId(commodityId);
 	}
 
-	@RequestMapping(value = "/deleteByCommentId")
+	@RequestMapping(value = "/insert")
 	@ResponseBody
-	public int insert(Comment comment) {
-		return commentService.insert(comment);
+	public String insert(Comment comment) {
+		comment.setCommentId(UuidUtil.get32UUID());
+		comment.setCommentDate(new Date());
+		if (commentService.insert(comment)) {
+			return "评论成功";
+		}
+		return "操作失败";
 	}
 
 	@RequestMapping(value = "/deleteByCommentId")
