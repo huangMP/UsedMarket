@@ -48,4 +48,11 @@ public interface CommodityService {
      */
     List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
 
+    /**
+     * 更新常用数据 --> 数量、销量、收藏人数、价格
+     * @param commodity 商品
+     * @return
+     */
+    boolean updateNumByCommodityId(Commodity commodity);
+
 }

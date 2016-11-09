@@ -49,6 +49,15 @@ public class CommodityController {
 		return "操作失败";
 	}
 
+	@RequestMapping(value = "/updateCommodityNum")
+	@ResponseBody
+	public String updateNumByCommodityId(Commodity commodity) {
+		if (commodityService.updateNumByCommodityId(commodity)) {
+			return "更新成功";
+		}
+		return "操作失败";
+	}
+
 	@RequestMapping(value = "/upload")
 	@ResponseBody
 	public String uploadCommodity(@RequestParam(value = "images") MultipartFile[] images,
@@ -59,7 +68,8 @@ public class CommodityController {
 	                              @RequestParam(value = "price", defaultValue = "0") double price,
 	                              @RequestParam(value = "amount", defaultValue = "0") int amount,
 	                              String description,
-	                              String location) {
+	                              String location,
+	                              @RequestParam(value = "status", defaultValue = "0") int status) {
 		Commodity commodity = new Commodity(
 				UuidUtil.get32UUID(),
 				userId,
@@ -72,7 +82,8 @@ public class CommodityController {
 				location,
 				0,
 				new Date(),
-				0
+				0,
+				status
 		);
 
 		if (!images[0].isEmpty()) {
