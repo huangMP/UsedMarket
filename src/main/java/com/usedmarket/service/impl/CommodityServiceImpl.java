@@ -1,5 +1,6 @@
 package com.usedmarket.service.impl;
 
+import com.usedmarket.dao.CommentDao;
 import com.usedmarket.dao.CommodityDao;
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
@@ -20,6 +21,9 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Autowired
 	CommodityDao commodityDao;
+
+	@Autowired
+	CommentDao commentDao;
 
 	/**
 	 * 添加商品
@@ -89,11 +93,20 @@ public class CommodityServiceImpl implements CommodityService {
 			return commodityCustoms;
 		}
 		List<ImageCustom> imageCustoms = commodityDao.loadImages(commodityCustoms);
-		//10commodity填入images
+		List<CommodityCustom> commentsByCommodityIds = commentDao.findCommentsByCommodityIds(commodityCustoms);
+		//10commodity填入images与comment
 		for (int i = 0; i < commodityCustoms.size(); i++) {
+			//对比commodityId填入image
 			for (int j = 0; j < imageCustoms.size(); j++) {
 				if (commodityCustoms.get(i).getCommodityId().equals(imageCustoms.get(j).getCommodityId())) {
 					commodityCustoms.get(i).setImages(imageCustoms.get(j).getImages());
+					break;
+				}
+			}
+			//对比commodityId填入comment
+			for (int k = 0; k < commentsByCommodityIds.size(); k++) {
+				if (commodityCustoms.get(i).getCommodityId().equals(commentsByCommodityIds.get(k).getCommodityId())) {
+					commodityCustoms.get(i).setComments(commentsByCommodityIds.get(k).getComments());
 					break;
 				}
 			}

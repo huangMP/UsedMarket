@@ -45,11 +45,6 @@ public class Commodity {
 	private Integer amount;
 
 	/**
-	 * 图片
-	 */
-	private List<String> images;
-
-	/**
 	 * 描述
 	 */
 	private String description;
@@ -154,14 +149,6 @@ public class Commodity {
 		this.amount = amount;
 	}
 
-	public List<String> getImages() {
-		return images;
-	}
-
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -220,7 +207,6 @@ public class Commodity {
 				", category='" + category + '\'' +
 				", price=" + price +
 				", amount=" + amount +
-				", images=" + images +
 				", description='" + description + '\'' +
 				", location='" + location + '\'' +
 				", preferNum=" + preferNum +
