@@ -2,6 +2,7 @@ package com.usedmarket.dao;
 
 import com.usedmarket.dao.CommentDao;
 import com.usedmarket.dto.CommentCustom;
+import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.entity.Comment;
 import com.usedmarket.service.CommentService;
 import com.usedmarket.util.UuidUtil;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -84,7 +86,27 @@ public class CommentDaoTest {
 
     @Test
     public void testDeleteByCrowdfundingId() {
-//        int i = commentDao.deleteByCrowdfundingId("1");
-//        System.out.println("删除数量:"+i);
+        List<CommodityCustom> commodityCustoms = new ArrayList<CommodityCustom>();
+		CommodityCustom commodityCustom = new CommodityCustom();
+		commodityCustom.setCommodityId("1");
+		commodityCustoms.add(commodityCustom);
+
+		commodityCustom = new CommodityCustom();
+		commodityCustom.setCommodityId("2");
+		commodityCustoms.add(commodityCustom);
+
+		commodityCustom = new CommodityCustom();
+		commodityCustom.setCommodityId("3");
+		commodityCustoms.add(commodityCustom);
+
+		commodityCustom = new CommodityCustom();
+		commodityCustom.setCommodityId("4");
+		commodityCustoms.add(commodityCustom);
+
+		commodityCustom = new CommodityCustom();
+		commodityCustom.setCommodityId("5");
+		commodityCustoms.add(commodityCustom);
+        List<CommodityCustom> commentsByCommodityIds = commentDao.findCommentsByCommodityIds(commodityCustoms);
+        System.out.println(commentsByCommodityIds);
     }
 }

@@ -1,6 +1,9 @@
 package com.usedmarket.dto;
 
+import com.usedmarket.entity.Comment;
 import com.usedmarket.entity.Commodity;
+
+import java.util.List;
 
 /**
  * Description：自定义商品pojo
@@ -22,6 +25,16 @@ public class CommodityCustom extends Commodity {
      * 头像
      */
     private String headPortrait;
+
+    /**
+     * 图片
+     */
+    private List<String> images;
+
+	/**
+	 * 评论
+     */
+    private List<Comment> comments;
 
     public String getUsername() {
         return username;
@@ -47,12 +60,30 @@ public class CommodityCustom extends Commodity {
         this.commodityNum = commodityNum;
     }
 
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "CommodityCustom{" +
                 "commodityNum='" + commodityNum + '\'' +
                 ", username='" + username + '\'' +
                 ", headPortrait='" + headPortrait + '\'' +
-                "} " + super.toString();
+                ", images=" + images +
+                ", comments=" + comments +
+                '}';
     }
 }

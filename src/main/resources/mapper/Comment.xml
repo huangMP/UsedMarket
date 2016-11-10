@@ -31,6 +31,21 @@
         #{commentLocation}
     </sql>
 
+    <select id="findCommentsByCommodityIds" resultMap="loadCommentMap" parameterType="CommodityCustom">
+        SELECT *
+        FROM <include refid="tableName"></include>
+        WHERE commodity_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item.commodityId}
+        </foreach>
+        ORDER BY comment_date DESC
+    </select>
+
+    <resultMap id="loadCommentMap" type="CommodityCustom">
+        <id column="commodity_id" property="commodityId"/>
+        <collection property="comments" javaType="java.util.List" ofType="Comment" autoMapping="true"/>
+    </resultMap>
+
     <!-- 通过 commentId 查找 Comment -->
     <select id="findByCommentId" resultType="Comment">
         SELECT * FROM
