@@ -34,7 +34,7 @@ public class CommodityCustom extends Commodity {
 	/**
 	 * 评论
      */
-    private List<Comment> comments;
+    private List<CommentCustom> comments;
 
     public String getUsername() {
         return username;
@@ -68,11 +68,11 @@ public class CommodityCustom extends Commodity {
         this.images = images;
     }
 
-    public List<Comment> getComments() {
+    public List<CommentCustom> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<CommentCustom> comments) {
         this.comments = comments;
     }
 

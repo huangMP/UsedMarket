@@ -32,18 +32,19 @@
     </sql>
 
     <select id="findCommentsByCommodityIds" resultMap="loadCommentMap" parameterType="CommodityCustom">
-        SELECT *
-        FROM <include refid="tableName"></include>
+        SELECT `t_comment`.*, `t_user_info`.`username`, `t_attachment`.`narrow_image_path` head_portrait
+        FROM (`t_comment` INNER JOIN `t_user_info` ON `t_comment`.`user_id` = `t_user_info`.`user_id`)
+        INNER JOIN `t_attachment` ON `t_user_info`.`user_id` = `t_attachment`.`content_id`
         WHERE commodity_id IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item.commodityId}
         </foreach>
-        ORDER BY comment_date DESC
+        ORDER BY comment_date ASC
     </select>
 
     <resultMap id="loadCommentMap" type="CommodityCustom">
         <id column="commodity_id" property="commodityId"/>
-        <collection property="comments" javaType="java.util.List" ofType="Comment" autoMapping="true"/>
+        <collection property="comments" javaType="java.util.List" ofType="CommentCustom" autoMapping="true"/>
     </resultMap>
 
     <!-- 通过 commentId 查找 Comment -->
@@ -104,6 +105,7 @@
         FROM (`t_comment` INNER JOIN `t_user_info` ON `t_comment`.`user_id` = `t_user_info`.`user_id`)
         INNER JOIN `t_attachment` ON `t_user_info`.`user_id` = `t_attachment`.`content_id`
         WHERE `commodity_id` = #{commodityId}
+        ORDER BY comment_date ASC
     </select>
 
     <!-- 通过 crowdfundingId 查找 Comment -->
