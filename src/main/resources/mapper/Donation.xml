@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedmarket.dao.DonationDao">
+
+    <!--表名 -->
+    <sql id="tableName">
+        t_donation
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        donation_id,
+        user_id,
+        donation_name,
+        category,
+        amount,
+        location,
+        description,
+        donation_date,
+        status
+    </sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{donationId},
+        #{userId},
+        #{donationName},
+        #{category},
+        #{amount},
+        #{location},
+        #{description},
+        #{donationDate},
+        #{status}
+    </sql>
+
+    <!-- 别名 -->
+    <sql id="FieldAlias">
+        t_donation.donation_id "donationId",
+        t_donation.user_id "userId",
+        t_donation.donation_name "donationName",
+        t_donation.category "category",
+        t_donation.amount "amount",
+        t_donation.location "location",
+        t_donation.description "description",
+        t_donation.donation_date "donationDate",
+        t_donation.status "status"
+    </sql>
+
+    <!-- 新增-->
+    <insert id="insert" parameterType="UserInfo">
+        insert into
+          <include refid="tableName"></include>
+        (
+          <include refid="Field"></include>
+        ) values (
+          <include refid="FieldValue"></include>
+        )
+    </insert>
+
+    <sql id="findDonationSql">
+        SELECT
+          <include refid="FieldAlias"/>,
+          `t_user_info`.`username` `username`,
+          `t_attachment`.`narrow_image_path` `headPortrait`
+        FROM (`t_donation` INNER JOIN `t_user_info` ON `t_donation`.`user_id` = `t_user_info`.`user_id`)
+        INNER JOIN `t_attachment` ON `t_donation`.`user_id` = `t_attachment`.`content_id`
+    </sql>
+
+    <!-- 按要求查找 -->
+    <select id="findDonationByQueryCondition" resultType="DonationCustom" parameterType="DonationQueryCondition">
+        <include refid="findDonationSql"/>
+        WHERE 1=1
+        <choose>
+            <when test="type == 'all'"/>
+            <otherwise>
+                AND `t_donation`.${type} = #{queryValue}
+            </otherwise>
+        </choose>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND description like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        ORDER BY ${orderBy} ${order}
+        LIMIT ${index},10
+    </select>
+
+    <!-- 根据传入的id，读取相应的图片 -->
+    <select id="loadImages" parameterType="DonationCustom" resultType="Attachment" >
+    SELECT *
+    FROM `t_attachment`
+    WHERE `t_attachment`.content_id IN
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item.donationId}
+    </foreach>
+    </select>
+
+</mapper>
