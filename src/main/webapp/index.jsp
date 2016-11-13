@@ -244,7 +244,7 @@
 
         <span>----------------------------------------------</span>
 
-        <h4>查找1</h4>
+        <h4>查找</h4>
         <form action="Commodity/search" method="post">
             <table>
                 <tr>
@@ -287,6 +287,99 @@
             </table>
             <input type="submit" value="提交">
         </form>
+
+
+        <span>-----------捐赠物品-----------------------------------</span>
+        <h3>上传捐赠物品</h3>
+        <h4>上传成功返回DonationDto，失败返回null</h4>
+        <form action="Donation/insert" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>用户id</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>捐赠物品名称</td>
+                    <td><input name="donationName"/></td>
+                </tr>
+                <tr>
+                    <td>类别</td>
+                    <td><input name="category"/></td>
+                </tr>
+                <tr>
+                    <td>数量</td>
+                    <td><input name="amount"/></td>
+                </tr>
+                <tr>
+                    <td>描述</td>
+                    <td><input name="description"/></td>
+                </tr>
+                <tr>
+                    <td>定位</td>
+                    <td><input name="location"/></td>
+                </tr>
+                <tr>
+                    <td>图片1</td>
+                    <td><input type="file" name="images"></td>
+                </tr>
+                <tr>
+                    <td>图片2</td>
+                    <td><input type="file" name="images"></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------捐赠物品-----------------------------------</span>
+        <h4>查找</h4>
+        <h4>找得到返回 DonationCustom的list集合 </h4>
+        <form action="Donation/search" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="donation_id">捐赠物品Id:donationId</option>
+                            <option value="user_id">发布用户Id:userId</option>
+                            <option value="donation_name">捐赠物品名称:donationName</option>
+                            <option value="category">分类:category</option>
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="donation_date">发布捐赠的时间:donationDate</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
     </div>
 </div>
 </body>
