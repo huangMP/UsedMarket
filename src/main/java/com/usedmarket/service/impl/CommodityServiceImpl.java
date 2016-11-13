@@ -81,10 +81,15 @@ public class CommodityServiceImpl implements CommodityService {
 			commodityQueryCondition.setOrder("DESC");
 		}
 		if (commodityQueryCondition.getOrderBy() == null || "".equals(commodityQueryCondition.getOrderBy().trim())) {
-			if ("launch_date".equals(commodityQueryCondition.getOrderBy())) {
+			commodityQueryCondition.setOrderBy("launch_date");
+		}
+		if (commodityQueryCondition.getType() != null && !"all".equals(commodityQueryCondition.getType().trim())) {
+			if ("launch_date".equals(commodityQueryCondition.getOrderBy().trim())) {
+				if("ASC".equals(commodityQueryCondition.getOrder())) {
+					commodityQueryCondition.setOrder("DESC");
+				}
 				commodityQueryCondition.setOrder("ASC");
 			}
-			commodityQueryCondition.setOrderBy("launch_date");
 		}
 		//取出10条commodity
 		List<CommodityCustom> commodityCustoms = commodityDao.findCommodityByQueryCondition(commodityQueryCondition);

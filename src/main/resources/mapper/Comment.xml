@@ -39,7 +39,7 @@
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item.commodityId}
         </foreach>
-        ORDER BY comment_date ASC
+        ORDER BY comment_date DESC
     </select>
 
     <resultMap id="loadCommentMap" type="CommodityCustom">
@@ -105,7 +105,7 @@
         FROM (`t_comment` INNER JOIN `t_user_info` ON `t_comment`.`user_id` = `t_user_info`.`user_id`)
         INNER JOIN `t_attachment` ON `t_user_info`.`user_id` = `t_attachment`.`content_id`
         WHERE `commodity_id` = #{commodityId}
-        ORDER BY comment_date ASC
+        ORDER BY comment_date DESC
     </select>
 
     <!-- 通过 crowdfundingId 查找 Comment -->
