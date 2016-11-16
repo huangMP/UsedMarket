@@ -52,9 +52,9 @@
     <!--
         <resultMap id="findCommodityMap" type="CommodityCustom" autoMapping="true">
             <id property="commodityId" column="commodity_id"/>
-            <collection property="images" javaType="java.util.List" ofType="java.lang.String">
+            <userCollection property="images" javaType="java.util.List" ofType="java.lang.String">
                 <result column="narrow_image_path"/>
-            </collection>
+            </userCollection>
         </resultMap>
         连接三个表做查询
         SELECT `t_commodity`.*,`t`.`username`,t.`narrow_image_path` `head_portrait`, `t_attachment`.`narrow_image_path`
@@ -130,6 +130,12 @@
                 AND `commodity_name`
                 LIKE CONCAT(CONCAT('%', #{queryValue}),'%')
                 OR `description` LIKE CONCAT(CONCAT('%', #{queryValue}),'%')
+            </when>
+
+            <when test="type == 'userCollection'">
+                AND t_commodity.commodity_id IN (
+                  SELECT commodity_id FROM t_collection WHERE user_id = #{queryValue}
+                )
             </when>
 
             <otherwise>

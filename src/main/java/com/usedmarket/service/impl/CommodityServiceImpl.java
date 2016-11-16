@@ -87,8 +87,9 @@ public class CommodityServiceImpl implements CommodityService {
 			if ("launch_date".equals(commodityQueryCondition.getOrderBy().trim())) {
 				if("ASC".equals(commodityQueryCondition.getOrder())) {
 					commodityQueryCondition.setOrder("DESC");
+				} else {
+					commodityQueryCondition.setOrder("ASC");
 				}
-				commodityQueryCondition.setOrder("ASC");
 			}
 		}
 		//取出10条commodity
