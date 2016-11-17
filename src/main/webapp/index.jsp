@@ -311,6 +311,10 @@
                     <td><input name="amount"/></td>
                 </tr>
                 <tr>
+                    <td>联系电话</td>
+                    <td><input name="phone"/></td>
+                </tr>
+                <tr>
                     <td>描述</td>
                     <td><input name="description"/></td>
                 </tr>
@@ -380,6 +384,49 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------捐赠物品-----------------------------------</span>
+        <h4>按列修改（不支持修改图片）</h4>
+        <h4>修改成功返回 修改后的 DonationCustom；否则返回null </h4>
+        <form action="Donation/edit" method="post">
+            <table>
+                <tr>
+                    <td>捐赠Id</td>
+                    <td><input name="donationId"/></td>
+                </tr>
+                <tr>
+                    <td>要修改的列</td>
+                    <td>
+                        <select name="type">
+                            <option value="donationName">捐赠物品名称:donationName</option>
+                            <option value="category">分类:category</option>
+                            <option value="amount">数量:amount</option>
+                            <option value="location">定位 : location</option>
+                            <option value="description">描述:description</option>
+                            <option value="status">状态:status</option>
+                            <option value="phone">联系电话:phone</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>当前值</td>
+                    <td><input name="currentValue"/></td>
+                </tr>
+                <tr>
+                    <td>未来值</td>
+                    <td><input name="futrueValue"/></td>
+                </tr>
+                <tr>
+                    <td>是否校验当前值</td>
+                    <td>
+                        <select name="isCheck">
+                            <option value="true">是:true</option>
+                            <option value="false">否:flase</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
     </div>
 </div>
 </body>

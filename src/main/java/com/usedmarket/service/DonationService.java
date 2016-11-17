@@ -24,4 +24,15 @@ public interface DonationService {
      * @return
      */
     List<DonationCustom> findDonationByQueryCondition(DonationQueryCondition donationQueryCondition);
+
+    /**
+     * 按列修改
+     * @param donationId
+     * @param type
+     * @param futureValue
+     * @param currentValue
+     * @param isCheck
+     * @return
+     */
+    DonationCustom editByCondition(String donationId, String type, String futureValue ,String currentValue ,boolean isCheck);
 }

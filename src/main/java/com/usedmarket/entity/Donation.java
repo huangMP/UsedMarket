@@ -17,6 +17,15 @@ public class Donation {
     private String description;
     private Date donationDate;
     private int status;
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getDonationId() {
         return donationId;

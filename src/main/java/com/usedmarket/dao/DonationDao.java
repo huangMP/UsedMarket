@@ -13,14 +13,18 @@ import java.util.List;
  * decription :
  */
 public interface DonationDao {
+
+    /**
+     * @param donationId
+     * @return
+     */
+    DonationCustom findDonationCustomByDonationId(String donationId);
     /**
      * 插入一条信息
      * @param donation
      * @return 插入成功的数量
      */
-    public int insert(Donation donation) ;
-
-
+    int insert(Donation donation) ;
     /**
      * 按要求查找
      * @param donationQueryCondition
@@ -34,4 +38,10 @@ public interface DonationDao {
      * @return
      */
     List<Attachment> loadImages(List<DonationCustom> donationCustom);
+
+    /**
+     * @param donation
+     * @return 返回成功更新数据条数
+     */
+    int update(Donation donation);
 }
