@@ -57,6 +57,10 @@
             <td>来源</td>
             <td><input name="origin"/></td>
         </tr>
+        <tr>
+            <td>添加人Id</td>
+            <td><input name="addUser"/></td>
+        </tr>
     </table>
 
     <input type="submit" value="提交" id="submitButton" />
