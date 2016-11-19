@@ -549,7 +549,7 @@
 </div>
 </body>
 
-<script src="js/jquery-3.0.0.js"></script>
+<script src="/static/js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
 
 /*    $(function(){
