@@ -92,7 +92,7 @@ public class DonationController {
     }
 
     /**
-     * 按条件查找
+     * 按条件修改
      * @param donationId
      * @param type 要修改的列
      * @param futrueValue 未来值

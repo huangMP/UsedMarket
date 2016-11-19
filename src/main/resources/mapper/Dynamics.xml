@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedmarket.dao.DynamicsDao">
+
+    <!--表名 -->
+    <sql id="tableName">
+        t_dynamics
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        dynamics_id,
+        type,
+        title,
+        text,
+        origin,
+        add_user,
+        add_date
+    </sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{dynamicsId},
+        #{type},
+        #{title},
+        #{text},
+        #{origin},
+        #{addUser},
+        #{addDate}
+    </sql>
+
+    <!-- 别名 -->
+    <sql id="FieldAlias">
+        t_dynamics.dynamics_id "dynamicsId",
+        t_dynamics.type "type",
+        t_dynamics.title "title",
+        t_dynamics.text "text",
+        t_dynamics.origin "origin",
+        t_dynamics.add_user "addUser",
+        t_dynamics.add_date "addDate"
+    </sql>
+
+    <!-- 新增-->
+    <insert id="insert" parameterType="Dynamics">
+        insert into
+        <include refid="tableName"></include>
+        (
+        <include refid="Field"></include>
+        ) values (
+        <include refid="FieldValue"></include>
+        )
+    </insert>
+
+    <!-- 查找 -->
+    <select id="findByDynamicsId" resultType="Dynamics">
+        SELECT * FROM
+        <include refid="tableName"></include>
+        WHERE dynamics_id=#{dynamicsId}
+    </select>
+
+
+    <sql id="findDynamicsSql">
+        SELECT
+        <include refid="FieldAlias"/>,
+        `t_user_info`.`username` `username`,
+        `t_attachment`.`narrow_image_path` `headPortrait`
+        FROM (`t_dynamics` INNER JOIN `t_user_info` ON `t_dynamics`.`add_user` = `t_user_info`.`user_id`)
+        INNER JOIN `t_attachment` ON `t_dynamics`.`add_user` = `t_attachment`.`content_id`
+    </sql>
+
+    <!-- 按要求查找 -->
+    <select id="findDynamicsByQueryCondition" resultType="DynamicsCustom" parameterType="DynamicsQueryCondition">
+        <include refid="findDynamicsSql"/>
+        WHERE 1=1
+        <choose>
+            <when test="type == 'all'"/>
+            <otherwise>
+                AND `t_dynamics`.${type} = #{queryValue}
+            </otherwise>
+        </choose>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND `t_dynamics`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        ORDER BY ${orderBy} ${order}
+        LIMIT ${index},10
+    </select>
+    <!-- 更新 -->
+    <update id="update" parameterType="Donation">
+        UPDATE <include refid="tableName"></include>
+        SET
+        type=#{type},
+        title=#{title},
+        text=#{text},
+        origin=#{origin},
+        add_user=#{addUser},
+        add_date=#{addDate}
+        WHERE dynamics_id=#{dynamicsId}
+    </update>
+
+</mapper>

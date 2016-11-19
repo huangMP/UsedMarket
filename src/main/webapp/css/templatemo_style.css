@@ -28,7 +28,7 @@ a:hover, a:active, a:focus {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Dosis', serif;
-    color: white;
+    color: black;
 }
 
 .main-content {
@@ -227,7 +227,6 @@ select::-ms-expand {
 .member-infos {
     background-color: white;
     padding: 20px;
-    text-align: center;
 }
 
 .member-name {
