@@ -49,7 +49,8 @@ public class DonationController {
                                  String category,
                                  @RequestParam(value = "amount", defaultValue = "1") int amount,
                                  String location,
-                                 String description
+                                 String description,
+                                 String phone
     ) throws IOException {
 
         Donation donation = new Donation();
@@ -60,9 +61,9 @@ public class DonationController {
         donation.setAmount( amount );
         donation.setLocation( location );
         donation.setDescription( description );
+        donation.setPhone( phone );
         donation.setStatus( 0 );
         donation.setDonationDate( new Date() );
-
 
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images) {
@@ -88,6 +89,19 @@ public class DonationController {
     @ResponseBody
     public List<DonationCustom> searchDonationQueryCondition(DonationQueryCondition donationQueryCondition) {
         return donationService.findDonationByQueryCondition(donationQueryCondition);
+    }
+
+    /**
+     * 按条件修改
+     * @param donationId
+     * @param type 要修改的列
+     * @param futrueValue 未来值
+     * @return
+     */
+    @RequestMapping(value = "/edit")
+    @ResponseBody
+    public DonationCustom editByCondition(String donationId ,String type ,String futrueValue ,String currentValue ,boolean isCheck) {
+        return donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck );
     }
 
 }

@@ -311,6 +311,10 @@
                     <td><input name="amount"/></td>
                 </tr>
                 <tr>
+                    <td>联系电话</td>
+                    <td><input name="phone"/></td>
+                </tr>
+                <tr>
                     <td>描述</td>
                     <td><input name="description"/></td>
                 </tr>
@@ -380,6 +384,167 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------捐赠物品-----------------------------------</span>
+        <h4>按列修改（不支持修改图片）</h4>
+        <h4>修改成功返回 修改后的 DonationCustom；否则返回null </h4>
+        <form action="Donation/edit" method="post">
+            <table>
+                <tr>
+                    <td>捐赠Id</td>
+                    <td><input name="donationId"/></td>
+                </tr>
+                <tr>
+                    <td>要修改的列</td>
+                    <td>
+                        <select name="type">
+                            <option value="donationName">捐赠物品名称:donationName</option>
+                            <option value="category">分类:category</option>
+                            <option value="amount">数量:amount</option>
+                            <option value="location">定位 : location</option>
+                            <option value="description">描述:description</option>
+                            <option value="status">状态:status</option>
+                            <option value="phone">联系电话:phone</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>当前值</td>
+                    <td><input name="currentValue"/></td>
+                </tr>
+                <tr>
+                    <td>未来值</td>
+                    <td><input name="futrueValue"/></td>
+                </tr>
+                <tr>
+                    <td>是否校验当前值</td>
+                    <td>
+                        <select name="isCheck">
+                            <option value="true">是:true</option>
+                            <option value="false">否:flase</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+<!--
+        <span>-----------捐赠动态-----------------------------------</span>
+        <h4>添加捐赠动态</h4>
+        <h4>添加成功返回 添加的Dynamics；否则返回null </h4>
+        <form action="Dynamics/insert" method="post">
+            <table>
+                <tr>
+                    <td>动态类别</td>
+                    <td>
+                        <select name="type">
+                            <option value="1">校园动态:1</option>
+                            <option value="2">捐赠动态:2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>标题</td>
+                    <td><input name="title"/></td>
+                </tr>
+                <tr>
+                    <td>正文</td>
+                    <td><input name="text"/></td>
+                </tr>
+                <tr>
+                    <td>来源</td>
+                    <td><input name="origin"/></td>
+                </tr>
+                <tr>
+                    <td>添加人id</td>
+                    <td><input name="add_user"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+-->
+
+        <span>-----------捐赠动态-----------------------------------</span>
+        <h4>跳转到新增动态页面 (web使用的)</h4>
+        <form action="Dynamics/toInsert" method="post">
+            <input type="submit" value="点击按钮跳转">
+        </form>
+
+        <span>-----------捐赠动态-----------------------------------</span>
+        <h4>通过 dynamicsId 展示某条动态</h4>
+        <form action="Dynamics/display" method="post">
+            <table>
+                <tr>
+                    <td>动态Id</td>
+                    <td><input name="dynamicsId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
+        <span>-----------捐赠动态-----------------------------------</span>
+        <h4>通过 dynamicsId 修改某条动态 (web使用的) </h4>
+        <form action="Dynamics/toEdit" method="post">
+            <table>
+                <tr>
+                    <td>动态Id</td>
+                    <td><input name="dynamicsId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
+        <span>-----------捐赠动态-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <h4>找得到返回 Dynamics的list集合 </h4>
+        <form action="Dynamics/listForAndroid" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="dynamics_id">捐赠动态Id:dynamics_id</option>
+                            <option value="add_user">发布用户Id:add_user</option>
+                            <option value="title">捐赠动态标题:title</option>
+                            <option value="origin">来源:origin</option>
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="add_date">发布动态的时间:add_date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
         <span>-----------收藏物品-----------------------------------</span>
         <h4>收藏</h4>
         <h5>添加收藏</h5>
