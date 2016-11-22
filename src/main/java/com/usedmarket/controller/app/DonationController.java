@@ -1,4 +1,4 @@
-package com.usedmarket.controller;
+package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.DonationCustom;
 import com.usedmarket.dto.DonationQueryCondition;

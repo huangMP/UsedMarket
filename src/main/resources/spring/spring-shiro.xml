@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- 配置緩存管理器 -->
@@ -24,30 +24,35 @@
 	<bean id="lifecycleBeanPostProcessor" 
 		class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
+    <!--自定义的Roles Filter-->
+    <bean id="anyRoles" class="com.usedmarket.realm.CustomRolesAuthorizationFilter" />
+
     <!-- 配置 ShiroFilter bean: 该 bean 的 id 必须和 web.xml 文件中配置的 shiro filter 的 name 一致  -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
     	<!-- 装配 securityManager -->
         <property name="securityManager" ref="securityManager"/>
+
         <!-- 配置登陆页面 -->
-        <property name="loginUrl" value="/tologin"/>
-        <!-- 登陆成功后的一面 -->
-        <property name="successUrl" value="/loginSuccess.html"/>
-        <property name="unauthorizedUrl" value="/bus.html"/>
-		<!-- 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  -->
+        <property name="loginUrl" value="/WebLogin/toLogin"/>
+        <!-- 登陆成功后的页面 -->
+        <property name="successUrl" value="/WebLogin/toHomePage"/>
+        <!-- 用户访问未对其授权的资源时,所显示的连接 -->
+        <property name="unauthorizedUrl" value="/WebLogin/toUnauthorizedPage"/>
+
+        <!-- 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  -->
         <property name="filterChainDefinitions">
             <value>
-            	<!-- 配置登出: 使用 logout 过滤器
-                /shiro-logout = logout
-                /tologin = anon
-                /login = anon
-               /html/work*.html = roles[user]
-                /html/driver*.html = roles[driver]
-                /html/** = roles[admin]
-                /bootstrap2.3.2/**  = anon
-                /images/**  = anon
-                /styles/**  = anon
-                /scripts/**  = anon
-                /** = authc-->
+                /static/** = anon
+                /WebLogin/toLogin = anon
+                /WebLogin/doLogin = anon
+                /WebLogin/doLogout = anon
+                /WebLogin/toHomePage = authc
+                /WebLogin/toUnauthorizedPage = authc
+
+                /WebDonationDynamics/* = anyRoles[admin,donationdynamics]
+
+                /WebRole/* = roles[admin]
+
             </value>
         </property>
     </bean>

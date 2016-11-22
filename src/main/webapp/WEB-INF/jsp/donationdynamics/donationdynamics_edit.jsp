@@ -17,11 +17,11 @@
     <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
 
     <!-- JavaScripts -->
-    <script src="/js/jquery-3.0.0.js"></script>
+    <script src="/static/js/jquery-3.0.0.js"></script>
 
     <style type="text/css">
         div{
@@ -36,15 +36,6 @@
     <input id="addUser" name="addUser" value="${dynamics.addUser}" hidden="hidden"/>
 
     <table class="table">
-        <tr>
-            <td>动态类别</td>
-            <td>
-                <select id="type" name="type" value="${dynamics.type}">
-                    <option value="1">校园动态:1</option>
-                    <option value="2">捐赠动态:2</option>
-                </select>
-            </td>
-        </tr>
         <tr>
             <td>标题</td>
             <td><input id="title" name="title" value="${dynamics.title}"/></td>
@@ -76,7 +67,6 @@
 
         var dynamicsId_value = $("#dynamicsId").attr("value");
         var addUser_value = $("#addUser").attr("value");
-        var type_value= $("#type").attr("value");
         var text_value= UE.getEditor('editor').getContent();
         var title_value= $("#title").attr("value");
         var origin_value= $("#origin").attr("value");
@@ -85,14 +75,13 @@
 
         $.ajax({
             type: 'post',
-            url: '/Dynamics/update',
+            url: '/WebDonationDynamics/update',
             //请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
             //contentType:'application/json;charset=utf-8',
             //dataType: dataType,
             data: {"dynamicsId":dynamicsId_value,
                 "addUser":addUser_value,
                 "text":text_value,
-                "type":type_value,
                 "title":title_value,
                 "origin": origin_value },
             success: function (data) {//返回json结果

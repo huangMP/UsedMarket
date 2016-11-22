@@ -8,8 +8,26 @@ import com.usedmarket.entity.UserInfo;
  */
 public class UserInfoCustom extends UserInfo {
 
+    /**
+     * 头像原图
+     */
     private String headPortraitPath;
+    /**
+     * 头像压缩图
+     */
     private String narrowHeadPortraitPath;
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public String getHeadPortraitPath() {
         return headPortraitPath;

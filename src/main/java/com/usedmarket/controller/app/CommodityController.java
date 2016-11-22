@@ -1,13 +1,10 @@
-package com.usedmarket.controller;
+package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
-import com.usedmarket.util.FileUpload;
-import com.usedmarket.util.NarrowImage;
-import com.usedmarket.util.ResourcesPath;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

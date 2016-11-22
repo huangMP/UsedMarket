@@ -25,7 +25,8 @@
         shipping_address,
         constellation,
         blood_type,
-        signature
+        signature,
+        role_Id
     </sql>
 
     <!-- 字段值 -->
@@ -44,7 +45,8 @@
         #{shippingAddress},
         #{constellation},
         #{bloodType},
-        #{signature}
+        #{signature},
+        #{roleId}
     </sql>
 
     <!-- 别名 -->
@@ -63,7 +65,8 @@
         t_user_info.shipping_address "shippingAddress",
         t_user_info.constellation "constellation",
         t_user_info.blood_type "bloodType",
-        t_user_info.signature "signature"
+        t_user_info.signature "signature",
+        t_user_info.role_id "roleId"
     </sql>
 
     <!-- 查找 -->
@@ -78,10 +81,11 @@
         SELECT
         <include refid="FieldAlias"></include>,
         t_attachment.file_path "headPortraitPath",
-        t_attachment.narrow_image_path "narrowHeadPortraitPath"
+        t_attachment.narrow_image_path "narrowHeadPortraitPath",
+        t_role.role_name "roleName"
         FROM
-        <include refid="tableName"></include>
-        INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id
+        (t_user_info INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id)
+        INNER JOIN t_role ON t_user_info.role_id=t_role.role_id
         WHERE user_id=#{userId}
     </select>
 
@@ -90,10 +94,11 @@
         SELECT
         <include refid="FieldAlias"></include>,
         t_attachment.file_path "headPortraitPath",
-        t_attachment.narrow_image_path "narrowHeadPortraitPath"
+        t_attachment.narrow_image_path "narrowHeadPortraitPath",
+        t_role.role_name "roleName"
         FROM
-        <include refid="tableName"></include>
-        INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id
+        (t_user_info INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id)
+        INNER JOIN t_role ON t_user_info.role_id=t_role.role_id
         WHERE username=#{username}
     </select>
 
@@ -119,7 +124,7 @@
     <!-- 通过 Username 查找 UserInfo -->
     <select id="findByUsername" resultType="UserInfo">
         SELECT
-        *
+        <include refid="FieldAlias"></include>
         FROM
           <include refid="tableName"></include>
         WHERE username=#{username}
@@ -142,7 +147,8 @@
         shipping_address=#{shippingAddress},
         blood_type=#{bloodType},
         constellation=#{constellation},
-        signature=#{signature}
+        signature=#{signature},
+        =#{roleId}
         WHERE user_id=#{userId}
     </update>
 

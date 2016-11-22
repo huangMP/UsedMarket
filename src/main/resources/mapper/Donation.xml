@@ -110,15 +110,5 @@
         LIMIT ${index},10
     </select>
 
-    <!-- 根据传入的id，读取相应的图片 -->
-    <select id="loadImages" parameterType="DonationCustom" resultType="Attachment" >
-    SELECT *
-    FROM `t_attachment`
-    WHERE `t_attachment`.content_id IN
-    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-        #{item.donationId}
-    </foreach>
-    </select>
-
 
 </mapper>

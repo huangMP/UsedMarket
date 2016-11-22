@@ -1,4 +1,4 @@
-package com.usedmarket.controller;
+package com.usedmarket.controller.web;
 
 import com.usedmarket.dto.DynamicsCustom;
 import com.usedmarket.dto.DynamicsQueryCondition;
@@ -19,8 +19,8 @@ import java.util.List;
  * decription : 动态信息 controller
  */
 @Controller
-@RequestMapping("/Dynamics")
-public class DynamicsController {
+@RequestMapping("/WebDonationDynamics")
+public class WebDynamicsControllerController {
 
     @Autowired
     DynamicsService dynamicsService;
@@ -35,7 +35,7 @@ public class DynamicsController {
         // 创建modelAndView准备填充数据、设置视图
         ModelAndView modelAndView = new ModelAndView();
         // 视图
-        modelAndView.setViewName("dynamics/donationdynamics_add");
+        modelAndView.setViewName("donationdynamics/donationdynamics_add");
         return modelAndView;
     }
 
@@ -54,7 +54,7 @@ public class DynamicsController {
             // 填充数据
             modelAndView.addObject("dynamics", dynamics);
             // 视图
-            modelAndView.setViewName("dynamics/donationdynamics_edit");
+            modelAndView.setViewName("donationdynamics/donationdynamics_edit");
             return modelAndView;
         }
         return null;
@@ -69,6 +69,7 @@ public class DynamicsController {
     @ResponseBody
     public Dynamics insert(Dynamics dynamics){
         dynamics.setDynamicsId( UuidUtil.get32UUID() );
+        dynamics.setType( 2 );
         dynamics.setAddDate( new Date());
         if( 0 < dynamicsService.insert(dynamics)){
             return dynamics;
@@ -86,14 +87,9 @@ public class DynamicsController {
     public ModelAndView display(String dynamicsId){
         Dynamics dynamics = dynamicsService.findByDynamicsId(dynamicsId);
         if(null != dynamics){
-
-            // 创建modelAndView准备填充数据、设置视图
             ModelAndView modelAndView = new ModelAndView();
-            // 填充数据
             modelAndView.addObject("dynamics", dynamics);
-            // 视图
-            modelAndView.setViewName("dynamics/donationdynamics_display");
-
+            modelAndView.setViewName("donationdynamics/donationdynamics_display");
             return modelAndView;
         }
         return null;
@@ -107,7 +103,6 @@ public class DynamicsController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public List<DynamicsCustom> listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        System.out.println("---------------------进来了");
         return dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition);
     }
 

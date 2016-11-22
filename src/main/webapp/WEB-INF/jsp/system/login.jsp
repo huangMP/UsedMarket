@@ -21,12 +21,12 @@
     <meta charset="UTF-8">
 
 
+
     <!-- CSS Bootstrap & Custom -->
     <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/static/css/templatemo_style.css" rel="stylesheet" media="screen">
 
-    <!-- Favicons -->
-    <link rel="shortcut icon" href="/static/images/ico/favicon.ico">
+    <script src="/static/js/jquery-3.0.0.js"></script>
 
     <!-- JavaScripts -->
     <!--[if lt IE 8]>
@@ -69,23 +69,26 @@
                         <div class="content-inner">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h3 class="widget-title">What is our goal?</h3>
+                                    <h3 class="widget-title" style="color:#3377aa;">What is our goal?</h3>
                                     <p>Our goal is to give you <a href="#">free website templates</a> that you can use for any purpose. Genius is free HTML5 CSS3 template provided by <a href="#">templatemo</a> for everyone. This website template can be viewed in tablets and mobile devices. You may support us by providing a credit link at the footer of your website.</p>
                                     <p>Credit goes to <a rel="nofollow" href="#">Unsplash</a> for background images used in this template. This layout is based on <a rel="nofollow" href="http://getbootstrap.com">Bootstrap</a> responsive framework. Home and Gallery pages are integrated with <a rel="nofollow" href="https://github.com/duncanmcdougall/Responsive-Lightbox">Responsive Lightbox</a> for images.</p>
                                 </div> <!-- /.col-md-7 -->
                                 <div class="col-md-4">
-                                    <div class="contact-form">
-                                        <p class="full-row">
-                                        <h4 style="color:white;">用户名:</h4>
-                                        <input name="username" type="text" maxlength="20" style="font-size:20px;">
-                                        </p>
-                                        <p class="full-row">
-                                        <h4 style="color:white;">密码:</h4>
-                                        <input name="password" type="password"  maxlength="20" style="font-size:20px;">
-                                        </p>
-                                    </div>
+                                    <h3 style="color:red;  margin: 0 0 0 0;">${errorMassage}</h3>
 
-                                    <input class="mainBtn" type="submit" name="" value="点击登录">
+                                    <form action="/WebLogin/doLogin" method="post">
+                                      <div class="contact-form">
+                                          <p class="full-row">
+                                                <h4 style="color:white;">用户名:</h4>
+                                                <input id="username" name="username" type="text" maxlength="20" style="font-size:20px;">
+                                          </p>
+                                          <p class="full-row">
+                                            <h4 style="color:white;">密码:</h4>
+                                            <input id="password" name="password" type="password"  maxlength="20" style="font-size:20px;">
+                                          </p>
+                                        </div>
+                                      <input id="submitButton" type="submit" name="" value="点击登录">
+                                    </form>
 
                                 </div><!-- /.col-md-4 -->
                             </div> <!-- /.row -->
@@ -100,6 +103,30 @@
     </div> <!-- /.container -->
 </div> <!-- /.main-content -->
 
+
+<script src="/static/js/jquery-3.0.0.js"></script>
+<script type="text/javascript">
+/*
+    $("#submitButton").click(function () {
+
+        var username_value = $("#username").val();
+        var password_value = $("#password").val();
+
+        alert(username_value);
+        alert(password_value);
+        $.ajax({
+            type:'post',
+            url:'/webLogin/doLogin',
+            //请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
+            //contentType:'application/json;charset=utf-8',
+            //数据格式是json串，商品信息
+            data:{username: username_value ,password: password_value },
+            success:function(data){//返回json结果
+            }
+        });
+    });*/
+
+</script>
 
 </body>
 </html>

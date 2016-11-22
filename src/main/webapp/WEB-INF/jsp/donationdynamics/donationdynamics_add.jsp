@@ -17,11 +17,11 @@
     <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
 
     <!-- JavaScripts -->
-    <script src="/js/jquery-3.0.0.js"></script>
+    <script src="/static/js/jquery-3.0.0.js"></script>
 
     <style type="text/css">
         div{
@@ -30,18 +30,9 @@
     </style>
 </head>
 <body>
-<h3>添加校园动态</h3>
-<form action="/Dynamics/insert" method="post" >
+<h3>添加捐赠动态</h3>
+<form action="/WebDonationDynamics/insert" method="post" >
     <table class="table">
-        <tr>
-            <td>动态类别</td>
-            <td>
-                <select name="type">
-                    <option value="1">校园动态:1</option>
-                    <option value="2">捐赠动态:2</option>
-                </select>
-            </td>
-        </tr>
         <tr>
             <td>标题</td>
             <td><input name="title" /></td>

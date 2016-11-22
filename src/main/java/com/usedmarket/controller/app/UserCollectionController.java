@@ -1,4 +1,4 @@
-package com.usedmarket.controller;
+package com.usedmarket.controller.app;
 
 import com.usedmarket.entity.UserCollection;
 import com.usedmarket.service.UserCollectionService;

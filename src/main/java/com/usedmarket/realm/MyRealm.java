@@ -1,11 +1,17 @@
 package com.usedmarket.realm;
 
+import com.usedmarket.dto.UserInfoCustom;
+import com.usedmarket.entity.UserInfo;
+import com.usedmarket.service.UserInfoService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Description：enter your comment
@@ -13,69 +19,54 @@ import org.apache.shiro.subject.PrincipalCollection;
  */
 public class MyRealm extends AuthorizingRealm {
 
-	/*@Autowired
-	private RoleService roleService;
-
 	@Autowired
-	private StaffService staffService;*/
+	UserInfoService userInfoService;
+
 	/**
 	 * 授权方法
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+		System.out.println("进来 doGetAuthorizationInfo 了");
 
-	/*
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
 
-		Object principal = principalCollection.getPrimaryPrincipal();
+		//得到用户名
+		String username = (String) principalCollection.getPrimaryPrincipal();
 
-		Role role = roleService.getRoleNameByNumber((String) principal);
-		System.out.println(111);
-		System.out.println(role.getRoleName());
+		/*
+		通过用户名去找到该用户的角色
+		 */
+		UserInfoCustom userInfoCustom = userInfoService.findUserInfoCustomByUsername( username );
 
-		if("行政文员".equals(role.getRoleName())){
-			info.addRole("admin");
-		}
-		if("司机".equals(role.getRoleName())){
-			info.addRole("driver");
-		}
-		info.addRole("user");
+		//付给该用户的角色权限
+		authorizationInfo.addRole( userInfoCustom.getRoleName() );
 
-		return info;
-	 */
-		return null;
+		return authorizationInfo;
 	}
 
 	/**
 	 * 认证方法
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken token) throws AuthenticationException {
-	/*
-		System.out.println(token.getPrincipal());
-		System.out.println(token.getCredentials());
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		System.out.println("进来 doGetAuthenticationInfo 了");
 
-		Object principal = token.getPrincipal();
+		//得到用户名
+		String username =(String) token.getPrincipal();
 
+		UserInfo userInfoInDatabase = userInfoService.findByUsername(username);
 
-		Staff staff = null;
-		try {
-			staff = staffService.selectByNumber((String) principal);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if( null == userInfoInDatabase){
+			return null;
 		}
 
-		String credentials = staff.getPassword();
+		String password = userInfoInDatabase.getPassword();
 
 		//当前 Realm 的 name
 		String realmName = getName();
-		SimpleAuthenticationInfo info =
-				new SimpleAuthenticationInfo(principal, credentials, realmName);
-
-		return info;
-	*/
-		return null;
+		SimpleAuthenticationInfo authcInfo = new SimpleAuthenticationInfo( username, password, realmName);
+		return authcInfo;
 	}
 }

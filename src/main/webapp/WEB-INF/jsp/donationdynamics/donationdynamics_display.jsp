@@ -25,16 +25,16 @@
     <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/css/font-awesome.min.css" rel="stylesheet" media="screen">
-    <link href="/css/templatemo_style.css" rel="stylesheet" media="screen">
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/static/css/templatemo_style.css" rel="stylesheet" media="screen">
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    <link rel="shortcut icon" href="/static/images/ico/favicon.ico">
 
     <!-- JavaScripts -->
-    <script src="/js/jquery-3.0.0.js"></script>
-    <script src="/js/modernizr.js"></script>
+    <script src="/static/js/jquery-3.0.0.js"></script>
+    <script src="/static/js/modernizr.js"></script>
 
 </head>
 <body>
@@ -79,7 +79,7 @@
 </div> <!-- /.main-content -->
 
 
-<script src="/js/jquery-3.0.0.js"></script>
+<script src="/static/js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
     /*    $(function(){
      $.ajax({
