@@ -380,6 +380,37 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------收藏物品-----------------------------------</span>
+        <h4>收藏</h4>
+        <h5>添加收藏</h5>
+        <form action="Collection/add" method="post">
+            <table>
+                <tr>
+                    <td>用户id</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>商品id</td>
+                    <td><input name="commodityId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+        <h5>删除收藏</h5>
+        <form action="Collection/remove" method="post">
+            <table>
+                <tr>
+                    <td>用户id</td>
+                    <td><input name="userId"/></td>
+                </tr>
+                <tr>
+                    <td>商品id</td>
+                    <td><input name="commodityId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
     </div>
 </div>
 </body>
