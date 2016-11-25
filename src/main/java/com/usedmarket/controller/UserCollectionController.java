@@ -30,7 +30,7 @@ public class UserCollectionController {
 				return "操作失败";
 			}
 		} else {
-			return "此商品已经收藏";
+			return "已收藏成功";
 		}
 	}
 
