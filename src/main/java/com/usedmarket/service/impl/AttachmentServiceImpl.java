@@ -102,6 +102,36 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @return 成功删除的信息条数
      */
     public int delete(String attachmentId) {
+        Attachment attachment = findByAttachmentId(attachmentId);        //得到当前的原图文件名
+        String originalImageFileName = attachment.getFilePath().replaceAll(fileRelativePath, "");
+        //得到当前的缩略图文件名
+        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(fileRelativePath, "");
+        //执行删除操作
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + fileRelativePath + originalImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + fileRelativePath + narrowImageFileName);
+
         return attachmentDao.delete(attachmentId);
+    }
+
+    /**
+     * 删除一条信息
+     *
+     * @param contentId
+     * @return 成功删除的信息条数
+     */
+    public int deleteByContentId(String contentId){
+        System.out.println("service"+contentId);
+        Attachment attachment = attachmentDao.findByContentId(contentId);        //得到当前的原图文件名
+        if(null == attachment){
+            return 0;
+        }
+        String originalImageFileName = attachment.getFilePath().replaceAll(fileRelativePath, "");
+        //得到当前的缩略图文件名
+        String narrowImageFileName = attachment.getNarrowImagePath().replaceAll(fileRelativePath, "");
+        //执行删除操作
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + fileRelativePath + originalImageFileName);
+        FileUtil.delFile(fileAbsoluteathPath.replaceAll("WEB-INF/classes/../../static/attachment/", "") + fileRelativePath + narrowImageFileName);
+
+        return attachmentDao.deleteByContentId(contentId);
     }
 }

@@ -82,7 +82,6 @@ public class WebLoginController {
             modelAndView.addObject("errorMassage","用户名或密码输入错误");
             return modelAndView;
         }
-
     }
 
     /**

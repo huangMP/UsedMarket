@@ -496,6 +496,11 @@
             <a href="/webindex.jsp"><button style="color:red;"><h2>跳转到后台功能测试</h2></button></a>
         </div>
 
+        <span>-----------二手分类-----------------------------------</span>
+        <h4>查找所有二手分类 </h4>
+        <form action="CommodityCategory/findAll" method="post">
+            <input type="submit" value="提交">
+        </form>
 
 
     </div>

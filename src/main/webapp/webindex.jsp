@@ -97,6 +97,70 @@
             </table>
             <input type="submit" value="提交">
         </form>
+
+        <span>-----------二手分类-----------------------------------</span>
+        <h4>查找所有二手分类 </h4>
+        <form action="CommodityCategory/findAll" method="post">
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------二手分类-----------------------------------</span>
+        <h4>添加分类 </h4>
+        <h4>sort用于 取出的时候进行排序 sort越大，排越前 </h4>
+        <form action="/WebCommodityCategory/insert" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>分类名称</td>
+                    <td><input name="commodityCategoryName"/></td>
+                </tr>
+                <tr>
+                    <td>排在第几</td>
+                    <td><input name="sort" type="number" /></td>
+                </tr>
+                <tr>
+                    <td>图片</td>
+                    <td><input name="picture" type="file" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------二手分类-----------------------------------</span>
+        <h4>根据id删除分类 </h4>
+        <form action="/WebCommodityCategory/delete" method="post">
+            <table>
+                <tr>
+                    <td>二手分类id</td>
+                    <td><input name="commodityCategoryId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------二手分类-----------------------------------</span>
+        <h4>修改分类 </h4>
+        <form action="/WebCommodityCategory/update" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>分类id</td>
+                    <td><input name="commodityCategoryId"/></td>
+                </tr>
+                <tr>
+                    <td>分类名称</td>
+                    <td><input name="commodityCategoryName"/></td>
+                </tr>
+                <tr>
+                    <td>排在第几</td>
+                    <td><input name="sort" type="number" /></td>
+                </tr>
+                <tr>
+                    <td>图片</td>
+                    <td><input name="picture" type="file" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
     </div>
 </div>
 </body>

@@ -23,6 +23,12 @@ public interface AttachmentDao {
      */
     public Attachment findByAttachmentId(String attachmentId);
 
+    /**
+     * 查找通过attachmentId
+     * @param contentId
+     * @return
+     */
+    public Attachment findByContentId(String contentId);
 
     /**
      * 修改一条信息
@@ -39,5 +45,13 @@ public interface AttachmentDao {
      * @return 成功删除的信息条数
      */
     public int delete(String attachmentId);
+
+    /**
+     * 删除一条信息
+     *
+     * @param contentId
+     * @return 成功删除的信息条数
+     */
+    public int deleteByContentId(String contentId);
 
 }

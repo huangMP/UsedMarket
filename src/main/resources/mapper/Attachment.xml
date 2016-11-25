@@ -34,6 +34,13 @@
         WHERE attachment_id=#{attachmentId}
     </select>
 
+    <!-- 查找 -->
+    <select id="findByContentId" resultType="Attachment">
+        SELECT * FROM
+        <include refid="tableName"></include>
+        WHERE content_id=#{contentId}
+    </select>
+
     <!-- 新增-->
     <insert id="insert" parameterType="UserInfo">
         insert into
@@ -51,6 +58,13 @@
         <include refid="tableName"></include>
         where
         attachment_id = #{attachmentId}
+    </delete>
+
+    <delete id="deleteByContentId" parameterType="String">
+        delete from
+        <include refid="tableName"></include>
+        where
+        content_id = #{contentId}
     </delete>
 
     <update id="update" parameterType="Attachment">

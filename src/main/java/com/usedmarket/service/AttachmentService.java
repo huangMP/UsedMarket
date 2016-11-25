@@ -39,4 +39,12 @@ public interface AttachmentService {
      * @return 成功删除的信息条数
      */
     public int delete(String attachmentId);
+
+    /**
+     * 删除一条信息
+     *
+     * @param contentId
+     * @return 成功删除的信息条数
+     */
+    public int deleteByContentId(String contentId);
 }

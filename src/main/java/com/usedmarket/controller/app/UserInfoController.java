@@ -1,6 +1,5 @@
 package com.usedmarket.controller.app;
 
-import com.usedmarket.dao.RoleDao;
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
@@ -8,6 +7,7 @@ import com.usedmarket.entity.Role;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
+import com.usedmarket.service.RoleService;
 import com.usedmarket.service.UserInfoService;
 import com.usedmarket.util.JsonUtil;
 import com.usedmarket.util.UuidUtil;
@@ -38,7 +38,7 @@ public class UserInfoController {
     @Autowired
     AttachmentService attachmentService;
     @Autowired
-    RoleDao roleDao;
+    RoleService roleService;
 
     /**
      * 用户注册
@@ -88,7 +88,7 @@ public class UserInfoController {
         userInfo.setPhone(phone);    //设置手机
         userInfo.setRegistrationDate(new Date());    //设置时间
 
-        Role role = roleDao.findByRoleName( "appuser" );
+        Role role = roleService.findByRoleName( "appuser" );
         userInfo.setRoleId( role.getRoleId() );
 
 
