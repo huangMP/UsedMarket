@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.CommodityCategoryCustom;
 import com.usedmarket.service.CommodityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class CommodityCategoryController {
      */
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public List<CommodityCategoryCustom> findAll() {
-        return commodityCategoryService.findAll();
+    public HttpResult findAll() {
+        return new HttpResult<List<CommodityCategoryCustom>>(commodityCategoryService.findAll());
     }
 
 }

@@ -2,6 +2,7 @@ package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.DynamicsCustom;
 import com.usedmarket.dto.DynamicsQueryCondition;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Dynamics;
 import com.usedmarket.service.DynamicsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class DynamicsControllerController {
      */
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
-    public List<DynamicsCustom> listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition);
+    public HttpResult listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
+        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition));
     }
 }

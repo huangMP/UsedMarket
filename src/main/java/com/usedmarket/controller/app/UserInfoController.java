@@ -2,6 +2,7 @@ package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.Role;
 import com.usedmarket.entity.UserInfo;
@@ -51,13 +52,15 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public String insertUserInfo(
+    public HttpResult insertUserInfo(
             @RequestParam(value="headPortrait") MultipartFile headPortrait,
             @RequestParam(value="username") String username,
             @RequestParam(value="password") String password,
             @RequestParam(value = "sex", defaultValue = "9") int sex,
             @RequestParam(value="phone") String phone
                                  ) throws IOException {
+
+        HttpResult httpResult = new HttpResult();
 
         //判断接受到的信息是否正确
         if(
@@ -68,7 +71,8 @@ public class UserInfoController {
                         (headPortrait == null || headPortrait.isEmpty())
                 ){
             System.out.println("接收到的信息不完全");
-            return "注册失败";
+            httpResult.setResultCenter("接收到的信息不完全");
+            return httpResult;
         }
 
         //通过用户名向数据库查询UserInfo
@@ -77,7 +81,8 @@ public class UserInfoController {
         //如果该用户名已存在
         if( null != userInfoInDatabase ){
             System.out.println("用户已存在");
-            return "注册失败";
+            httpResult.setResultCenter("用户已存在");
+            return httpResult;
         }
 
         UserInfo userInfo = new UserInfo();
@@ -98,7 +103,8 @@ public class UserInfoController {
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
         System.out.println("注册成功");
-        return "注册成功";
+        httpResult.setResultCenter("注册成功");
+        return httpResult;
     }
 
     /**
@@ -108,7 +114,9 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/login")
     @ResponseBody
-    public UserInfoCustom login(UserInfo userInfo) {
+    public HttpResult login(UserInfo userInfo) {
+
+        HttpResult httpResult = new HttpResult();
 
         //判断接受到的信息是否正确
         if (
@@ -116,7 +124,8 @@ public class UserInfoController {
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim())
                 ) {
             System.out.println("接收到的信息不完全");
-            return null;
+            httpResult.setResultCenter("接收到的信息不完全");
+            return httpResult;
         }
 
         //通过用户名向数据库查询UserInfo
@@ -125,16 +134,18 @@ public class UserInfoController {
         //判断该用户是否存在
         if (null == userInfoCustom) {
             System.out.println("该用户不存在");
-            return null;
+            httpResult.setResultCenter("该用户不存在");
+            return httpResult;
         }
 
         //判断密码是否输入正确
         if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
             System.out.println("登录成功");
-            return userInfoCustom;
+            return new HttpResult<UserInfoCustom>("登录成功", userInfoCustom);
         }
         System.out.println("密码不正确");
-        return null;
+        httpResult.setResultCenter("密码不正确");
+        return httpResult;
     }
 
     /**
@@ -144,7 +155,9 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/editPassword")
     @ResponseBody
-    public String editPassword(UserInfo userInfo, String newPassword) {
+    public HttpResult editPassword(UserInfo userInfo, String newPassword) {
+
+        HttpResult httpResult = new HttpResult();
 
         //判断接受到的信息是否正确
         if(
@@ -153,7 +166,8 @@ public class UserInfoController {
                 null == newPassword.trim() || "".equals( newPassword.trim() )
                 ){
             System.out.println("接收到的信息不完全");
-            return "修改失败";
+            httpResult.setResultCenter("接收到的信息不完全");
+            return httpResult;
         }
 
         //通过用户Id向数据库查询UserInfo
@@ -162,7 +176,8 @@ public class UserInfoController {
         //判断该用户是否存在
         if( null == userInfoInDatabase ){
             System.out.println("该用户不存在");
-            return "修改失败";
+            httpResult.setResultCenter("该用户不存在");
+            return httpResult;
         }
 
         if( userInfoInDatabase.getPassword().trim().equals( userInfo.getPassword().trim() ) ){
@@ -172,10 +187,11 @@ public class UserInfoController {
             userInfoInDatabase.setPassword( newPassword.trim() );
             //保存到数据库
             userInfoService.updateUserInfo( userInfoInDatabase );
-            return JsonUtil.toJson(userInfoInDatabase);
+            return new HttpResult<UserInfo>(userInfoInDatabase);
         }
         System.out.println("密码不正确");
-        return "修改失败";
+        httpResult.setResultCenter("密码不正确");
+        return httpResult;
     }
 
     /**
@@ -186,10 +202,12 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/editHeadPortrait")
     @ResponseBody
-    public String editHeadPortrait(
+    public HttpResult editHeadPortrait(
             @RequestParam(value = "headPortrait") MultipartFile headPortrait,
             @RequestParam(value = "userId") String userId
     ) {
+
+        HttpResult httpResult = new HttpResult();
 
         //判断接受到的信息是否正确
         if (
@@ -197,7 +215,8 @@ public class UserInfoController {
                         (headPortrait == null || headPortrait.isEmpty())
                 ) {
             System.out.println("接收到的信息不完全");
-            return "修改失败";
+            httpResult.setResultCenter("接收到的信息不完全");
+            return httpResult;
         }
 
         //通过用户Id向数据库查询UserInfo
@@ -206,7 +225,8 @@ public class UserInfoController {
         //判断该用户是否存在
         if (null == userInfoInDatabase) {
             System.out.println("该用户不存在");
-            return "修改失败";
+            httpResult.setResultCenter("该用户不存在");
+            return httpResult;
         }
 
         //更新附件路径
@@ -215,7 +235,8 @@ public class UserInfoController {
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);
 
-        return "修改成功";
+        httpResult.setResultCenter("修改成功");
+        return httpResult;
     }
 
     /**
@@ -229,8 +250,12 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/edit")
     @ResponseBody
-    public UserInfoCustom edit(String userId, String index, String currentValue, String futureValue) {
-        return userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
+    public HttpResult edit(String userId, String index, String currentValue, String futureValue) {
+        UserInfoCustom userInfoCustom = userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
+        if(userInfoCustom == null) {
+            return new HttpResult("操作失败");
+        }
+        return new HttpResult<UserInfoCustom>("修改成功", userInfoCustom);
     }
 
     /**
@@ -241,12 +266,12 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/findCommodityCustomByUserId")
     @ResponseBody
-    public List<CommodityCustom> findCommodityCustomByUserId(String userId,int index) {
+    public HttpResult findCommodityCustomByUserId(String userId,int index) {
         CommodityQueryCondition commodityQueryCondition = new CommodityQueryCondition();
         commodityQueryCondition.setType("t_commodity.user_id");
         commodityQueryCondition.setIndex(index);
         commodityQueryCondition.setQueryValue(userId.trim());
-        return commodityService.findCommodityByQueryCondition(commodityQueryCondition);
+        return new HttpResult<List<CommodityCustom>>(commodityService.findCommodityByQueryCondition(commodityQueryCondition));
     }
 
     /**
@@ -257,8 +282,8 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/findUserInfoCustomByUserId")
     @ResponseBody
-    public UserInfoCustom findUserInfoCustomByUserId(String userId){
-        return userInfoService.findUserInfoCustomByUserId(userId.trim());
+    public HttpResult findUserInfoCustomByUserId(String userId){
+        return new HttpResult<UserInfoCustom>(userInfoService.findUserInfoCustomByUserId(userId.trim()));
     }
 
 }

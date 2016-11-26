@@ -2,6 +2,7 @@ package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.DonationCustom;
 import com.usedmarket.dto.DonationQueryCondition;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Donation;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.DonationService;
@@ -43,7 +44,7 @@ public class DonationController {
      */
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public Donation insertUserInfo(@RequestParam(value = "images") MultipartFile[] images,
+    public HttpResult insertUserInfo(@RequestParam(value = "images") MultipartFile[] images,
                                  String userId,
                                  String donationName,
                                  String category,
@@ -72,11 +73,14 @@ public class DonationController {
             }
         }
 
-        if( 0 != donationService.insertDonation(donation)){
-            return donation;
-        }
+        HttpResult httpResult = new HttpResult();
 
-        return null;
+        if( 0 != donationService.insertDonation(donation)){
+            httpResult.setResultCenter("上传成功");
+        } else
+            httpResult.setResultCenter("操作失败");
+
+        return httpResult;
     }
 
 
@@ -87,8 +91,8 @@ public class DonationController {
      */
     @RequestMapping(value = "/search")
     @ResponseBody
-    public List<DonationCustom> searchDonationQueryCondition(DonationQueryCondition donationQueryCondition) {
-        return donationService.findDonationByQueryCondition(donationQueryCondition);
+    public HttpResult searchDonationQueryCondition(DonationQueryCondition donationQueryCondition) {
+        return new HttpResult<List<DonationCustom>>(donationService.findDonationByQueryCondition(donationQueryCondition));
     }
 
     /**
@@ -100,8 +104,8 @@ public class DonationController {
      */
     @RequestMapping(value = "/edit")
     @ResponseBody
-    public DonationCustom editByCondition(String donationId ,String type ,String futrueValue ,String currentValue ,boolean isCheck) {
-        return donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck );
+    public HttpResult editByCondition(String donationId ,String type ,String futrueValue ,String currentValue ,boolean isCheck) {
+        return new HttpResult<DonationCustom>(donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck ));
     }
 
 }

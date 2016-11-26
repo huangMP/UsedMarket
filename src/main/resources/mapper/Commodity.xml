@@ -132,6 +132,12 @@
                 OR `description` LIKE CONCAT(CONCAT('%', #{queryValue}),'%')
             </when>
 
+            <when test="type == 'workOff'">
+                AND t_commodity.commodity_id IN (
+                  SELECT commodity_id FROM t_order_detail WHERE seller_id = #{queryValue} AND t_order_detail.`status` = 2
+                )
+            </when>
+
             <when test="type == 'collection'">
                 AND t_commodity.commodity_id IN (
                   SELECT commodity_id FROM t_collection WHERE user_id = #{queryValue}

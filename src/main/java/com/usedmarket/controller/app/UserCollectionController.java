@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.UserCollection;
 import com.usedmarket.service.UserCollectionService;
 import com.usedmarket.util.UuidUtil;
@@ -21,27 +22,31 @@ public class UserCollectionController {
 
 	@RequestMapping(value = "/add")
 	@ResponseBody
-	public String addCollection(UserCollection userCollection) {
+	public HttpResult addCollection(UserCollection userCollection) {
+		HttpResult httpResult = new HttpResult();
 		userCollection.setCollectionId(UuidUtil.get32UUID());
 		if (userCollectionService.findOneCollection(userCollection) == null) {
 			if (userCollectionService.addCollection(userCollection)) {
-				return "收藏成功";
+				httpResult.setResultCenter("收藏成功");
 			} else {
-				return "操作失败";
+				httpResult.setResultCenter("操作失败");
 			}
 		} else {
-			return "已收藏成功";
+			httpResult.setResultCenter("已收藏成功");
 		}
+		return httpResult;
 	}
 
 	@RequestMapping(value = "/remove")
 	@ResponseBody
-	public String removeOneCollection(UserCollection userCollection) {
+	public HttpResult removeOneCollection(UserCollection userCollection) {
+		HttpResult httpResult = new HttpResult();
 		if (userCollectionService.removeOneCollection(userCollection)) {
-			return "删除成功";
+			httpResult.setResultCenter("删除成功");
 		} else {
-			return "操作失败";
+			httpResult.setResultCenter("操作失败");
 		}
+		return httpResult;
 	}
 
 }

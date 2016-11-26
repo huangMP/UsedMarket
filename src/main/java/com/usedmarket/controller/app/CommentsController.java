@@ -1,6 +1,7 @@
 package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.CommentCustom;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Comment;
 import com.usedmarket.service.CommentService;
 import com.usedmarket.util.UuidUtil;
@@ -26,37 +27,43 @@ public class CommentsController {
 
 	@RequestMapping(value = "/searchByCommodityId")
 	@ResponseBody
-	public List<CommentCustom> searchCommentByCommodityId(String commodityId) {
-		return commentService.findByCommodityId(commodityId);
+	public HttpResult searchCommentByCommodityId(String commodityId) {
+		return new HttpResult<List<CommentCustom>>(commentService.findByCommodityId(commodityId));
 	}
 
 	@RequestMapping(value = "/insert")
 	@ResponseBody
-	public String insert(Comment comment) {
+	public HttpResult insert(Comment comment) {
 		comment.setCommentId(UuidUtil.get32UUID());
 		comment.setCommentDate(new Date());
+		HttpResult httpResult = new HttpResult();
 		if (commentService.insert(comment)) {
-			return "评论成功";
-		}
-		return "操作失败";
+			httpResult.setResultCenter("评论成功");
+		} else
+			httpResult.setResultCenter("操作失败");
+		return httpResult;
 	}
 
 	@RequestMapping(value = "/deleteByCommentId")
 	@ResponseBody
-	public String deleteByCommentId(String commodityId) {
+	public HttpResult deleteByCommentId(String commodityId) {
+		HttpResult httpResult = new HttpResult();
 		if (commentService.deleteByCommentId(commodityId)) {
-			return "删除成功";
-		}
-		return "操作失败";
+			httpResult.setResultCenter("删除成功");
+		} else
+			httpResult.setResultCenter("操作失败");
+		return httpResult;
 	}
 
 	@RequestMapping(value = "/deleteByCommodityId")
 	@ResponseBody
-	public String deleteByCommodityId(String commodityId) {
+	public HttpResult deleteByCommodityId(String commodityId) {
+		HttpResult httpResult = new HttpResult();
 		if (commentService.deleteByCommodityId(commodityId)) {
-			return "删除成功";
-		}
-		return "操作失败";
+			httpResult.setResultCenter("删除成功");
+		} else
+			httpResult.setResultCenter("操作失败");
+		return httpResult;
 	}
 
 }

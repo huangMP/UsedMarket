@@ -2,6 +2,7 @@ package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
@@ -33,31 +34,35 @@ public class CommodityController {
 
 	@RequestMapping(value = "/search")
 	@ResponseBody
-	public List<CommodityCustom> searchCommodityByCondition(CommodityQueryCondition commodityQueryCondition) {
-		return commodityService.findCommodityByQueryCondition(commodityQueryCondition);
+	public HttpResult searchCommodityByCondition(CommodityQueryCondition commodityQueryCondition) {
+		return new HttpResult<List<CommodityCustom>>(commodityService.findCommodityByQueryCondition(commodityQueryCondition));
 	}
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
-	public String deleteCommodity(String commodityId) {
+	public HttpResult deleteCommodity(String commodityId) {
+		HttpResult httpResult = new HttpResult();
 		if (commodityService.deleteByCommodityId(commodityId)) {
-			return "删除成功";
-		}
-		return "操作失败";
+			httpResult.setResultCenter("删除成功");
+		} else
+			httpResult.setResultCenter("操作失败");
+		return httpResult;
 	}
 
 	@RequestMapping(value = "/updateCommodityNum")
 	@ResponseBody
-	public String updateNumByCommodityId(Commodity commodity) {
+	public HttpResult updateNumByCommodityId(Commodity commodity) {
+		HttpResult httpResult = new HttpResult();
 		if (commodityService.updateNumByCommodityId(commodity)) {
-			return "更新成功";
-		}
-		return "操作失败";
+			httpResult.setResultCenter("更新成功");
+		} else
+			httpResult.setResultCenter("操作失败");
+		return httpResult;
 	}
 
 	@RequestMapping(value = "/upload")
 	@ResponseBody
-	public String uploadCommodity(@RequestParam(value = "images") MultipartFile[] images,
+	public HttpResult uploadCommodity(@RequestParam(value = "images") MultipartFile[] images,
 	                              String userId,
 	                              String storeId,
 	                              String commodityName,
@@ -91,11 +96,13 @@ public class CommodityController {
 
 		}
 
-		if (commodityService.addCommodity(commodity)) {
-			return "商品上传成功";
-		}
+		HttpResult httpResult = new HttpResult();
 
-		return "商品上传失败";
+		if (commodityService.addCommodity(commodity)) {
+			httpResult.setResultCenter("上传成功");
+		} else
+			httpResult.setResultCenter("操作失败");
+		return httpResult;
 
 	}
 
