@@ -36,16 +36,22 @@ public class DynamicsQueryCondition {
 	 */
 	private String orderBy;
 
+	/**
+	 * 动态类型
+	 */
+	private String dynamicsType;
+
 	public DynamicsQueryCondition() {
 	}
 
-	public DynamicsQueryCondition(String type, String indistinctField, String queryValue, int index, String order, String orderBy) {
+	public DynamicsQueryCondition(String type, String indistinctField, String queryValue, int index, String order, String orderBy, String dynamicsType) {
 		this.type = type;
 		this.indistinctField = indistinctField;
 		this.queryValue = queryValue;
 		this.index = index;
 		this.order = order;
 		this.orderBy = orderBy;
+		this.dynamicsType = dynamicsType;
 	}
 
 	public String getType() {
@@ -94,5 +100,13 @@ public class DynamicsQueryCondition {
 
 	public void setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
+	}
+
+	public String getDynamicsType() {
+		return dynamicsType;
+	}
+
+	public void setDynamicsType(String dynamicsType) {
+		this.dynamicsType = dynamicsType;
 	}
 }

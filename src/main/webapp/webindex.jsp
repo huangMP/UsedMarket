@@ -54,6 +54,15 @@
         <form action="/DonationDynamics/listForAndroid" method="post">
             <table>
                 <tr>
+                    <td>动态类型</td>
+                    <td>
+                        <select name="dynamicsType">
+                            <option value="1">校园动态</option>
+                            <option value="2">捐赠动态</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>类型</td>
                     <td>
                         <select name="type">
@@ -199,6 +208,15 @@
         <h4>找得到返回 Dynamics的list集合 </h4>
         <form action="/SchoolDynamics/listForAndroid" method="post">
             <table>
+                <tr>
+                    <td>动态类型</td>
+                    <td>
+                        <select name="dynamicsType">
+                            <option value="1">校园动态</option>
+                            <option value="2">捐赠动态</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td>类型</td>
                     <td>

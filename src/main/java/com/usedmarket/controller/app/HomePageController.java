@@ -61,7 +61,7 @@ public class HomePageController {
 		//五条众筹
 		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findCrowdfundingQueryCondition(new CrowdfundingQueryCondition("all", "", "", 0, "DESC", "add_date", "5"));
 		//五条动态
-		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDanotionDynamicsByQueryCondition(new DynamicsQueryCondition("all", "", "", 0, "DESC", "add_date"));
+		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new DynamicsQueryCondition("all", "", "", 0, "DESC", "add_date", ""));
 
 		return new HttpResult<HomePageData>(new HomePageData(
 				carouselList,

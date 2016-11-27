@@ -103,7 +103,7 @@ public class WebDonationDynamicsController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public List<DynamicsCustom> listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return dynamicsService.findDanotionDynamicsByQueryCondition(dynamicsQueryCondition);
+        return dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition);
     }
 
     /**

@@ -50,6 +50,6 @@ public class DonationDynamicsController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public HttpResult listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findDanotionDynamicsByQueryCondition(dynamicsQueryCondition));
+        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition));
     }
 }

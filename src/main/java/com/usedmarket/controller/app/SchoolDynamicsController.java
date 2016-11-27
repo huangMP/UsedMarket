@@ -50,6 +50,6 @@ public class SchoolDynamicsController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public HttpResult listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findSchoolDynamicsByQueryCondition(dynamicsQueryCondition));
+        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition));
     }
 }

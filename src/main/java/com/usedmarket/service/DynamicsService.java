@@ -33,16 +33,10 @@ public interface DynamicsService {
     Dynamics update(Dynamics dynamics);
 
     /**
-     * 按列查找 捐赠动态
+     * 按列查找 动态查找
      * @param dynamicsQueryCondition
      * @return
      */
-    List<DynamicsCustom> findDanotionDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
+    List<DynamicsCustom> findDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
 
-    /**
-     * 按列查找 校园动态
-     * @param dynamicsQueryCondition
-     * @return
-     */
-    List<DynamicsCustom> findSchoolDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
 }

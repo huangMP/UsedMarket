@@ -103,7 +103,7 @@ public class WebSchoolDynamicsController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public List<DynamicsCustom> listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return dynamicsService.findSchoolDynamicsByQueryCondition(dynamicsQueryCondition);
+        return dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition);
     }
 
     /**
