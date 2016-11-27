@@ -468,13 +468,13 @@
 
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>跳转到新增动态页面 (web使用的)</h4>
-        <form action="Dynamics/toInsert" method="post">
+        <form action="/WebDonationDynamics/toInsert" method="post">
             <input type="submit" value="点击按钮跳转">
         </form>
 
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>通过 dynamicsId 展示某条动态</h4>
-        <form action="Dynamics/display" method="post">
+        <form action="/DonationDynamics/display" method="post">
             <table>
                 <tr>
                     <td>动态Id</td>
@@ -487,7 +487,7 @@
 
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>通过 dynamicsId 修改某条动态 (web使用的) </h4>
-        <form action="Dynamics/toEdit" method="post">
+        <form action="/WebDonationDynamics/toEdit" method="post">
             <table>
                 <tr>
                     <td>动态Id</td>
@@ -501,7 +501,7 @@
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>条件查找 </h4>
         <h4>找得到返回 Dynamics的list集合 </h4>
-        <form action="Dynamics/listForAndroid" method="post">
+        <form action="/DonationDynamics/listForAndroid" method="post">
             <table>
                 <tr>
                     <td>类型</td>
@@ -596,8 +596,74 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------二手专题-----------------------------------</span>
+        <h4>查找所有 </h4>
+        <form action="Crowdfunding/findAll" method="post">
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------捐赠动态-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <h4>找得到返回 Dynamics的list集合 </h4>
+        <form action="Crowdfunding/findCrowdfundingQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="crowdfunding_id">捐赠动态Id:crowdfunding_id</option>
+                            <option value="add_user">发布用户Id:add_user</option>
+                            <option value="title">捐赠动态标题:title</option>
+                            <option value="origin">来源:origin</option>
+                            <option value="crowdfunding_type">类型:crowdfunding_type 1:创意众筹 2：爱心众筹 </option>
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="add_date">发布动态的时间:add_date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询数量</td>
+                    <td><input name="size"  value="0"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
     </div>
 </div>
+
+
+
+
 </body>
 
 <script src="/static/js/jquery-3.0.0.js"></script>
