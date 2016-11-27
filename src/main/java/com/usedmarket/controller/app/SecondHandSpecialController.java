@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.dto.SecondHandSpecialCustom;
 import com.usedmarket.service.SecondHandSpecialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class SecondHandSpecialController {
 
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public List<SecondHandSpecialCustom> findAll() {
-        return secondHandSpecialService.findAll();
+    public HttpResult findAll() {
+        return new HttpResult<List<SecondHandSpecialCustom>>(secondHandSpecialService.findAll());
     }
 
 }

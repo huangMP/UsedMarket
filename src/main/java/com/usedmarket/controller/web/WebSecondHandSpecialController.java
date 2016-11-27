@@ -1,5 +1,6 @@
 package com.usedmarket.controller.web;
 
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.dto.SecondHandSpecialCustom;
 import com.usedmarket.entity.SecondHandSpecial;
 import com.usedmarket.service.AttachmentService;
@@ -30,7 +31,7 @@ public class WebSecondHandSpecialController {
 
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public int insert(
+    public HttpResult insert(
             @RequestParam(value = "images") MultipartFile[] images,
             @RequestParam(value = "secondHandSpecialName") String secondHandSpecialName,
             @RequestParam(value = "sort", defaultValue = "0") int sort ) {
@@ -50,36 +51,36 @@ public class WebSecondHandSpecialController {
                 attachementService.insert(image, secondHandSpecial.getSecondHandSpecialId() , "4");
             }
         }
-        return secondHandSpecialService.insert(secondHandSpecial);
+        return new HttpResult<Integer>( secondHandSpecialService.insert(secondHandSpecial) );
     }
 
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public int delete(String secondHandSpecialId) {
-        return secondHandSpecialService.delete(secondHandSpecialId);
+    public HttpResult delete(String secondHandSpecialId) {
+        return new HttpResult<Integer>( secondHandSpecialService.delete(secondHandSpecialId) );
     }
 
     @RequestMapping(value = "/findBySecondHandSpecialId")
     @ResponseBody
-    public SecondHandSpecial findBySecondHandSpecialId(String secondHandSpecialId) {
-        return secondHandSpecialService.findBySecondHandSpecialId(secondHandSpecialId);
+    public HttpResult findBySecondHandSpecialId(String secondHandSpecialId) {
+        return new HttpResult<SecondHandSpecial>( secondHandSpecialService.findBySecondHandSpecialId(secondHandSpecialId) );
     }
 
     @RequestMapping(value = "/findSecondHandSpecialCustomBySecondHandSpecialId")
     @ResponseBody
-    public SecondHandSpecialCustom findSecondHandSpecialCustomBySecondHandSpecialId(String secondHandSpecialId) {
-        return secondHandSpecialService.findSecondHandSpecialCustomBySecondHandSpecialId(secondHandSpecialId);
+    public HttpResult findSecondHandSpecialCustomBySecondHandSpecialId(String secondHandSpecialId) {
+        return new HttpResult<SecondHandSpecialCustom>(secondHandSpecialService.findSecondHandSpecialCustomBySecondHandSpecialId(secondHandSpecialId) );
     }
 
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public List<SecondHandSpecialCustom> findAll() {
-        return secondHandSpecialService.findAll();
+    public HttpResult findAll() {
+        return new HttpResult<List<SecondHandSpecialCustom>>( secondHandSpecialService.findAll() );
     }
 
     @RequestMapping(value = "/update")
     @ResponseBody
-    public int update(SecondHandSpecial secondHandSpecial) {
-        return secondHandSpecialService.update(secondHandSpecial);
+    public HttpResult update(SecondHandSpecial secondHandSpecial) {
+        return  new HttpResult<Integer>( secondHandSpecialService.update(secondHandSpecial) );
     }
 }

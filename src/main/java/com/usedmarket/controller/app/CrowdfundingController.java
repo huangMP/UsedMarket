@@ -2,6 +2,7 @@ package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.CrowdfundingCustom;
 import com.usedmarket.dto.CrowdfundingQueryCondition;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.service.CrowdfundingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +22,15 @@ public class CrowdfundingController{
     @Autowired
     CrowdfundingService crowdfundingService;
 
-    @RequestMapping(value = "/findCrowdfundingQueryCondition")
+    @RequestMapping(value = "/delete")
     @ResponseBody
     public int delete(String crowdfundingId) {
         return crowdfundingService.delete(crowdfundingId);
     }
 
-    public List<CrowdfundingCustom> findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition){
-        return crowdfundingService.findCrowdfundingQueryCondition(crowdfundingQueryCondition);
+    @RequestMapping(value = "/findCrowdfundingQueryCondition")
+    @ResponseBody
+    public HttpResult findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition){
+        return new HttpResult<List<CrowdfundingCustom>>( crowdfundingService.findCrowdfundingQueryCondition(crowdfundingQueryCondition) );
     }
 }

@@ -2,6 +2,7 @@ package com.usedmarket.controller.web;
 
 import com.usedmarket.dto.CrowdfundingCustom;
 import com.usedmarket.dto.CrowdfundingQueryCondition;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Crowdfunding;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CrowdfundingService;
@@ -31,7 +32,7 @@ public class WebCrowdfundingController {
 
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public int insert(
+    public HttpResult insert(
                       @RequestParam(value = "images") MultipartFile[] images,
                       @RequestParam(value = "crowdfundingType", defaultValue = "0") int crowdfundingType,
                       String title,
@@ -60,36 +61,36 @@ public class WebCrowdfundingController {
             }
         }
 
-        return crowdfundingService.insert(crowdfunding);
+        return new HttpResult<Integer>( crowdfundingService.insert(crowdfunding) );
     }
 
     @RequestMapping(value = "/findByCrowdfundingId")
     @ResponseBody
-    public Crowdfunding findByCrowdfundingId(String crowdfundingId) {
-        return crowdfundingService.findByCrowdfundingId(crowdfundingId);
+    public HttpResult findByCrowdfundingId(String crowdfundingId) {
+        return new HttpResult<Crowdfunding>( crowdfundingService.findByCrowdfundingId(crowdfundingId) );
     }
 
     @RequestMapping(value = "/findByaddUser")
     @ResponseBody
-    public Crowdfunding findByaddUser(String addUser) {
-        return crowdfundingService.findByaddUser(addUser);
+    public HttpResult findByaddUser(String addUser) {
+        return new HttpResult<Crowdfunding>( crowdfundingService.findByaddUser(addUser) );
     }
 
     @RequestMapping(value = "/update")
     @ResponseBody
-    public int update(Crowdfunding crowdfunding) {
-        return crowdfundingService.update(crowdfunding);
+    public HttpResult update(Crowdfunding crowdfunding) {
+        return new HttpResult<Integer>(crowdfundingService.update(crowdfunding));
     }
 
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public int delete(String crowdfundingId) {
-        return crowdfundingService.delete(crowdfundingId);
+    public HttpResult delete(String crowdfundingId) {
+        return new HttpResult<Integer>( crowdfundingService.delete(crowdfundingId) );
     }
 
     @RequestMapping(value = "/findCrowdfundingQueryCondition")
     @ResponseBody
-    public List<CrowdfundingCustom> findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition){
-        return crowdfundingService.findCrowdfundingQueryCondition(crowdfundingQueryCondition);
+    public HttpResult findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition){
+        return new HttpResult<List<CrowdfundingCustom>>( crowdfundingService.findCrowdfundingQueryCondition(crowdfundingQueryCondition) );
     }
 }
