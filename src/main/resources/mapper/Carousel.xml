@@ -27,7 +27,7 @@
         #{sort}
     </sql>
 
-    <!-- 通过 commentId 查找 Comment -->
+    <!-- 查找前五条 Carousel -->
     <select id="selectTop5" resultType="Carousel">
         SELECT t_carousel.*, `t_attachment`.`narrow_image_path` imagePath FROM
         t_carousel INNER JOIN t_attachment ON t_carousel.carousel_id = t_attachment.content_id
@@ -51,7 +51,7 @@
         delete from
         <include refid="tableName"></include>
         where
-        Carousel_id = #{CarouselId}
+        carousel_id = #{carouselId}
     </delete>
 
     <!-- 更新 -->
