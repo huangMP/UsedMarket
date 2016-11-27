@@ -1,8 +1,8 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.CommodityCategoryDao;
+import com.usedmarket.dto.CommodityCategoryCustom;
 import com.usedmarket.entity.CommodityCategory;
-import com.usedmarket.entity.CommodityCategoryCustom;
 import com.usedmarket.service.CommodityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

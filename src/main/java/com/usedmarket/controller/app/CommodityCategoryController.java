@@ -1,7 +1,7 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.dto.CommodityCategoryCustom;
 import com.usedmarket.dto.HttpResult;
-import com.usedmarket.entity.CommodityCategoryCustom;
 import com.usedmarket.service.CommodityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -95,4 +95,6 @@ public class DonationQueryCondition {
 	public void setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
 	}
+
+
 }

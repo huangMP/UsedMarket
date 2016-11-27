@@ -1,10 +1,12 @@
-package com.usedmarket.entity;
+package com.usedmarket.dto;
+
+import com.usedmarket.entity.CommodityCategory;
 
 /**
  * Created by huangMP on 2016/11/24.
  * decription :
  */
-public class CommodityCategoryCustom extends CommodityCategory{
+public class CommodityCategoryCustom extends CommodityCategory {
 
     private String narrowPicturePath;
     private String picturePath;

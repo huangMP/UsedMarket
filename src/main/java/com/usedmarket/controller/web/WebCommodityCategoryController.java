@@ -1,7 +1,7 @@
 package com.usedmarket.controller.web;
 
+import com.usedmarket.dto.CommodityCategoryCustom;
 import com.usedmarket.entity.CommodityCategory;
-import com.usedmarket.entity.CommodityCategoryCustom;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityCategoryService;
 import com.usedmarket.util.UuidUtil;
