@@ -32,7 +32,7 @@ public class WebCrowdfundingController {
 
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public HttpResult insert(
+    public int insert(
                       @RequestParam(value = "images") MultipartFile[] images,
                       @RequestParam(value = "crowdfundingType", defaultValue = "0") int crowdfundingType,
                       String title,
@@ -61,31 +61,31 @@ public class WebCrowdfundingController {
             }
         }
 
-        return new HttpResult<Integer>( crowdfundingService.insert(crowdfunding) );
+        return crowdfundingService.insert(crowdfunding);
     }
 
     @RequestMapping(value = "/findByCrowdfundingId")
     @ResponseBody
-    public HttpResult findByCrowdfundingId(String crowdfundingId) {
-        return new HttpResult<Crowdfunding>( crowdfundingService.findByCrowdfundingId(crowdfundingId) );
+    public Crowdfunding findByCrowdfundingId(String crowdfundingId) {
+        return crowdfundingService.findByCrowdfundingId(crowdfundingId);
     }
 
     @RequestMapping(value = "/findByaddUser")
     @ResponseBody
-    public HttpResult findByaddUser(String addUser) {
-        return new HttpResult<Crowdfunding>( crowdfundingService.findByaddUser(addUser) );
+    public Crowdfunding findByaddUser(String addUser) {
+        return crowdfundingService.findByaddUser(addUser);
     }
 
     @RequestMapping(value = "/update")
     @ResponseBody
-    public HttpResult update(Crowdfunding crowdfunding) {
-        return new HttpResult<Integer>(crowdfundingService.update(crowdfunding));
+    public int update(Crowdfunding crowdfunding) {
+        return crowdfundingService.update(crowdfunding);
     }
 
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public HttpResult delete(String crowdfundingId) {
-        return new HttpResult<Integer>( crowdfundingService.delete(crowdfundingId) );
+    public int delete(String crowdfundingId) {
+        return crowdfundingService.delete(crowdfundingId);
     }
 
     @RequestMapping(value = "/findCrowdfundingQueryCondition")

@@ -1,7 +1,7 @@
 package com.usedmarket.dao;
 
+import com.usedmarket.dto.CommodityCategoryCustom;
 import com.usedmarket.entity.CommodityCategory;
-import com.usedmarket.entity.CommodityCategoryCustom;
 
 import java.util.List;
 

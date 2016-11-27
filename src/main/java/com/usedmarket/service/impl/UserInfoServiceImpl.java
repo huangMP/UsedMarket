@@ -69,10 +69,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoCustom userInfoCustom = findUserInfoCustomByUserId(userId);
 
-        if( userInfoCustom != null ){
+        if( userInfoCustom == null ){
             return null;
         }
-
+        System.out.println(userInfoCustom.toString());
         Map map = MapUtils.transBean2Map(userInfoCustom);
 
         if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {
