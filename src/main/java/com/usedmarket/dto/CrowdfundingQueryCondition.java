@@ -41,6 +41,19 @@ public class CrowdfundingQueryCondition {
      */
     private String size;
 
+    public CrowdfundingQueryCondition(String type, String indistinctField, String queryValue, int index, String order, String orderBy, String size) {
+        this.type = type;
+        this.indistinctField = indistinctField;
+        this.queryValue = queryValue;
+        this.index = index;
+        this.order = order;
+        this.orderBy = orderBy;
+        this.size = size;
+    }
+
+    public CrowdfundingQueryCondition() {
+    }
+
     public String getType() {
         return type;
     }

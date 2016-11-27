@@ -26,6 +26,16 @@ public class SentenceQueryCondition {
 	 */
 	private Boolean doRandom;
 
+	public SentenceQueryCondition(Integer type, Integer index, Integer num, Boolean doRandom) {
+		this.type = type;
+		this.index = index;
+		this.num = num;
+		this.doRandom = doRandom;
+	}
+
+	public SentenceQueryCondition() {
+	}
+
 	public Integer getType() {
 		return type;
 	}

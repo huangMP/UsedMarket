@@ -17,8 +17,8 @@ import static org.junit.Assert.*;
  * Description：轮播图test
  * Created by Peivxuan on 2016/11/26.
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration({"classpath:spring/*.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"classpath:spring/*.xml"})
 public class CarouselDaoTest {
 
 	@Autowired

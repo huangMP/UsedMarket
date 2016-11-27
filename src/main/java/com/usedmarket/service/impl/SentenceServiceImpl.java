@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Description：单文字表的ServiceImpl
+ * Description：单文字表的ServiceImpl（0.推荐；1.跑马条；2.一级标题）
  * Created by Peivxuan on 2016/11/26.
  */
 @Service
