@@ -2,6 +2,7 @@ package com.usedmarket.dto;
 
 import com.usedmarket.entity.Carousel;
 import com.usedmarket.entity.SentenceBean;
+import com.usedmarket.entity.Store;
 
 import java.util.List;
 
@@ -12,50 +13,53 @@ import java.util.List;
 public class HomePageData {
 
 	/**
-	 * 五条轮播图
+	 * 轮播图
 	 */
 	private List<Carousel> carouselList;
 
 	/**
-	 * 五条跑马条
+	 * 跑马条
 	 */
 	private List<SentenceBean> sentenceBeanList;
 
 	/**
-	 * 全部二手专题
+	 * 二手专题
 	 */
 	private List<SecondHandSpecialCustom> secondHandSpecialCustomList;
 
 	/**
-	 * 五条众筹
+	 * 众筹
 	 */
 	private List<CrowdfundingCustom> crowdfundingCustomList;
 
 	/**
-	 * 五条动态
+	 * 动态
 	 */
 	private List<DynamicsCustom> dynamicsCustomList;
+
+	/**
+	 * 店铺
+	 */
+	private List<Store> storeList;
 
 	public HomePageData() {
 	}
 
-	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<SecondHandSpecialCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList) {
+	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<SecondHandSpecialCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<Store> storeList) {
 		this.carouselList = carouselList;
 		this.sentenceBeanList = sentenceBeanList;
 		this.secondHandSpecialCustomList = secondHandSpecialCustomList;
 		this.crowdfundingCustomList = crowdfundingCustomList;
 		this.dynamicsCustomList = dynamicsCustomList;
+		this.storeList = storeList;
 	}
 
-	@Override
-	public String toString() {
-		return "HomePageData{" +
-				"carouselList=" + carouselList +
-				", sentenceBeanList=" + sentenceBeanList +
-				", secondHandSpecialCustomList=" + secondHandSpecialCustomList +
-				", crowdfundingCustomList=" + crowdfundingCustomList +
-				", dynamicsCustomList=" + dynamicsCustomList +
-				'}';
+	public List<Store> getStoreList() {
+		return storeList;
+	}
+
+	public void setStoreList(List<Store> storeList) {
+		this.storeList = storeList;
 	}
 
 	public List<Carousel> getCarouselList() {
@@ -96,5 +100,17 @@ public class HomePageData {
 
 	public void setDynamicsCustomList(List<DynamicsCustom> dynamicsCustomList) {
 		this.dynamicsCustomList = dynamicsCustomList;
+	}
+
+	@Override
+	public String toString() {
+		return "HomePageData{" +
+				"storeList=" + storeList +
+				", dynamicsCustomList=" + dynamicsCustomList +
+				", crowdfundingCustomList=" + crowdfundingCustomList +
+				", secondHandSpecialCustomList=" + secondHandSpecialCustomList +
+				", sentenceBeanList=" + sentenceBeanList +
+				", carouselList=" + carouselList +
+				'}';
 	}
 }

@@ -3,6 +3,7 @@ package com.usedmarket.controller.app;
 import com.usedmarket.dto.*;
 import com.usedmarket.entity.Carousel;
 import com.usedmarket.entity.SentenceBean;
+import com.usedmarket.entity.Store;
 import com.usedmarket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,12 @@ public class HomePageController {
 	@Autowired
 	private CrowdfundingService crowdfundingService;
 
+	/**
+	 * 店铺
+	 */
+	@Autowired
+	private StoreService storeService;
+
 	@RequestMapping("/display")
 	@ResponseBody
 	public HttpResult HomePageDataDisplay() {
@@ -62,13 +69,18 @@ public class HomePageController {
 		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findCrowdfundingQueryCondition(new CrowdfundingQueryCondition("all", "", "", 0, "DESC", "add_date", "5"));
 		//五条动态
 		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new DynamicsQueryCondition("all", "", "", 0, "DESC", "add_date", ""));
+		//店铺
+		List<Store> storeList = storeService.findAll();
+
 
 		return new HttpResult<HomePageData>(new HomePageData(
 				carouselList,
 				sentenceBeanList,
 				secondHandSpecialCustomList,
 				crowdfundingCustomList,
-				dynamicsCustomList));
+				dynamicsCustomList,
+				storeList
+		));
 	}
 
 }
