@@ -361,6 +361,32 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------商店-----------------------------------</span>
+        <h4>添加</h4>
+        <form action="/WebStore/insert" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>描述</td>
+                    <td><input name="description"/></td>
+                </tr>
+                <tr>
+                    <td>店名</td>
+                    <td><input name="storeName"/></td>
+                </tr>
+                <tr>
+                    <td>图片</td>
+                    <td><input name="images" type="file" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------商店-----------------------------------</span>
+        <h4>查找所有商店 </h4>
+        <form action="WebStore/findAll" method="post">
+            <input type="submit" value="提交">
+        </form>
+
     </div>
 </div>
 </body>

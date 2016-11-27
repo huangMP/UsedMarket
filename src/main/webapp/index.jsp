@@ -581,7 +581,7 @@
 
         <span>-----------后台功能测试-----------------------------------</span>
         <div>
-            <a href="/webindex.jsp"><button style="color:red;"><h2>跳转到后台功能测试</h2></button></a>
+            <a href="webindex.jsp"><button style="color:red;"><h2>跳转到后台功能测试</h2></button></a>
         </div>
 
         <span>-----------二手分类-----------------------------------</span>
@@ -602,9 +602,9 @@
             <input type="submit" value="提交">
         </form>
 
-        <span>-----------捐赠动态-----------------------------------</span>
+        <span>-----------众筹-----------------------------------</span>
         <h4>条件查找 </h4>
-        <h4>找得到返回 Dynamics的list集合 </h4>
+        <h4>找得到返回 Crowdfunding的list集合 </h4>
         <form action="Crowdfunding/findCrowdfundingQueryCondition" method="post">
             <table>
                 <tr>
