@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/WebDonationDynamics")
-public class WebDynamicsControllerController {
+public class WebDonationDynamicsController {
 
     @Autowired
     DynamicsService dynamicsService;
@@ -103,7 +103,7 @@ public class WebDynamicsControllerController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public List<DynamicsCustom> listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition);
+        return dynamicsService.findDanotionDynamicsByQueryCondition(dynamicsQueryCondition);
     }
 
     /**

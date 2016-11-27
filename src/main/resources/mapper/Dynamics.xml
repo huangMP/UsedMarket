@@ -64,16 +64,14 @@
     <sql id="findDynamicsSql">
         SELECT
         <include refid="FieldAlias"/>,
-        `t_user_info`.`username` `username`,
-        `t_attachment`.`narrow_image_path` `headPortrait`
-        FROM (`t_dynamics` INNER JOIN `t_user_info` ON `t_dynamics`.`add_user` = `t_user_info`.`user_id`)
-        INNER JOIN `t_attachment` ON `t_dynamics`.`add_user` = `t_attachment`.`content_id`
+        `t_user_info`.`username` `username`
+        FROM `t_dynamics` INNER JOIN `t_user_info` ON `t_dynamics`.`add_user` = `t_user_info`.`user_id`
     </sql>
 
-    <!-- 按要求查找 -->
-    <select id="findDynamicsByQueryCondition" resultType="DynamicsCustom" parameterType="DynamicsQueryCondition">
+    <!-- 按要求查找 校园动态 -->
+    <select id="findSchoolDynamicsByQueryCondition" resultType="DynamicsCustom" parameterType="DynamicsQueryCondition">
         <include refid="findDynamicsSql"/>
-        WHERE 1=1
+        WHERE 1=1 AND t_dynamics.type=1
         <choose>
             <when test="type == 'all'"/>
             <otherwise>
@@ -86,6 +84,25 @@
         ORDER BY ${orderBy} ${order}
         LIMIT ${index},10
     </select>
+
+    <!-- 按要求查找 捐赠动态 -->
+    <select id="findDanotionDynamicsByQueryCondition" resultType="DynamicsCustom" parameterType="DynamicsQueryCondition">
+        <include refid="findDynamicsSql"/>
+        WHERE 1=1 AND t_dynamics.type=2
+        <choose>
+            <when test="type == 'all'"/>
+            <otherwise>
+                AND `t_dynamics`.${type} = #{queryValue}
+            </otherwise>
+        </choose>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND `t_dynamics`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        ORDER BY ${orderBy} ${order}
+        LIMIT ${index},10
+    </select>
+
+
     <!-- 更新 -->
     <update id="update" parameterType="Donation">
         UPDATE <include refid="tableName"></include>

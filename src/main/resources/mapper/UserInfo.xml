@@ -154,7 +154,7 @@
         blood_type=#{bloodType},
         constellation=#{constellation},
         signature=#{signature},
-        =#{roleId}
+        role_Id=#{roleId}
         WHERE user_id=#{userId}
     </update>
 

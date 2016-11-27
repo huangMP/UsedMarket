@@ -27,12 +27,18 @@ public interface DynamicsDao {
     Dynamics findByDynamicsId(String dynamicsId);
 
     /**
-     * 按列查找
+     * 按列查找 捐赠动态
      * @param dynamicsQueryCondition
      * @return
      */
-    List<DynamicsCustom> findDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
+    List<DynamicsCustom> findDanotionDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
 
+    /**
+     * 按列查找 校园动态
+     * @param dynamicsQueryCondition
+     * @return
+     */
+    List<DynamicsCustom> findSchoolDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
     /**
      * @param dynamics
      * @return

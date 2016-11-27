@@ -40,13 +40,21 @@ public class DynamicsServiceImpl implements DynamicsService {
     }
 
     /**
-     * 条件查找
+     * 按列查找 捐赠动态
      * @param dynamicsQueryCondition
      * @return
      */
-    @Override
-    public List<DynamicsCustom> findDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition){
-        return dynamicsDao.findDynamicsByQueryCondition( dynamicsQueryCondition );
+    public List<DynamicsCustom> findDanotionDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition){
+        return dynamicsDao.findDanotionDynamicsByQueryCondition(dynamicsQueryCondition);
+    }
+
+    /**
+     * 按列查找 校园动态
+     * @param dynamicsQueryCondition
+     * @return
+     */
+    public List<DynamicsCustom> findSchoolDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition){
+        return dynamicsDao.findSchoolDynamicsByQueryCondition(dynamicsQueryCondition);
     }
 
     @Override

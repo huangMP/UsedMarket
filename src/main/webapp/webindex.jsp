@@ -161,6 +161,206 @@
             <input type="submit" value="提交">
         </form>
 
+
+        <span>-----------校园动态-----------------------------------</span>
+        <h4>跳转到新增动态页面 (web使用的)</h4>
+        <form action="/WebSchoolDynamics/toInsert" method="post">
+            <input type="submit" value="点击按钮跳转">
+        </form>
+
+        <span>-----------校园动态-----------------------------------</span>
+        <h4>通过 dynamicsId 展示某条动态</h4>
+        <form action="/SchoolDynamics/display" method="post">
+            <table>
+                <tr>
+                    <td>动态Id</td>
+                    <td><input name="dynamicsId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
+        <span>-----------校园动态-----------------------------------</span>
+        <h4>通过 dynamicsId 修改某条动态 (web使用的) </h4>
+        <form action="/WebSchoolDynamics/toEdit" method="post">
+            <table>
+                <tr>
+                    <td>动态Id</td>
+                    <td><input name="dynamicsId"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
+        <span>-----------校园动态-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <h4>找得到返回 Dynamics的list集合 </h4>
+        <form action="/SchoolDynamics/listForAndroid" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="dynamics_id">捐赠动态Id:dynamics_id</option>
+                            <option value="add_user">发布用户Id:add_user</option>
+                            <option value="title">捐赠动态标题:title</option>
+                            <option value="origin">来源:origin</option>
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="add_date">发布动态的时间:add_date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------------众筹-------------------------</span>
+        <h4>添加众筹</h4>
+        <form action="WebCrowdfunding/insert" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="crowdfundingType">
+                            <option value="1">创意众筹：1</option>
+                            <option value="2">爱心众筹：2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>标题</td>
+                    <td><input name="title"/></td>
+                </tr>
+                <tr>
+                    <td>描述</td>
+                    <td><input name="description"/></td>
+                </tr>
+                <tr>
+                    <td>来源</td>
+                    <td><input name="origin"/></td>
+                </tr>
+                <tr>
+                    <td>目标金额</td>
+                    <td><input name="target_amount" type="number"/></td>
+                </tr>
+                <tr>
+                    <td>图片1</td>
+                    <td><input type="file" name="images"></td>
+                </tr>
+                <tr>
+                    <td>图片2</td>
+                    <td><input type="file" name="images"></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>----------众筹-----------------------------------</span>
+        <h4>查找</h4>
+        <form action="WebCrowdfunding/findCrowdfundingQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="add_date">发布时间:add_date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询数量</td>
+                    <td><input name="size" value="1"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------二手专题-----------------------------------</span>
+        <h4>添加</h4>
+        <h4>sort用于 取出的时候进行排序 sort越大，排越前 </h4>
+        <form action="/WebSecondHandSpecial/insert" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>专题名称</td>
+                    <td><input name="secondHandSpecialName"/></td>
+                </tr>
+                <tr>
+                    <td>排在第几</td>
+                    <td><input name="sort" type="number" /></td>
+                </tr>
+                <tr>
+                    <td>图片</td>
+                    <td><input name="images" type="file" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------二手专题-----------------------------------</span>
+        <h4>查找所有 </h4>
+        <form action="WebSecondHandSpecial/findAll" method="post">
+            <input type="submit" value="提交">
+        </form>
+
     </div>
 </div>
 </body>
