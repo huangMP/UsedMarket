@@ -26,8 +26,9 @@ public class CarouselDaoTest {
 
 	@Test
 	public void selectTop5() throws Exception {
-		List<Carousel> carouselList = carouselDao.selectTop5();
-		System.out.println(carouselList);
+		//List<Carousel> carouselList = carouselDao.selectTop5();
+		//System.out.println(carouselList);
+		System.out.println(30 << 1);
 	}
 
 	@Test

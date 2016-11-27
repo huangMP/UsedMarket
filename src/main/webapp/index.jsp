@@ -578,6 +578,10 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------首页数据展示-----------------------------------</span>
+        <form action="HomePage/display" method="post">
+            <input type="submit" value="请求">
+        </form>
 
         <span>-----------后台功能测试-----------------------------------</span>
         <div>

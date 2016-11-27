@@ -75,14 +75,20 @@
         <include refid="tableName"></include>
         WHERE user_id=#{userId}
     </select>
+    <resultMap id="UICMap" type="UserInfoCustom" autoMapping="true">
+        <id property="userId" column="user_id"/>
+        <result property="headPortraitPath" column="file_path"/>
+        <result property="narrowHeadPortraitPath" column="narrow_image_path"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
 
     <!-- 查找 UserInfoCustom By userId -->
-    <select id="findUserInfoCustomByUserId" resultType="UserInfoCustom">
+    <select id="findUserInfoCustomByUserId" resultMap="UICMap" parameterType="String">
         SELECT
-        <include refid="FieldAlias"></include>,
-        t_attachment.file_path "headPortraitPath",
-        t_attachment.narrow_image_path "narrowHeadPortraitPath",
-        t_role.role_name "roleName"
+        t_attachment.file_path,
+        t_attachment.narrow_image_path,
+        t_role.role_name,
+        t_user_info.*
         FROM
         (t_user_info INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id)
         INNER JOIN t_role ON t_user_info.role_id=t_role.role_id
@@ -90,12 +96,12 @@
     </select>
 
     <!-- 查找 UserInfoCustom -->
-    <select id="findUserInfoCustomByUsername" resultType="UserInfoCustom">
+    <select id="findUserInfoCustomByUsername" resultMap="UICMap" parameterType="String">
         SELECT
-        <include refid="FieldAlias"></include>,
-        t_attachment.file_path "headPortraitPath",
-        t_attachment.narrow_image_path "narrowHeadPortraitPath",
-        t_role.role_name "roleName"
+        t_attachment.file_path,
+        t_attachment.narrow_image_path,
+        t_role.role_name,
+        t_user_info.*
         FROM
         (t_user_info INNER JOIN t_attachment ON t_user_info.attachment_id=t_attachment.attachment_id)
         INNER JOIN t_role ON t_user_info.role_id=t_role.role_id
