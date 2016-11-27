@@ -2,6 +2,8 @@ package com.usedmarket.dao;
 
 import com.usedmarket.entity.Attachment;
 
+import java.util.List;
+
 /**
  * Created by huangMP on 2016/10/22.
  * decription : 附件表 Dao
@@ -28,7 +30,7 @@ public interface AttachmentDao {
      * @param contentId
      * @return
      */
-    public Attachment findByContentId(String contentId);
+    public List<Attachment> findByContentId(String contentId);
 
     /**
      * 修改一条信息

@@ -428,6 +428,8 @@
             <input type="submit" value="提交">
         </form>
 
+
+
 <!--
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>添加捐赠动态</h4>
@@ -588,6 +590,11 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>-----------二手专题-----------------------------------</span>
+        <h4>查找所有 </h4>
+        <form action="SecondHandSpecial/findAll" method="post">
+            <input type="submit" value="提交">
+        </form>
 
     </div>
 </div>

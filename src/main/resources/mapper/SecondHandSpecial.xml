@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usedmarket.dao.SecondHandSpecialDao">
+
+    <!--表名 -->
+    <sql id="tableName">
+        t_second_hand_special
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        second_hand_special_id,
+        second_hand_special_name,
+        add_user_username,
+        add_date,
+        sort
+    </sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{secondHandSpecialId},
+        #{secondHandSpecialName},
+        #{addUserUsername},
+        #{addDate},
+        #{sort}
+    </sql>
+
+    <!-- 别名 -->
+    <sql id="FieldAlias">
+        t_second_hand_special.second_hand_special_id "secondHandSpecialId",
+        t_second_hand_special.second_hand_special_name "secondHandSpecialName",
+        t_second_hand_special.add_user_username "addUserUsername",
+        t_second_hand_special.add_date "addDate",
+        t_second_hand_special.sort "sort"
+    </sql>
+
+    <!-- 查找 -->
+    <select id="findBySecondHandSpecialId" resultType="SecondHandSpecial">
+        SELECT * FROM
+        <include refid="tableName"></include>
+        WHERE second_handSpecial_id=#{secondHandSpecialId}
+    </select>
+
+    <select id="findSecondHandSpecialCustomBySecondHandSpecialId" resultType="SecondHandSpecialCustom">
+        SELECT
+        <include refid="FieldAlias"></include>,
+        t_attachment.file_path "imagePath",
+        t_attachment.narrow_image_path "narrowImagePath"
+        FROM t_second_hand_special INNER JOIN t_attachment ON t_second_hand_special.second_hand_special_id=t_attachment.content_id
+        WHERE second_hand_special_id=#{secondHandSpecialId}
+    </select>
+
+    <!-- 新增-->
+    <insert id="insert" parameterType="SecondHandSpecial">
+        insert into
+          <include refid="tableName"></include>
+        (
+          <include refid="Field"></include>
+        ) values (
+          <include refid="FieldValue"></include>
+        )
+    </insert>
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="String">
+        delete from
+          <include refid="tableName"></include>
+        where
+        second_hand_special_id = #{secondHandSpecialId}
+    </delete>
+
+    <!-- 查找所有 -->
+    <select id="findAll" resultType="SecondHandSpecialCustom">
+        SELECT
+        <include refid="FieldAlias"></include>,
+        t_attachment.file_path "imagePath",
+        t_attachment.narrow_image_path "narrowImagePath"
+        FROM t_second_hand_special INNER JOIN t_attachment ON t_second_hand_special.second_hand_special_id=t_attachment.content_id
+        ORDER BY t_second_hand_special.sort DESC
+    </select>
+
+    <update id="update" parameterType="SecondHandSpecial">
+        UPDATE <include refid="tableName"></include>
+        SET
+        second_hand_special_name=#{secondHandSpecialName},
+        add_user_username=#{addUserUsername},
+        add_date=#{addDate},
+        sort=#{sort}
+        WHERE second_hand_special_id=#{secondHandSpecialId}
+    </update>
+
+</mapper>

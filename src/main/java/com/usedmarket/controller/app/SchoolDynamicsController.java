@@ -18,8 +18,8 @@ import java.util.List;
  * decription : 动态信息 controller
  */
 @Controller
-@RequestMapping("/DonationDynamics")
-public class DynamicsControllerController {
+@RequestMapping("/SchoolDynamics")
+public class SchoolDynamicsController {
 
     @Autowired
     DynamicsService dynamicsService;
@@ -38,7 +38,7 @@ public class DynamicsControllerController {
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("dynamics", dynamics);
-        modelAndView.setViewName("donationdynamics/donationdynamics_display");
+        modelAndView.setViewName("schooldynamics/Schooldynamics_display");
         return modelAndView;
     }
 
@@ -50,6 +50,6 @@ public class DynamicsControllerController {
     @RequestMapping(value = "/listForAndroid")
     @ResponseBody
     public HttpResult listForAndroid(DynamicsQueryCondition dynamicsQueryCondition) {
-        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findDynamicsByQueryCondition(dynamicsQueryCondition));
+        return new HttpResult<List<DynamicsCustom>>(dynamicsService.findSchoolDynamicsByQueryCondition(dynamicsQueryCondition));
     }
 }

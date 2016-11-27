@@ -26,16 +26,23 @@ public interface DynamicsService {
     public Dynamics findByDynamicsId(String dynamicsId);
 
     /**
-     * 条件查找
-     * @param dynamicsQueryCondition
-     * @return
-     */
-    List<DynamicsCustom> findDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
-
-    /**
      *
      * @param dynamics
      * @return
      */
     Dynamics update(Dynamics dynamics);
+
+    /**
+     * 按列查找 捐赠动态
+     * @param dynamicsQueryCondition
+     * @return
+     */
+    List<DynamicsCustom> findDanotionDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
+
+    /**
+     * 按列查找 校园动态
+     * @param dynamicsQueryCondition
+     * @return
+     */
+    List<DynamicsCustom> findSchoolDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
 }

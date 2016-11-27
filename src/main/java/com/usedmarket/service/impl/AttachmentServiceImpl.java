@@ -121,7 +121,7 @@ public class AttachmentServiceImpl implements AttachmentService {
      */
     public int deleteByContentId(String contentId){
         System.out.println("service"+contentId);
-        Attachment attachment = attachmentDao.findByContentId(contentId);        //得到当前的原图文件名
+        Attachment attachment = attachmentDao.findByContentId(contentId).get(0);        //得到当前的原图文件名
         if(null == attachment){
             return 0;
         }
