@@ -1,5 +1,8 @@
 package com.usedmarket.controller.web;
 
+import com.usedmarket.controller.BaseController;
+import com.usedmarket.dto.HttpResult;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Role;
 import com.usedmarket.service.RoleService;
 import com.usedmarket.util.UuidUtil;
@@ -8,15 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 /**
  * Created by huangMP on 2016/11/22.
  * decription : 角色信息 controller
  */
 @Controller
 @RequestMapping("/WebRole")
-public class WebRoleController {
+public class WebRoleController extends BaseController{
 
     @Autowired
     RoleService roleService;
@@ -28,48 +29,27 @@ public class WebRoleController {
      */
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public Role insert(Role role) {
+    public HttpResult insert(Role role) {
         role.setRoleId(UuidUtil.get32UUID());
         if(1 == roleService.insert(role)){
-            System.out.println("角色添加成功");
-            return role;
+            return getHttpResult("角色添加成功",role);
         }
-        System.out.println("角色添加失败");
-        return null;
+        return getHttpResult("角色添加失败",role);
     }
 
     /**
-     * 通过roleName查找
-     * @param roleName
+     * 按条件查找
+     * @param queryCondition
      * @return
      */
-    @RequestMapping(value = "/findByRoleName")
+    @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
-    public Role findByRoleName(String roleName) {
-        return roleService.findByRoleName(roleName);
+    public HttpResult findByQueryCondition(QueryCondition queryCondition){
+        System.out.println(queryCondition.toString());
+        return getHttpResult("查找完成",roleService.findByQueryCondition(queryCondition) );
     }
 
-    /**
-     * 查找
-     * @param roleId
-     * @return
-     */
-    @RequestMapping(value = "/findByRoleId")
-    @ResponseBody
-    public Role findByRoleId(String roleId) {
-        return roleService.findByRoleId(roleId);
-    }
 
-    /**
-     * 通过status查找
-     * @param status
-     * @return
-     */
-    @RequestMapping(value = "/findByStatus")
-    @ResponseBody
-    List<Role> findByStatus(String status) {
-        return roleService.findByStatus(status);
-    }
 
     /**
      * 修改
@@ -78,11 +58,11 @@ public class WebRoleController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Role update(Role role){
+    public HttpResult update(Role role){
         if( 1 == roleService.update(role) ){
-            return role;
+            return getHttpResult("更新完成",role);
         }
-        return null;
+        return getHttpResult("更新失败",null);
 
     }
 
@@ -93,10 +73,10 @@ public class WebRoleController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public boolean delete(String roleId){
+    public HttpResult delete(String roleId){
         if( 1 == roleService.delete(roleId) ){
-            return true;
+            return getHttpResult("删除完成",null);
         }
-        return false;
+        return getHttpResult("删除失败",null);
     }
 }

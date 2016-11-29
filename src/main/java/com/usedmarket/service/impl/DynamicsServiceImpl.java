@@ -2,7 +2,7 @@ package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.DynamicsDao;
 import com.usedmarket.dto.DynamicsCustom;
-import com.usedmarket.dto.DynamicsQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Dynamics;
 import com.usedmarket.service.DynamicsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +41,11 @@ public class DynamicsServiceImpl implements DynamicsService {
 
     /**
      * 按列查找 动态查找
-     * @param dynamicsQueryCondition
+     * @param queryCondition
      * @return
      */
-    public List<DynamicsCustom> findDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition){
-        return dynamicsDao.findDynamicsByQueryCondition(dynamicsQueryCondition);
+    public List<DynamicsCustom> findDynamicsByQueryCondition(QueryCondition queryCondition){
+        return dynamicsDao.findDynamicsByQueryCondition(queryCondition);
     }
 
     @Override

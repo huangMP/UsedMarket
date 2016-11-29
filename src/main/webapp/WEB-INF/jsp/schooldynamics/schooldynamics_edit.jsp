@@ -10,18 +10,18 @@
 <head>
     <title>修改 捐贈动态</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
 
     <!-- JavaScripts -->
-    <script src="/static/js/jquery-3.0.0.js"></script>
+    <script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
 
     <style type="text/css">
         div{
@@ -34,6 +34,7 @@
 
     <input id="dynamicsId" name="dynamicsId" value="${dynamics.dynamicsId}" hidden="hidden"/>
     <input id="addUser" name="addUser" value="${dynamics.addUser}" hidden="hidden"/>
+    <input id="type" name="type" value="${dynamics.type}" hidden="hidden"/>
 
     <table class="table">
         <tr>
@@ -70,12 +71,13 @@
         var text_value= UE.getEditor('editor').getContent();
         var title_value= $("#title").attr("value");
         var origin_value= $("#origin").attr("value");
+        var type_value= $("#type").attr("value");
 
         alert(text_value);
 
         $.ajax({
             type: 'post',
-            url: '/WebSchoolDynamics/update',
+            url: '/WebDynamics/update',
             //请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
             //contentType:'application/json;charset=utf-8',
             //dataType: dataType,
@@ -83,7 +85,8 @@
                 "addUser":addUser_value,
                 "text":text_value,
                 "title":title_value,
-                "origin": origin_value },
+                "origin": origin_value,
+                "type": type_value},
             success: function (data) {//返回json结果
                 if ("" == data) {
                     alert("修改失败");

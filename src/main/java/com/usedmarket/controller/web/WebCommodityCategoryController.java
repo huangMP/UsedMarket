@@ -1,6 +1,6 @@
 package com.usedmarket.controller.web;
 
-import com.usedmarket.dto.CommodityCategoryCustom;
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.CommodityCategory;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by huangMP on 2016/11/24.
@@ -23,7 +22,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/WebCommodityCategory")
-public class WebCommodityCategoryController {
+public class WebCommodityCategoryController extends BaseController{
 
     @Autowired
     CommodityCategoryService commodityCategoryService;
@@ -36,7 +35,7 @@ public class WebCommodityCategoryController {
      */
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public boolean insert(
+    public HttpResult insert(
             @RequestParam(value="picture") MultipartFile picture,
             @RequestParam(value="type") int type,
             @RequestParam(value="title") String title,
@@ -54,9 +53,9 @@ public class WebCommodityCategoryController {
         commodityCategory.setAttachmentId(attachmentId);    //设置附件Id
 
         if( 1 == commodityCategoryService.insert(commodityCategory)){
-            return true;
+            return getHttpResult("添加成功",commodityCategory);
         }
-        return false;
+        return getHttpResult("添加失败",commodityCategory);
     }
 
     /**
@@ -65,10 +64,10 @@ public class WebCommodityCategoryController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public boolean delete(String commodityCategoryId) {
+    public HttpResult delete(String commodityCategoryId) {
         attachmentService.deleteByContentId(commodityCategoryId);
         commodityCategoryService.delete(commodityCategoryId);
-        return true;
+        return getHttpResult("删除失败",null);
     }
 
     /**
@@ -79,7 +78,7 @@ public class WebCommodityCategoryController {
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition) {
-        return new HttpResult<List<CommodityCategoryCustom>>(commodityCategoryService.findByQueryCondition(queryCondition));
+        return getHttpResult("查找完成",commodityCategoryService.findByQueryCondition(queryCondition));
     }
 
     /**
@@ -88,7 +87,7 @@ public class WebCommodityCategoryController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public boolean update(
+    public HttpResult update(
             @RequestParam(value="commodityCategoryId") String commodityCategoryId,
             @RequestParam(value="picture") MultipartFile picture,
             @RequestParam(value="title") String title,
@@ -97,16 +96,16 @@ public class WebCommodityCategoryController {
         commodityCategoryInDatabase.setSort(sort);
         commodityCategoryInDatabase.setTitle(title);
 
-        if( 1 != attachmentService.deleteByContentId(commodityCategoryId)){
-            return false;
+        if( 1 != attachmentService.delete(commodityCategoryInDatabase.getAttachmentId())){
+            return getHttpResult("修改失败",commodityCategoryInDatabase);
         }
         String attachmentId = attachmentService.insert(picture, commodityCategoryInDatabase.getCommodityCategoryId(), "3");
         commodityCategoryInDatabase.setAttachmentId(attachmentId);    //设置附件Id
 
         if( 1 == commodityCategoryService.update(commodityCategoryInDatabase) ){
-            return true;
+            return getHttpResult("修改成功",commodityCategoryInDatabase);
         }
-        return false;
+        return getHttpResult("修改失败",commodityCategoryInDatabase);
     }
 
 

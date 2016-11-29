@@ -8,20 +8,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>添加 捐贈动态</title>
+    <title>添加 校园动态</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
 
     <!-- JavaScripts -->
-    <script src="/static/js/jquery-3.0.0.js"></script>
+    <script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
 
     <style type="text/css">
         div{
@@ -30,8 +30,8 @@
     </style>
 </head>
 <body>
-<h3>添加捐赠动态</h3>
-<form action="/WebSchoolDynamics/insert" method="post" >
+<h3>添加校园动态</h3>
+<form action="/UsedMarket/WebDynamics/insertSchool" method="post" >
     <table class="table">
         <tr>
             <td>标题</td>
@@ -47,10 +47,6 @@
         <tr>
             <td>来源</td>
             <td><input name="origin"/></td>
-        </tr>
-        <tr>
-            <td>添加人Id</td>
-            <td><input name="addUser"/></td>
         </tr>
     </table>
 

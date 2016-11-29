@@ -23,10 +23,10 @@
 
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/static/css/templatemo_style.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/css/templatemo_style.css" rel="stylesheet" media="screen">
 
-    <script src="/static/js/jquery-3.0.0.js"></script>
+    <script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
 
     <!-- JavaScripts -->
     <!--[if lt IE 8]>
@@ -53,7 +53,7 @@
                     <div class="col-md-12">
                         <div class="templatemo_logo">
                             <a href="#">
-                                <img src="/static/images/templatemo_logo.png" alt="Genius">
+                                <img src="/UsedMarket/static/images/templatemo_logo.png" alt="Genius">
                             </a>
                         </div> <!-- /.logo -->
                     </div> <!-- /.col-md-12 -->
@@ -76,7 +76,7 @@
                                 <div class="col-md-4">
                                     <h3 style="color:red;  margin: 0 0 0 0;">${errorMassage}</h3>
 
-                                    <form action="/WebLogin/doLogin" method="post">
+                                    <form action="/UsedMarket/WebLogin/doLogin" method="post">
                                       <div class="contact-form">
                                           <p class="full-row">
                                                 <h4 style="color:white;">用户名:</h4>
@@ -104,7 +104,7 @@
 </div> <!-- /.main-content -->
 
 
-<script src="/static/js/jquery-3.0.0.js"></script>
+<script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
 /*
     $("#submitButton").click(function () {

@@ -84,4 +84,23 @@
         WHERE role_id=#{roleId}
     </update>
 
+    <!--按条件查找-->
+    <select id="findByQueryCondition" resultType="Role" parameterType="QueryCondition">
+        SELECT * FROM
+        <include refid="tableName"></include>
+        WHERE 1=1
+        <if test="type != null and type != '' and type != 'all' ">
+            AND `t_role`.${type} = #{queryValue}
+        </if>
+        <if test="secondType != null and secondType != '' ">
+            AND `t_role`.${secondType} = #{secondQueryValue}
+        </if>
+        <if test="secondType != null and secondType != '' and secondType != 'all' ">
+            AND `t_role`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+             ORDER BY ${orderBy} ${order}
+        </if>
+        LIMIT ${index},${size}
+    </select>
 </mapper>

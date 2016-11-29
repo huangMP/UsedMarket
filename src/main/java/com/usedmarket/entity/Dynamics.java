@@ -36,6 +36,19 @@ public class Dynamics {
      */
     private Date addDate;
 
+    /**
+     * 用于排序
+     */
+    private String sort;
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
     public String getDynamicsId() {
         return dynamicsId;
     }
@@ -96,12 +109,13 @@ public class Dynamics {
     public String toString() {
         return "Dynamics{" +
                 "dynamicsId='" + dynamicsId + '\'' +
-                ", type='" + type + '\'' +
+                ", type=" + type +
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", origin='" + origin + '\'' +
                 ", addUser='" + addUser + '\'' +
                 ", addDate=" + addDate +
+                ", sort='" + sort + '\'' +
                 '}';
     }
 }

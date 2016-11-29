@@ -1,6 +1,7 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.UserInfoDao;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.UserInfoService;
@@ -8,6 +9,7 @@ import com.usedmarket.util.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,7 +69,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     public UserInfoCustom update(String userId, String index, String currentValue, String futureValue) {
 
-        UserInfoCustom userInfoCustom = findUserInfoCustomByUserId(userId);
+        UserInfoCustom userInfoCustom = findByQueryCondition(new QueryCondition("user_id",userId,"","","",0,10)).get(0);
 
         if( userInfoCustom == null ){
             return null;
@@ -111,23 +113,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoDao.delete(userId);
     }
 
-    /**
-     * 查找 UserInfoCustom 通过 username
-     * @param username
-     * @return UserInfoCustom
-     */
-    @Override
-    public UserInfoCustom findUserInfoCustomByUsername(String username) {
-        return userInfoDao.findUserInfoCustomByUsername(username);
-    }
 
     /**
-     * 查找 UserInfoCustom 通过 UserId
-     * @param userId
-     * @return UserInfoCustom
+     * 按条件查找
+     * @param queryCondition
+     * @return
      */
-    @Override
-    public UserInfoCustom findUserInfoCustomByUserId(String userId) {
-        return userInfoDao.findUserInfoCustomByUserId(userId);
+    public List<UserInfoCustom> findByQueryCondition(QueryCondition queryCondition){
+        return userInfoDao.findByQueryCondition(queryCondition);
     }
 }
