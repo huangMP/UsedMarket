@@ -1,6 +1,8 @@
 package com.usedmarket.controller.web;
 
 import com.usedmarket.dto.CommodityCategoryCustom;
+import com.usedmarket.dto.HttpResult;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.CommodityCategory;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityCategoryService;
@@ -36,13 +38,15 @@ public class WebCommodityCategoryController {
     @ResponseBody
     public boolean insert(
             @RequestParam(value="picture") MultipartFile picture,
-            @RequestParam(value="commodityCategoryName") String commodityCategoryName,
-            @RequestParam(value="sort",defaultValue = "0") int sort ) {
+            @RequestParam(value="type") int type,
+            @RequestParam(value="title") String title,
+            @RequestParam(value="sort") int sort ) {
         CommodityCategory commodityCategory = new CommodityCategory();
         commodityCategory.setCommodityCategoryId(UuidUtil.get32UUID());
         commodityCategory.setAddDate(new Date());
         commodityCategory.setSort(sort);
-        commodityCategory.setCommodityCategoryName(commodityCategoryName);
+        commodityCategory.setType(type);
+        commodityCategory.setTitle(title);
         //设置添加人 获取当前登录的用户
         //commodityCategory.setAddUserId();
 
@@ -68,25 +72,14 @@ public class WebCommodityCategoryController {
     }
 
     /**
-     * 查找分类通过 commodityCategoryId
-     * @param commodityCategoryId
+     * 按条件查找
+     * @param queryCondition
      * @return
      */
-    @RequestMapping(value = "/findCommodityCategoryCustomByCommodityCategoryId")
+    @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
-    public CommodityCategoryCustom findCommodityCategoryCustomByCommodityCategoryId(String commodityCategoryId) {
-        return commodityCategoryService.findCommodityCategoryCustomByCommodityCategoryId(commodityCategoryId);
-    }
-
-
-    /**
-     * 查找所有分类
-     * @return
-     */
-    @RequestMapping(value = "/findAll")
-    @ResponseBody
-    public List<CommodityCategoryCustom> findAll() {
-        return commodityCategoryService.findAll();
+    public HttpResult findByQueryCondition(QueryCondition queryCondition) {
+        return new HttpResult<List<CommodityCategoryCustom>>(commodityCategoryService.findByQueryCondition(queryCondition));
     }
 
     /**
@@ -98,11 +91,11 @@ public class WebCommodityCategoryController {
     public boolean update(
             @RequestParam(value="commodityCategoryId") String commodityCategoryId,
             @RequestParam(value="picture") MultipartFile picture,
-            @RequestParam(value="commodityCategoryName") String commodityCategoryName,
+            @RequestParam(value="title") String title,
             @RequestParam(value="sort",defaultValue = "0") int sort ) {
         CommodityCategory commodityCategoryInDatabase = commodityCategoryService.findByCommodityCategoryId(commodityCategoryId);
         commodityCategoryInDatabase.setSort(sort);
-        commodityCategoryInDatabase.setCommodityCategoryName(commodityCategoryName);
+        commodityCategoryInDatabase.setTitle(title);
 
         if( 1 != attachmentService.deleteByContentId(commodityCategoryId)){
             return false;

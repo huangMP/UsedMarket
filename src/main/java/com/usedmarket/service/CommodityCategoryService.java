@@ -2,6 +2,7 @@ package com.usedmarket.service;
 
 
 import com.usedmarket.dto.CommodityCategoryCustom;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.CommodityCategory;
 
 import java.util.List;
@@ -48,4 +49,11 @@ public interface CommodityCategoryService {
      * @return
      */
     int update(CommodityCategory commodityCategory);
+
+    /**
+     * 条件查询
+     * @param queryCondition
+     * @return
+     */
+    List<CommodityCategoryCustom> findByQueryCondition(QueryCondition queryCondition);
 }

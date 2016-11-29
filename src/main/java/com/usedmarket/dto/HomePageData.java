@@ -25,7 +25,7 @@ public class HomePageData {
 	/**
 	 * 二手专题
 	 */
-	private List<SecondHandSpecialCustom> secondHandSpecialCustomList;
+	private List<CommodityCategoryCustom> secondHandSpecialCustomList;
 
 	/**
 	 * 众筹
@@ -45,7 +45,7 @@ public class HomePageData {
 	public HomePageData() {
 	}
 
-	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<SecondHandSpecialCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<Store> storeList) {
+	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<CommodityCategoryCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<Store> storeList) {
 		this.carouselList = carouselList;
 		this.sentenceBeanList = sentenceBeanList;
 		this.secondHandSpecialCustomList = secondHandSpecialCustomList;
@@ -78,11 +78,11 @@ public class HomePageData {
 		this.sentenceBeanList = sentenceBeanList;
 	}
 
-	public List<SecondHandSpecialCustom> getSecondHandSpecialCustomList() {
+	public List<CommodityCategoryCustom> getSecondHandSpecialCustomList() {
 		return secondHandSpecialCustomList;
 	}
 
-	public void setSecondHandSpecialCustomList(List<SecondHandSpecialCustom> secondHandSpecialCustomList) {
+	public void setSecondHandSpecialCustomList(List<CommodityCategoryCustom> secondHandSpecialCustomList) {
 		this.secondHandSpecialCustomList = secondHandSpecialCustomList;
 	}
 

@@ -10,10 +10,19 @@ public class CommodityCategory {
 
     private String commodityCategoryId;
     private String attachmentId;
-    private String commodityCategoryName;
+    private String title;
     private String addUserId;
     private Date addDate;
     private int sort;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getSort() {
         return sort;
@@ -39,12 +48,12 @@ public class CommodityCategory {
         this.attachmentId = attachmentId;
     }
 
-    public String getCommodityCategoryName() {
-        return commodityCategoryName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCommodityCategoryName(String commodityCategoryName) {
-        this.commodityCategoryName = commodityCategoryName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAddUserId() {
@@ -68,10 +77,11 @@ public class CommodityCategory {
         return "CommodityCategory{" +
                 "commodityCategoryId='" + commodityCategoryId + '\'' +
                 ", attachmentId='" + attachmentId + '\'' +
-                ", commodityCategoryName='" + commodityCategoryName + '\'' +
+                ", title='" + title + '\'' +
                 ", addUserId='" + addUserId + '\'' +
                 ", addDate=" + addDate +
                 ", sort=" + sort +
+                ", type=" + type +
                 '}';
     }
 }

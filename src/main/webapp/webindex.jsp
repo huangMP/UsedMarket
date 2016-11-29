@@ -107,20 +107,21 @@
             <input type="submit" value="提交">
         </form>
 
-        <span>-----------二手分类-----------------------------------</span>
-        <h4>查找所有二手分类 </h4>
-        <form action="CommodityCategory/findAll" method="post">
-            <input type="submit" value="提交">
-        </form>
-
-        <span>-----------二手分类-----------------------------------</span>
+        <span>-----------二手分类-二手专题----------------------------------</span>
         <h4>添加分类 </h4>
         <h4>sort用于 取出的时候进行排序 sort越大，排越前 </h4>
-        <form action="/WebCommodityCategory/insert" method="post" enctype="multipart/form-data">
+        <form action="WebCommodityCategory/insert" method="post" enctype="multipart/form-data">
             <table>
+                <td>类型</td>
+                <td>
+                    <select name="type">
+                        <option value="1">1：二手分类；</option>
+                        <option value="2">2：二手专题；</option>
+                    </select>
+                </td>
                 <tr>
                     <td>分类名称</td>
-                    <td><input name="commodityCategoryName"/></td>
+                    <td><input name="title"/></td>
                 </tr>
                 <tr>
                     <td>排在第几</td>
@@ -134,9 +135,9 @@
             <input type="submit" value="提交">
         </form>
 
-        <span>-----------二手分类-----------------------------------</span>
+        <span>---------二手分类-二手专题-----------------------------------</span>
         <h4>根据id删除分类 </h4>
-        <form action="/WebCommodityCategory/delete" method="post">
+        <form action="WebCommodityCategory/delete" method="post">
             <table>
                 <tr>
                     <td>二手分类id</td>
@@ -146,9 +147,9 @@
             <input type="submit" value="提交">
         </form>
 
-        <span>-----------二手分类-----------------------------------</span>
+        <span>----------二手分类-二手专题--------------------------------</span>
         <h4>修改分类 </h4>
-        <form action="/WebCommodityCategory/update" method="post" enctype="multipart/form-data">
+        <form action="WebCommodityCategory/update" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>分类id</td>
@@ -156,7 +157,7 @@
                 </tr>
                 <tr>
                     <td>分类名称</td>
-                    <td><input name="commodityCategoryName"/></td>
+                    <td><input name="title"/></td>
                 </tr>
                 <tr>
                     <td>排在第几</td>
@@ -170,6 +171,56 @@
             <input type="submit" value="提交">
         </form>
 
+        <span>----------二手分类-二手专题-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <form action="WebCommodityCategory/findByQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="type">type:1：二手分类；2：二手专题；</option>
+                            <option value="commodity_category_id">id:commodity_category_id</option>
+                            <option value="attachment_id">图片id:attachment_id</option>
+                            <option value="title">发布用户Id:title</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="sort">用于排序的sort</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询条数</td>
+                    <td><input name="size"  value="10"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
 
         <span>-----------校园动态-----------------------------------</span>
         <h4>跳转到新增动态页面 (web使用的)</h4>
@@ -349,33 +400,6 @@
                     <td><input name="size" value="1"/></td>
                 </tr>
             </table>
-            <input type="submit" value="提交">
-        </form>
-
-        <span>-----------二手专题-----------------------------------</span>
-        <h4>添加</h4>
-        <h4>sort用于 取出的时候进行排序 sort越大，排越前 </h4>
-        <form action="/WebSecondHandSpecial/insert" method="post" enctype="multipart/form-data">
-            <table>
-                <tr>
-                    <td>专题名称</td>
-                    <td><input name="secondHandSpecialName"/></td>
-                </tr>
-                <tr>
-                    <td>排在第几</td>
-                    <td><input name="sort" type="number" /></td>
-                </tr>
-                <tr>
-                    <td>图片</td>
-                    <td><input name="images" type="file" /></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
-
-        <span>-----------二手专题-----------------------------------</span>
-        <h4>查找所有 </h4>
-        <form action="WebSecondHandSpecial/findAll" method="post">
             <input type="submit" value="提交">
         </form>
 
