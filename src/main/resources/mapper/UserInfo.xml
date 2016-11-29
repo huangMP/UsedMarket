@@ -139,7 +139,6 @@
     <update id="update" parameterType="UserInfo">
         UPDATE <include refid="tableName"></include>
         SET
-        user_id=#{userId},
         username=#{username},
         password=#{password},
         phone=#{phone},
