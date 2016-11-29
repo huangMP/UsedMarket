@@ -1,6 +1,7 @@
 package com.usedmarket.dao;
 
 import com.usedmarket.dto.CommodityCategoryCustom;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.CommodityCategory;
 
 import java.util.List;
@@ -47,4 +48,11 @@ public interface CommodityCategoryDao {
      * @return
      */
     int update(CommodityCategory commodityCategory);
+
+    /**
+     * 按条件查找
+     * @param queryCondition
+     * @return
+     */
+    List<CommodityCategoryCustom> findByQueryCondition(QueryCondition queryCondition);
 }

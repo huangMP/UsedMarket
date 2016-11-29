@@ -36,7 +36,7 @@ public class HomePageController {
 	 * 二手专题
 	 */
 	@Autowired
-	private SecondHandSpecialService secondHandSpecialService;
+	private CommodityCategoryService commodityCategoryService;
 
 	/**
 	 * 动态
@@ -64,7 +64,7 @@ public class HomePageController {
 		//五条跑马条
 		List<SentenceBean> sentenceBeanList = sentenceService.selectSentencesByCondition(new SentenceQueryCondition(1, 0, 5, false));
 		//全部二手专题
-		List<SecondHandSpecialCustom> secondHandSpecialCustomList = secondHandSpecialService.findAll();
+		List<CommodityCategoryCustom> secondHandSpecialCustomList = commodityCategoryService.findByQueryCondition(new QueryCondition("type", "2", "", "DESC", "sort", 0, 10));
 		//五条众筹
 		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findCrowdfundingQueryCondition(new CrowdfundingQueryCondition("all", "", "", 0, "DESC", "add_date", "5"));
 		//五条动态

@@ -2,6 +2,7 @@ package com.usedmarket.controller.app;
 
 import com.usedmarket.dto.CommodityCategoryCustom;
 import com.usedmarket.dto.HttpResult;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.service.CommodityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,15 @@ public class CommodityCategoryController {
     CommodityCategoryService commodityCategoryService;
 
     /**
-     * 查找所有分类
+     * 按条件查找
+     * @param queryCondition
      * @return
      */
-    @RequestMapping(value = "/findAll")
+    @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
-    public HttpResult findAll() {
-        return new HttpResult<List<CommodityCategoryCustom>>(commodityCategoryService.findAll());
+    public HttpResult findByQueryCondition(QueryCondition queryCondition) {
+        return new HttpResult<List<CommodityCategoryCustom>>(commodityCategoryService.findByQueryCondition(queryCondition));
     }
+
 
 }

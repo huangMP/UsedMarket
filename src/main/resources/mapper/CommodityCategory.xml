@@ -13,7 +13,9 @@
     <sql id="Field">
         commodity_category_id,
         attachment_id,
-        commodity_category_name,
+        type,
+        sort,
+        title,
         add_user_id,
         add_date
     </sql>
@@ -22,7 +24,9 @@
     <sql id="FieldValue">
         #{commodityCategoryId},
         #{attachmentId},
-        #{commodityCategoryName},
+        #{type},
+        #{sort},
+        #{title},
         #{addUserId},
         #{addDate}
     </sql>
@@ -31,7 +35,9 @@
     <sql id="FieldAlias">
         t_commodity_category.commodity_category_id "commodityCategoryId",
         t_commodity_category.attachment_id "attachmentId",
-        t_commodity_category.commodity_category_name "commodityCategoryName",
+        t_commodity_category.type "type",
+        t_commodity_category.sort "sort",
+        t_commodity_category.title "title",
         t_commodity_category.add_user_id "addUserId",
         t_commodity_category.add_date "addDate"
     </sql>
@@ -86,10 +92,33 @@
         UPDATE <include refid="tableName"></include>
         SET
         attachment_id=#{attachmentId},
-        commodity_category_name=#{commodityCategoryName},
+        title=#{title},
+        type=#{type},
+        sort=#{sort},
         add_user_id=#{addUserId},
         add_date=#{addDate}
         WHERE commodity_category_id=#{commodityCategoryId}
     </update>
+
+
+    <select id="findByQueryCondition" resultType="CommodityCategoryCustom">
+        SELECT
+        <include refid="FieldAlias"></include>,
+        t_attachment.file_path "picturePath",
+        t_attachment.narrow_image_path "narrowPicturePath"
+        FROM t_commodity_category INNER JOIN t_attachment ON t_commodity_category.attachment_id=t_attachment.attachment_id
+        WHERE 1=1
+        <choose>
+            <when test="type == 'all'"/>
+            <otherwise>
+                AND `t_commodity_category`.${type} = #{queryValue}
+            </otherwise>
+        </choose>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND `t_commodity_category`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        ORDER BY ${orderBy} ${order}
+        LIMIT ${index},${size}
+    </select>
 
 </mapper>

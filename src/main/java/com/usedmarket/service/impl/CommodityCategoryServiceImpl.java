@@ -2,6 +2,7 @@ package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.CommodityCategoryDao;
 import com.usedmarket.dto.CommodityCategoryCustom;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.CommodityCategory;
 import com.usedmarket.service.CommodityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,15 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
      */
     public int update(CommodityCategory commodityCategory){
         return commodityCategoryDao.update(commodityCategory);
+    }
+
+
+    /**
+     * 条件查询
+     * @param queryCondition
+     * @return
+     */
+    public List<CommodityCategoryCustom> findByQueryCondition(QueryCondition queryCondition){
+        return commodityCategoryDao.findByQueryCondition(queryCondition);
     }
 }
