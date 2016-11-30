@@ -1,9 +1,11 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.*;
 import com.usedmarket.entity.Carousel;
 import com.usedmarket.entity.SentenceBean;
 import com.usedmarket.entity.Store;
+import com.usedmarket.entity.SubjectHead;
 import com.usedmarket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/HomePage")
-public class HomePageController {
+public class HomePageController extends BaseController{
 
 	/**
 	 * 轮播图service
@@ -56,6 +58,12 @@ public class HomePageController {
 	@Autowired
 	private StoreService storeService;
 
+	/**
+	 * 标题头
+	 */
+	@Autowired
+	private SubjectHeadService subjectHeadService;
+
 	@RequestMapping("/display")
 	@ResponseBody
 	public HttpResult HomePageDataDisplay() {
@@ -64,23 +72,26 @@ public class HomePageController {
 		//五条跑马条
 		List<SentenceBean> sentenceBeanList = sentenceService.selectSentencesByCondition(new SentenceQueryCondition(1, 0, 5, false));
 		//全部二手专题
-		List<CommodityCategoryCustom> secondHandSpecialCustomList = commodityCategoryService.findByQueryCondition(new QueryCondition("type", "2", "", "DESC", "sort", 0, 10));
+		List<CommodityCategoryCustom> commoditycCategoryCustomList = commodityCategoryService.findByQueryCondition(new QueryCondition("type", "2", "", "DESC", "sort", 0, 10));
 		//五条众筹
 		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findCrowdfundingQueryCondition(new CrowdfundingQueryCondition("all", "", "", 0, "DESC", "add_date", "5"));
 		//五条动态
 		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new DynamicsQueryCondition("all", "", "", 0, "DESC", "add_date", ""));
 		//店铺
 		List<Store> storeList = storeService.findAll();
+		//标题头
+		List<SubjectHead> subjectHeadList = subjectHeadService.selectAll();
 
-
-		return new HttpResult<HomePageData>(new HomePageData(
+		return this.getHttpResult("", new HomePageData(
 				carouselList,
 				sentenceBeanList,
-				secondHandSpecialCustomList,
+				commoditycCategoryCustomList,
 				crowdfundingCustomList,
 				dynamicsCustomList,
-				storeList
+				storeList,
+				subjectHeadList
 		));
 	}
+
 
 }
