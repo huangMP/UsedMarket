@@ -371,10 +371,9 @@
             <input type="submit" value="提交">
         </form>
 
-        <span>-----------捐赠物品-----------------------------------</span>
-        <h4>查找</h4>
-        <h4>找得到返回 DonationCustom的list集合 </h4>
-        <form action="Donation/search" method="post">
+        <span>----------捐赠物品-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <form action="Donation/findByQueryCondition" method="post">
             <table>
                 <tr>
                     <td>类型</td>
@@ -396,7 +395,6 @@
                     <td>排序方式</td>
                     <td>
                         <select name="order">
-                            <option value="ASC">升序:ASC</option>
                             <option value="DESC">降序:DESC</option>
                         </select>
                     </td>
@@ -415,7 +413,11 @@
                 </tr>
                 <tr>
                     <td>查询位置</td>
-                    <td><input name="index"/></td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询条数</td>
+                    <td><input name="size"  value="10"/></td>
                 </tr>
             </table>
             <input type="submit" value="提交">
@@ -540,6 +542,223 @@
             </table>
             <input type="submit" value="提交">
         </form>
+        <span>----------众筹-----------------------------------</span>
+        <h4>查找</h4>
+        <form action="Crowdfunding/findByQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="all">不指定列 : all</option>
+                            <option value="crowdfunding_type">type</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td>
+                        <select name="queryValue">
+                            <option value="1">创意众筹</option>
+                            <option value="2">爱心众筹</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="secondType">
+                            <option value="all">不指定列 : all</option>
+                            <option value="add_user">添加人 : add_user</option>
+                            <option value="title">标题 : title</option>
+                            <option value="origin">来源 : origin</option>
+                            <option value="crowdfunding_id">众筹id : crowdfunding_id</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="secondQueryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="add_date">发布时间:add_date</option>
+                            <option value="target_amount">目标金额:target_amount</option>
+                            <option value="now_amount">现得到金额:now_amount</option>
+                            <option value="support_num">支持人数:support_num</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询数量</td>
+                    <td><input name="size" value="10"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
+        <span>----------二手分类-二手专题-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <form action="CommodityCategory/findByQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="type">type</option>
+                            <option value="all">all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td>
+                        <select name="queryValue">
+                            <option value="1">1：二手分类；</option>
+                            <option value="2">2：二手专题；</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>二级查询类型</td>
+                    <td>
+                        <select name="secondType">
+                            <option value="commodity_category_id">id:commodity_category_id</option>
+                            <option value="attachment_id">图片id:attachment_id</option>
+                            <option value="title">标题:title</option>
+                            <option value="add_user_id">发布用户:add_user_id</option>
+                            <option value="all">all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>二级查询值</td>
+                    <td><input name="secondQueryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="sort">用于排序的sort</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询条数</td>
+                    <td><input name="size"  value="10"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+        <span>-----------校园动态---捐赠动态----条件查找-----------------------</span>
+        <h4>条件查找 </h4>
+        <h4>找得到返回 Dynamics的list集合 </h4>
+        <form action="Dynamics/findDynamicsByQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="type">type</option>
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td>
+                        <select name="queryValue">
+                            <option value="1">校园动态</option>
+                            <option value="2">捐赠动态</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="secondType">
+                            <option value="dynamics_id">动态Id:dynamics_id</option>
+                            <option value="add_user">发布用户Id:add_user</option>
+                            <option value="title">动态标题:title</option>
+                            <option value="origin">来源:origin</option>
+                            <option value="all">不指定列 : all</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="secondQueryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序方式</td>
+                    <td>
+                        <select name="order">
+                            <option value="ASC">升序:ASC</option>
+                            <option value="DESC">降序:DESC</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="add_date">发布动态的时间:add_date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>模糊查询字段</td>
+                    <td><input name="indistinctField"/></td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询条数</td>
+                    <td><input name="size"  value="10"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
+
 
     </div>
 </div>

@@ -11,11 +11,11 @@ public class UserInfoCustom extends UserInfo {
     /**
      * 头像原图
      */
-    private String headPortraitPath;
+    private String picturePath;
     /**
      * 头像压缩图
      */
-    private String narrowHeadPortraitPath;
+    private String narrowPicturePath;
     /**
      * 角色名称
      */
@@ -29,27 +29,27 @@ public class UserInfoCustom extends UserInfo {
         this.roleName = roleName;
     }
 
-    public String getHeadPortraitPath() {
-        return headPortraitPath;
+    public String getPicturePath() {
+        return picturePath;
     }
 
-    public void setHeadPortraitPath(String headPortraitPath) {
-        this.headPortraitPath = headPortraitPath;
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
-    public String getNarrowHeadPortraitPath() {
-        return narrowHeadPortraitPath;
+    public String getNarrowPicturePath() {
+        return narrowPicturePath;
     }
 
-    public void setNarrowHeadPortraitPath(String narrowHeadPortraitPath) {
-        this.narrowHeadPortraitPath = narrowHeadPortraitPath;
+    public void setNarrowPicturePath(String narrowPicturePath) {
+        this.narrowPicturePath = narrowPicturePath;
     }
 
     @Override
     public String toString() {
         return "UserInfoCustom{" +
-                "headPortraitPath='" + headPortraitPath + '\'' +
-                ", narrowHeadPortraitPath='" + narrowHeadPortraitPath + '\'' +
+                "picturePath='" + picturePath + '\'' +
+                ", narrowPicturePath='" + narrowPicturePath + '\'' +
                 "} " + super.toString();
     }
 }

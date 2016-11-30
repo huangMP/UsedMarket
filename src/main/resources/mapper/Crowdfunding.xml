@@ -116,22 +116,24 @@
     </sql>
 
     <!-- 按要求查找 -->
-    <select id="findCrowdfundingQueryCondition" resultType="CrowdfundingCustom" parameterType="CrowdfundingQueryCondition">
+    <select id="findByQueryCondition" resultType="CrowdfundingCustom" parameterType="QueryCondition">
         <include refid="findSql"/>
         WHERE 1=1
-        <choose>
-            <when test="type == 'all'"/>
-            <otherwise>
-                AND `t_crowdfunding`.${type} = #{queryValue}
-            </otherwise>
-        </choose>
-        <if test="indistinctField != null and indistinctField != '' ">
-            AND `t_crowdfunding`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        <if test="type != null and type != '' and type != 'all' ">
+            AND <include refid="tableName"/>.${type} = #{queryValue}
         </if>
-        ORDER BY ${orderBy} ${order}
+        <if test="secondType != null and secondType != '' and secondType != 'all'  ">
+            AND <include refid="tableName"/>.${secondType} = #{secondQueryValue}
+        </if>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND <include refid="tableName"/>.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy} ${order}
+        </if>
         LIMIT ${index},${size}
-    </select>
 
+    </select>
     <!-- 根据传入的id，读取相应的图片 -->
     <select id="loadImages" parameterType="CrowdfundingCustom" resultType="Attachment" >
         SELECT *

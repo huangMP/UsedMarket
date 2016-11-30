@@ -2,7 +2,7 @@ package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.CrowdfundingDao;
 import com.usedmarket.dto.CrowdfundingCustom;
-import com.usedmarket.dto.CrowdfundingQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Attachment;
 import com.usedmarket.entity.Crowdfunding;
 import com.usedmarket.service.CrowdfundingService;
@@ -48,13 +48,15 @@ public class CrowdfundingServiceImpl implements CrowdfundingService {
     }
 
     /**
-     * 按条件查询
-     * @param crowdfundingQueryCondition
+     * 按条件查找
+     * @param queryCondition
      * @return
      */
-    public List<CrowdfundingCustom> findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition){
+    @Override
+    public List<CrowdfundingCustom> findByQueryCondition(QueryCondition queryCondition) {
 
-        List<CrowdfundingCustom> crowdfundingCustoms = crowdfundingDao.findCrowdfundingQueryCondition(crowdfundingQueryCondition);
+
+        List<CrowdfundingCustom> crowdfundingCustoms = crowdfundingDao.findByQueryCondition(queryCondition);
 
         if (crowdfundingCustoms.size() == 0) {
             return null;

@@ -1,8 +1,8 @@
 package com.usedmarket.controller.web;
 
-import com.usedmarket.dto.CrowdfundingCustom;
-import com.usedmarket.dto.CrowdfundingQueryCondition;
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.HttpResult;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Crowdfunding;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CrowdfundingService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by huangMP on 2016/11/26.
@@ -23,7 +22,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/WebCrowdfunding")
-public class WebCrowdfundingController {
+public class WebCrowdfundingController extends BaseController{
 
     @Autowired
     CrowdfundingService crowdfundingService;
@@ -32,7 +31,7 @@ public class WebCrowdfundingController {
 
     @RequestMapping(value = "/insert")
     @ResponseBody
-    public int insert(
+    public HttpResult insert(
                       @RequestParam(value = "images") MultipartFile[] images,
                       @RequestParam(value = "crowdfundingType", defaultValue = "0") int crowdfundingType,
                       String title,
@@ -60,37 +59,34 @@ public class WebCrowdfundingController {
                 attachmentService.insert(image, crowdfunding.getCrowdfundingId(), "1");
             }
         }
-
-        return crowdfundingService.insert(crowdfunding);
-    }
-
-    @RequestMapping(value = "/findByCrowdfundingId")
-    @ResponseBody
-    public Crowdfunding findByCrowdfundingId(String crowdfundingId) {
-        return crowdfundingService.findByCrowdfundingId(crowdfundingId);
-    }
-
-    @RequestMapping(value = "/findByaddUser")
-    @ResponseBody
-    public Crowdfunding findByaddUser(String addUser) {
-        return crowdfundingService.findByaddUser(addUser);
+        if( 1 == crowdfundingService.insert(crowdfunding) ){
+            return getHttpResult("操作完成",null);
+        }
+        return getHttpResult("操作失败",null);
     }
 
     @RequestMapping(value = "/update")
     @ResponseBody
-    public int update(Crowdfunding crowdfunding) {
-        return crowdfundingService.update(crowdfunding);
+    public HttpResult update(Crowdfunding crowdfunding) {
+        if( 1 == crowdfundingService.update(crowdfunding) ){
+            return getHttpResult("操作失败",null);
+        }
+        return getHttpResult("操作失败",null);
     }
 
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public int delete(String crowdfundingId) {
-        return crowdfundingService.delete(crowdfundingId);
+    public HttpResult delete(String crowdfundingId) {
+        if( 1==crowdfundingService.delete(crowdfundingId)){
+            return getHttpResult("操作完成",null);
+        }else{
+            return getHttpResult("操作失败",null);
+        }
     }
 
-    @RequestMapping(value = "/findCrowdfundingQueryCondition")
+    @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
-    public HttpResult findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition){
-        return new HttpResult<List<CrowdfundingCustom>>( crowdfundingService.findCrowdfundingQueryCondition(crowdfundingQueryCondition) );
+    public HttpResult findByQueryCondition(QueryCondition queryCondition){
+        return getHttpResult("操作完成",crowdfundingService.findByQueryCondition(queryCondition) );
     }
 }

@@ -1,8 +1,8 @@
 package com.usedmarket.controller.app;
 
-import com.usedmarket.dto.DonationCustom;
-import com.usedmarket.dto.DonationQueryCondition;
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.HttpResult;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Donation;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.DonationService;
@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -24,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/Donation")
-public class DonationController {
+public class DonationController extends BaseController{
 
     @Autowired
     DonationService donationService;
@@ -73,28 +72,23 @@ public class DonationController {
             }
         }
 
-        HttpResult httpResult = new HttpResult();
-
         if( 0 != donationService.insertDonation(donation)){
-            httpResult.setResultCenter("上传成功");
+            return getHttpResult("操作成功",null);
         } else
-            httpResult.setResultCenter("操作失败");
+        return getHttpResult("操作失败",null);
 
-        return httpResult;
     }
-
 
     /**
      * 按条件查找
-     * @param donationQueryCondition
+     * @param queryCondition
      * @return
      */
-    @RequestMapping(value = "/search")
+    @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
-    public HttpResult searchDonationQueryCondition(DonationQueryCondition donationQueryCondition) {
-        return new HttpResult<List<DonationCustom>>(donationService.findDonationByQueryCondition(donationQueryCondition));
+    public HttpResult findByQueryCondition(QueryCondition queryCondition) {
+        return getHttpResult("操作完成",donationService.findByQueryCondition(queryCondition));
     }
-
     /**
      * 按条件修改
      * @param donationId
@@ -105,7 +99,7 @@ public class DonationController {
     @RequestMapping(value = "/edit")
     @ResponseBody
     public HttpResult editByCondition(String donationId ,String type ,String futrueValue ,String currentValue ,boolean isCheck) {
-        return new HttpResult<DonationCustom>(donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck ));
+        return getHttpResult("操作完成",donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck ));
     }
 
 }

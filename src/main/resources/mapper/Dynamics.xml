@@ -78,7 +78,7 @@
         <if test="type != null and type != '' and type != 'all' ">
             AND `t_dynamics`.${type} = #{queryValue}
         </if>
-        <if test="secondType != null and secondType != '' ">
+        <if test="secondType != null and secondType != '' and secondType != 'all' ">
             AND `t_dynamics`.${secondType} = #{secondQueryValue}
         </if>
         <if test="secondType != null and secondType != '' and secondType != 'all' ">
