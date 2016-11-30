@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.CommodityCategoryCustom;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.dto.QueryCondition;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/CommodityCategory")
-public class CommodityCategoryController {
+public class CommodityCategoryController extends BaseController{
 
     @Autowired
     CommodityCategoryService commodityCategoryService;
@@ -30,7 +31,7 @@ public class CommodityCategoryController {
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition) {
-        return new HttpResult<List<CommodityCategoryCustom>>(commodityCategoryService.findByQueryCondition(queryCondition));
+        return this.getHttpResult("",this.commodityCategoryService.findByQueryCondition(queryCondition));
     }
 
 

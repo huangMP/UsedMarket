@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.UserCollection;
 import com.usedmarket.service.UserCollectionService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/Collection")
-public class UserCollectionController {
+public class UserCollectionController extends BaseController{
 
 	@Autowired
 	UserCollectionService userCollectionService;
@@ -23,30 +24,17 @@ public class UserCollectionController {
 	@RequestMapping(value = "/add")
 	@ResponseBody
 	public HttpResult addCollection(UserCollection userCollection) {
-		HttpResult httpResult = new HttpResult();
-		userCollection.setCollectionId(UuidUtil.get32UUID());
-		if (userCollectionService.findOneCollection(userCollection) == null) {
-			if (userCollectionService.addCollection(userCollection)) {
-				httpResult.setResultCenter("收藏成功");
-			} else {
-				httpResult.setResultCenter("操作失败");
-			}
-		} else {
-			httpResult.setResultCenter("已收藏成功");
-		}
-		return httpResult;
+		userCollection.setCollectionId(this.get32UUID());
+		if (userCollectionService.findOneCollection(userCollection) == null)
+			return this.getFrequentlyUsedReturnResultByBool(userCollectionService.addCollection(userCollection));
+		else
+			return this.getHttpResult(BaseController.OPERATION_REPETITION,"");
 	}
 
 	@RequestMapping(value = "/remove")
 	@ResponseBody
 	public HttpResult removeOneCollection(UserCollection userCollection) {
-		HttpResult httpResult = new HttpResult();
-		if (userCollectionService.removeOneCollection(userCollection)) {
-			httpResult.setResultCenter("删除成功");
-		} else {
-			httpResult.setResultCenter("操作失败");
-		}
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(userCollectionService.removeOneCollection(userCollection));
 	}
 
 }

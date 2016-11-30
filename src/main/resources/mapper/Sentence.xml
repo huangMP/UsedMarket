@@ -62,8 +62,8 @@
         WHERE sentence_id=#{sentenceId}
     </update>
     
-    <select id="selectNumByType" parameterType="Integer">
-        SELECT COUNT(*) `count` FROM t_sentence WHERE type = #{type}
+    <select id="selectNumByType" parameterType="Integer" resultType="Integer">
+        SELECT COUNT(*) `count` FROM t_sentence WHERE `type` = #{type}
     </select>
 
 </mapper>

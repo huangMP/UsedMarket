@@ -1,5 +1,7 @@
 package com.usedmarket.controller.app;
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.dto.HttpResult;
@@ -24,7 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/Commodity")
-public class CommodityController {
+public class CommodityController extends BaseController{
 
 	@Autowired
 	CommodityService commodityService;
@@ -35,29 +37,19 @@ public class CommodityController {
 	@RequestMapping(value = "/search")
 	@ResponseBody
 	public HttpResult searchCommodityByCondition(CommodityQueryCondition commodityQueryCondition) {
-		return new HttpResult<List<CommodityCustom>>(commodityService.findCommodityByQueryCondition(commodityQueryCondition));
+		return this.getHttpResult("", this.commodityService.findCommodityByQueryCondition(commodityQueryCondition));
 	}
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public HttpResult deleteCommodity(String commodityId) {
-		HttpResult httpResult = new HttpResult();
-		if (commodityService.deleteByCommodityId(commodityId)) {
-			httpResult.setResultCenter("删除成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(commodityService.deleteByCommodityId(commodityId));
 	}
 
 	@RequestMapping(value = "/updateCommodityNum")
 	@ResponseBody
 	public HttpResult updateNumByCommodityId(Commodity commodity) {
-		HttpResult httpResult = new HttpResult();
-		if (commodityService.updateNumByCommodityId(commodity)) {
-			httpResult.setResultCenter("更新成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(commodityService.updateNumByCommodityId(commodity));
 	}
 
 	@RequestMapping(value = "/upload")
@@ -93,16 +85,9 @@ public class CommodityController {
 				//执行上传
 				attachmentService.insert(image, commodity.getCommodityId(), "1");
 			}
-
 		}
 
-		HttpResult httpResult = new HttpResult();
-
-		if (commodityService.addCommodity(commodity)) {
-			httpResult.setResultCenter("上传成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(commodityService.addCommodity(commodity));
 
 	}
 

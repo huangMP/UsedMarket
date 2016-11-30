@@ -507,6 +507,39 @@
             <a href="webindex.jsp"><button style="color:red;"><h2>跳转到后台功能测试</h2></button></a>
         </div>
 
+        <span>-----------推荐/跑马条-----------------------------------</span>
+        <h4>查找</h4>
+        <form action="Sentence/select" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="1">跑马条</option>
+                            <option value="0">推荐</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询index</td>
+                    <td><input name="index" type="number"/></td>
+                </tr>
+                <tr>
+                    <td>数量</td>
+                    <td><input name="num" type="number"/></td>
+                </tr>
+                <tr>
+                    <td>是否随机取数</td>
+                    <td>
+                        <select name="doRandom">
+                            <option value="true" typeof="java.lang.Boolean">是</option>
+                            <option value="false" typeof="java.lang.Boolean">否</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
 
     </div>
 </div>

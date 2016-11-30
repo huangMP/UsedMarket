@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Description：单文字表的ServiceImpl（0.推荐；1.跑马条；2.一级标题）
+ * Description：单文字表的ServiceImpl（0.推荐；1.跑马条.）
  * Created by Peivxuan on 2016/11/26.
  */
 @Service
@@ -68,14 +68,13 @@ public class SentenceServiceImpl implements SentenceService {
 		List<SentenceBean> newList = new ArrayList<SentenceBean>(num);
 
 		Random random = new Random();
-		int newNum = num << 1;
+		int newNum = rawList.size();
 		while( newList.size() < num ) {
 			int nextInt = random.nextInt(newNum);
 			if (!newList.contains(rawList.get(nextInt))) {
 				newList.add(rawList.get(nextInt));
 			}
 		}
-
 		return newList;
 	}
 

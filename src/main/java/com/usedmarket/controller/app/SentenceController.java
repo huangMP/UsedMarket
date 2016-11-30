@@ -1,23 +1,26 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.dto.SentenceQueryCondition;
 import com.usedmarket.entity.SentenceBean;
 import com.usedmarket.service.SentenceService;
+import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * Description：单文字的controller（跑马条、推荐、一级标题）
+ * Description：单文字的controller（跑马条、推荐）
  * Created by Peivxuan on 2016/11/27.
  */
 @Controller
 @RequestMapping("/Sentence")
-public class SentenceController {
+public class SentenceController extends BaseController {
 
 	@Autowired
 	private SentenceService sentenceService;
@@ -25,40 +28,28 @@ public class SentenceController {
 	@RequestMapping(value = "/select")
 	@ResponseBody
 	public HttpResult selectSentencesByCondition(SentenceQueryCondition sentenceQueryCondition) {
-		return new HttpResult<List<SentenceBean>>(sentenceService.selectSentencesByCondition(sentenceQueryCondition));
+		return this.getHttpResult("", sentenceService.selectSentencesByCondition(sentenceQueryCondition));
 	}
 
 	@RequestMapping(value = "/add")
 	@ResponseBody
 	public HttpResult insert(SentenceBean sentenceBean) {
-		HttpResult httpResult = new HttpResult();
-		if (sentenceService.insert(sentenceBean)) {
-			httpResult.setResultCenter("上传成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		System.out.println(sentenceBean.toString());
+		sentenceBean.setSentenceId(this.get32UUID());
+		sentenceBean.setAddDate(new Date());
+		return this.getFrequentlyUsedReturnResultByBool(sentenceService.insert(sentenceBean));
 	}
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public HttpResult delete(String sentenceId) {
-		HttpResult httpResult = new HttpResult();
-		if (sentenceService.deleteBySentenceId(sentenceId)) {
-			httpResult.setResultCenter("删除成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(sentenceService.deleteBySentenceId(sentenceId));
 	}
 
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	public HttpResult update(SentenceBean sentenceBean) {
-		HttpResult httpResult = new HttpResult();
-		if (sentenceService.updateBySentenceId(sentenceBean)) {
-			httpResult.setResultCenter("更新成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(sentenceService.updateBySentenceId(sentenceBean));
 	}
 
 }
