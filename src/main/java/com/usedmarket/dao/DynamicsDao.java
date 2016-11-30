@@ -2,7 +2,7 @@ package com.usedmarket.dao;
 
 
 import com.usedmarket.dto.DynamicsCustom;
-import com.usedmarket.dto.DynamicsQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Dynamics;
 
 import java.util.List;
@@ -28,10 +28,10 @@ public interface DynamicsDao {
 
     /**
      * 按列查找 动态查找
-     * @param dynamicsQueryCondition
+     * @param queryCondition
      * @return
      */
-    List<DynamicsCustom> findDynamicsByQueryCondition(DynamicsQueryCondition dynamicsQueryCondition);
+    List<DynamicsCustom> findDynamicsByQueryCondition(QueryCondition queryCondition);
 
     /**
      * @param dynamics

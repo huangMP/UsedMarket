@@ -1,7 +1,10 @@
 package com.usedmarket.controller.app;
 
 import com.usedmarket.controller.BaseController;
-import com.usedmarket.dto.*;
+import com.usedmarket.dto.CommodityQueryCondition;
+import com.usedmarket.dto.HttpResult;
+import com.usedmarket.dto.QueryCondition;
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.Role;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
@@ -57,8 +60,6 @@ public class UserInfoController extends BaseController{
             @RequestParam(value="phone") String phone
                                  ) throws IOException {
 
-        HttpResult httpResult = new HttpResult();
-
         //判断接受到的信息是否正确
         if(
                 ("".equals(password.trim()) || null == password) ||
@@ -67,9 +68,7 @@ public class UserInfoController extends BaseController{
                         (sex != 0 && sex != 1) ||
                         (headPortrait == null || headPortrait.isEmpty())
                 ){
-            System.out.println("接收到的信息不完全");
-            httpResult.setResultCenter("接收到的信息不完全");
-            return httpResult;
+            return getHttpResult("接收到的信息不完全",null);
         }
 
         //通过用户名向数据库查询UserInfo
@@ -77,9 +76,7 @@ public class UserInfoController extends BaseController{
 
         //如果该用户名已存在
         if( null != userInfoInDatabase ){
-            System.out.println("用户已存在");
-            httpResult.setResultCenter("用户已存在");
-            return httpResult;
+            return getHttpResult("用户已存在",null);
         }
 
         UserInfo userInfo = new UserInfo();
@@ -99,9 +96,7 @@ public class UserInfoController extends BaseController{
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
-        System.out.println("注册成功");
-        httpResult.setResultCenter("注册成功");
-        return httpResult;
+        return getHttpResult("注册成功",userInfo);
     }
 
     /**
@@ -118,20 +113,20 @@ public class UserInfoController extends BaseController{
                 null == userInfo.getUsername().trim() || "".equals(userInfo.getUsername().trim()) ||
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim())
                 ) {
-            return getHttpResult("接收到的信息不完全",userInfo);
+            return getHttpResult("登录失败",userInfo);
         }
 
         //通过用户名向数据库查询UserInfo
         List<UserInfoCustom> userInfoCustoms = userInfoService.findByQueryCondition(new QueryCondition("username", userInfo.getUsername().trim(), "", "", "", 0, 10));
         if(userInfoCustoms.size()!=1){
-            return getHttpResult("该用户不存在",userInfo);
+            return getHttpResult("登录失败",userInfo);
         }
         UserInfoCustom userInfoCustom = userInfoCustoms.get(0);
         //判断密码是否输入正确
         if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
             return getHttpResult("登录成功",userInfoCustom);
         }
-        return getHttpResult("密码不正确",userInfo);
+        return getHttpResult("登录失败",userInfo);
     }
 
     /**
@@ -143,17 +138,13 @@ public class UserInfoController extends BaseController{
     @ResponseBody
     public HttpResult editPassword(UserInfo userInfo, String newPassword) {
 
-        HttpResult httpResult = new HttpResult();
-
         //判断接受到的信息是否正确
         if(
                 null == userInfo.getUserId().trim() || "".equals(userInfo.getUserId().trim()) ||
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim()) ||
                 null == newPassword.trim() || "".equals( newPassword.trim() )
                 ){
-            System.out.println("接收到的信息不完全");
-            httpResult.setResultCenter("接收到的信息不完全");
-            return httpResult;
+            return getHttpResult("接收到的信息不完全",null);
         }
 
         //通过用户Id向数据库查询UserInfo
@@ -161,9 +152,7 @@ public class UserInfoController extends BaseController{
 
         //判断该用户是否存在
         if( null == userInfoInDatabase ){
-            System.out.println("该用户不存在");
-            httpResult.setResultCenter("该用户不存在");
-            return httpResult;
+            return getHttpResult("该用户不存在",null);
         }
 
         if( userInfoInDatabase.getPassword().trim().equals( userInfo.getPassword().trim() ) ){
@@ -173,11 +162,9 @@ public class UserInfoController extends BaseController{
             userInfoInDatabase.setPassword( newPassword.trim() );
             //保存到数据库
             userInfoService.updateUserInfo( userInfoInDatabase );
-            return new HttpResult<UserInfo>(userInfoInDatabase);
+            return getHttpResult("密码不正确",userInfoInDatabase);
         }
-        System.out.println("密码不正确");
-        httpResult.setResultCenter("密码不正确");
-        return httpResult;
+        return getHttpResult("密码不正确",null);
     }
 
     /**
@@ -193,16 +180,12 @@ public class UserInfoController extends BaseController{
             @RequestParam(value = "userId") String userId
     ) {
 
-        HttpResult httpResult = new HttpResult();
-
         //判断接受到的信息是否正确
         if (
                 ("".equals(userId.trim()) || null == userId) ||
                         (headPortrait == null || headPortrait.isEmpty())
                 ) {
-            System.out.println("接收到的信息不完全");
-            httpResult.setResultCenter("接收到的信息不完全");
-            return httpResult;
+            return getHttpResult("接收到的信息不完全",null);
         }
 
         //通过用户Id向数据库查询UserInfo
@@ -210,9 +193,7 @@ public class UserInfoController extends BaseController{
 
         //判断该用户是否存在
         if (null == userInfoInDatabase) {
-            System.out.println("该用户不存在");
-            httpResult.setResultCenter("该用户不存在");
-            return httpResult;
+            return getHttpResult("该用户不存在",null);
         }
 
         //更新附件路径
@@ -221,8 +202,7 @@ public class UserInfoController extends BaseController{
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);
 
-        httpResult.setResultCenter("修改成功");
-        return httpResult;
+        return getHttpResult("修改成功",userInfoInDatabase);
     }
 
     /**
@@ -241,7 +221,7 @@ public class UserInfoController extends BaseController{
         if(userInfoCustom == null) {
             return new HttpResult("操作失败");
         }
-        return new HttpResult<UserInfoCustom>("修改成功", userInfoCustom);
+        return getHttpResult("修改成功",userInfoCustom);
     }
 
     /**
@@ -257,7 +237,7 @@ public class UserInfoController extends BaseController{
         commodityQueryCondition.setType("t_commodity.user_id");
         commodityQueryCondition.setIndex(index);
         commodityQueryCondition.setQueryValue(userId.trim());
-        return new HttpResult<List<CommodityCustom>>(commodityService.findCommodityByQueryCondition(commodityQueryCondition));
+        return getHttpResult("查找完成",commodityService.findCommodityByQueryCondition(commodityQueryCondition));
     }
 
     /**

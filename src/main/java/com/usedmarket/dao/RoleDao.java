@@ -1,5 +1,6 @@
 package com.usedmarket.dao;
 
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Role;
 
 import java.util.List;
@@ -51,4 +52,10 @@ public interface RoleDao {
      */
     int delete(String roleId);
 
+    /**
+     * 按条件查找
+     * @param queryCondition
+     * @return
+     */
+    List<Role> findByQueryCondition(QueryCondition queryCondition);
 }
