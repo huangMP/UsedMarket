@@ -1,7 +1,7 @@
 package com.usedmarket.service;
 
 import com.usedmarket.dto.CrowdfundingCustom;
-import com.usedmarket.dto.CrowdfundingQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Crowdfunding;
 
 import java.util.List;
@@ -46,12 +46,10 @@ public interface CrowdfundingService {
 	 * @return 成功删除的信息条数
 	 */
 	int delete(String crowdfundingId);
-
-
 	/**
-	 * 按条件查询
-	 * @param crowdfundingQueryCondition
+	 * 按条件查找
+	 * @param queryCondition
 	 * @return
      */
-	List<CrowdfundingCustom> findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition);
+	List<CrowdfundingCustom> findByQueryCondition(QueryCondition queryCondition);
 }

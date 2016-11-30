@@ -93,21 +93,22 @@
         INNER JOIN `t_attachment` ON `t_donation`.`user_id` = `t_attachment`.`content_id`
     </sql>
 
-    <!-- 按要求查找 -->
-    <select id="findDonationByQueryCondition" resultType="DonationCustom" parameterType="DonationQueryCondition">
+    <select id="findByQueryCondition" resultType="DonationCustom" parameterType="QueryCondition">
         <include refid="findDonationSql"/>
         WHERE 1=1
-        <choose>
-            <when test="type == 'all'"/>
-            <otherwise>
-                AND `t_donation`.${type} = #{queryValue}
-            </otherwise>
-        </choose>
-        <if test="indistinctField != null and indistinctField != '' ">
-            AND description like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        <if test="type != null and type != '' and type != 'all' ">
+            AND <include refid="tableName"/>.${type} = #{queryValue}
         </if>
-        ORDER BY ${orderBy} ${order}
-        LIMIT ${index},10
+        <if test="secondType != null and secondType != '' and secondType != 'all' ">
+            AND <include refid="tableName"/>.${secondType} = #{secondQueryValue}
+        </if>
+        <if test="secondType != null and secondType != '' and secondType != 'all' ">
+            AND <include refid="tableName"/>.donation_name like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy} ${order}
+        </if>
+        LIMIT ${index},${size}
     </select>
 
     <!-- 根据传入的id，读取相应的图片 -->

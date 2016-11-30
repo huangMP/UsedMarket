@@ -2,7 +2,7 @@ package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.DonationDao;
 import com.usedmarket.dto.DonationCustom;
-import com.usedmarket.dto.DonationQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Attachment;
 import com.usedmarket.entity.Donation;
 import com.usedmarket.service.DonationService;
@@ -34,16 +34,11 @@ public class DonationServiceImpl implements DonationService {
         return donationDao.insert(donation);
     }
 
-    /**
-     * 按要求查找
-     * @param donationQueryCondition
-     * @return
-     */
     @Override
-    public List<DonationCustom> findDonationByQueryCondition(DonationQueryCondition donationQueryCondition) {
+    public List<DonationCustom> findByQueryCondition(QueryCondition queryCondition) {
 
         //取出10条commodity
-        List<DonationCustom> donationCustoms = donationDao.findDonationByQueryCondition(donationQueryCondition);
+        List<DonationCustom> donationCustoms = donationDao.findByQueryCondition(queryCondition);
 
         if (donationCustoms.size() == 0) {
             return donationCustoms;

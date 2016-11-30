@@ -2,7 +2,7 @@ package com.usedmarket.dao;
 
 
 import com.usedmarket.dto.CrowdfundingCustom;
-import com.usedmarket.dto.CrowdfundingQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Attachment;
 import com.usedmarket.entity.Crowdfunding;
 
@@ -48,12 +48,12 @@ public interface CrowdfundingDao {
      */
     int delete(String crowdfundingId);
 
+    List<Attachment> loadImages(List<CrowdfundingCustom> donationCustoms);
+
     /**
-     * 按条件查询
-     * @param crowdfundingQueryCondition
+     * 按条件查找
+     * @param queryCondition
      * @return
      */
-    List<CrowdfundingCustom> findCrowdfundingQueryCondition(CrowdfundingQueryCondition crowdfundingQueryCondition);
-
-    List<Attachment> loadImages(List<CrowdfundingCustom> donationCustoms);
+    List<CrowdfundingCustom> findByQueryCondition(QueryCondition queryCondition);
 }

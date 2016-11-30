@@ -1,7 +1,7 @@
 package com.usedmarket.service;
 
 import com.usedmarket.dto.DonationCustom;
-import com.usedmarket.dto.DonationQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Donation;
 
 import java.util.List;
@@ -20,10 +20,10 @@ public interface DonationService {
 
     /**
      * 按要求查找
-     * @param donationQueryCondition
+     * @param queryCondition
      * @return
      */
-    List<DonationCustom> findDonationByQueryCondition(DonationQueryCondition donationQueryCondition);
+    List<DonationCustom> findByQueryCondition(QueryCondition queryCondition);
 
     /**
      * 按列修改

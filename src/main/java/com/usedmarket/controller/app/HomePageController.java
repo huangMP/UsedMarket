@@ -74,7 +74,7 @@ public class HomePageController extends BaseController{
 		//全部二手专题
 		List<CommodityCategoryCustom> commoditycCategoryCustomList = commodityCategoryService.findByQueryCondition(new QueryCondition("type", "2", "", "DESC", "sort", 0, 10));
 		//五条众筹
-		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findCrowdfundingQueryCondition(new CrowdfundingQueryCondition("all", "", "", 0, "DESC", "add_date", "5"));
+		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0, 5));
 		//五条动态
 		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0,10));
 		//店铺

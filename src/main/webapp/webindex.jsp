@@ -328,19 +328,41 @@
 
         <span>----------众筹-----------------------------------</span>
         <h4>查找</h4>
-        <form action="WebCrowdfunding/findCrowdfundingQueryCondition" method="post">
+        <form action="WebCrowdfunding/findByQueryCondition" method="post">
             <table>
                 <tr>
                     <td>类型</td>
                     <td>
                         <select name="type">
                             <option value="all">不指定列 : all</option>
+                            <option value="crowdfunding_type">type</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>查询值</td>
-                    <td><input name="queryValue"/></td>
+                    <td>
+                        <select name="queryValue">
+                            <option value="1">创意众筹</option>
+                            <option value="2">爱心众筹</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="secondType">
+                            <option value="all">不指定列 : all</option>
+                            <option value="add_user">添加人 : add_user</option>
+                            <option value="title">标题 : title</option>
+                            <option value="origin">来源 : origin</option>
+                            <option value="crowdfunding_id">众筹id : crowdfunding_id</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="secondQueryValue"/></td>
                 </tr>
                 <tr>
                     <td>排序方式</td>
@@ -356,6 +378,9 @@
                     <td>
                         <select name="orderBy">
                             <option value="add_date">发布时间:add_date</option>
+                            <option value="target_amount">目标金额:target_amount</option>
+                            <option value="now_amount">现得到金额:now_amount</option>
+                            <option value="support_num">支持人数:support_num</option>
                         </select>
                     </td>
                 </tr>
@@ -369,7 +394,7 @@
                 </tr>
                 <tr>
                     <td>查询数量</td>
-                    <td><input name="size" value="1"/></td>
+                    <td><input name="size" value="10"/></td>
                 </tr>
             </table>
             <input type="submit" value="提交">

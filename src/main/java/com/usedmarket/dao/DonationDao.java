@@ -2,7 +2,7 @@ package com.usedmarket.dao;
 
 
 import com.usedmarket.dto.DonationCustom;
-import com.usedmarket.dto.DonationQueryCondition;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Attachment;
 import com.usedmarket.entity.Donation;
 
@@ -25,12 +25,13 @@ public interface DonationDao {
      * @return 插入成功的数量
      */
     int insert(Donation donation) ;
+
     /**
      * 按要求查找
-     * @param donationQueryCondition
+     * @param queryCondition
      * @return
      */
-    List<DonationCustom> findDonationByQueryCondition(DonationQueryCondition donationQueryCondition);
+    List<DonationCustom> findByQueryCondition(QueryCondition queryCondition);
 
     /**
      * 读取图片
