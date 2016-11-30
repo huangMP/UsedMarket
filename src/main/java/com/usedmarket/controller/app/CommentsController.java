@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.CommentCustom;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Comment;
@@ -20,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/Comment")
-public class CommentsController {
+public class CommentsController extends BaseController{
 
 	@Autowired
 	CommentService commentService;
@@ -28,7 +29,7 @@ public class CommentsController {
 	@RequestMapping(value = "/searchByCommodityId")
 	@ResponseBody
 	public HttpResult searchCommentByCommodityId(String commodityId) {
-		return new HttpResult<List<CommentCustom>>(commentService.findByCommodityId(commodityId));
+		return this.getHttpResult("",this.commentService.findByCommodityId(commodityId));
 	}
 
 	@RequestMapping(value = "/insert")
@@ -36,34 +37,19 @@ public class CommentsController {
 	public HttpResult insert(Comment comment) {
 		comment.setCommentId(UuidUtil.get32UUID());
 		comment.setCommentDate(new Date());
-		HttpResult httpResult = new HttpResult();
-		if (commentService.insert(comment)) {
-			httpResult.setResultCenter("评论成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(commentService.insert(comment));
 	}
 
 	@RequestMapping(value = "/deleteByCommentId")
 	@ResponseBody
 	public HttpResult deleteByCommentId(String commodityId) {
-		HttpResult httpResult = new HttpResult();
-		if (commentService.deleteByCommentId(commodityId)) {
-			httpResult.setResultCenter("删除成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(commentService.deleteByCommentId(commodityId));
 	}
 
 	@RequestMapping(value = "/deleteByCommodityId")
 	@ResponseBody
 	public HttpResult deleteByCommodityId(String commodityId) {
-		HttpResult httpResult = new HttpResult();
-		if (commentService.deleteByCommodityId(commodityId)) {
-			httpResult.setResultCenter("删除成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
+		return this.getFrequentlyUsedReturnResultByBool(commentService.deleteByCommodityId(commodityId));
 	}
 
 }

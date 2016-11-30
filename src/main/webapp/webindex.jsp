@@ -521,6 +521,25 @@
             <input type="submit" value="提交">
         </form>
 
+        <h4>----------------添加推荐/跑马条----------------</h4>
+        <form action="/UsedMarket/Sentence/add" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="1">跑马条：1</option>
+                            <option value="0">推荐：0</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>文本</td>
+                    <td><input name="text"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
 
 
     </div>

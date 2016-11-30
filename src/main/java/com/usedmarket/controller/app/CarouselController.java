@@ -1,5 +1,6 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Carousel;
 import com.usedmarket.service.AttachmentService;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/Carousel")
-public class CarouselController {
+public class CarouselController extends BaseController{
 
 	@Autowired
 	private CarouselService carouselService;
@@ -42,55 +43,30 @@ public class CarouselController {
 		//暂时设置为空
 		carousel.setAddUserId("test");
 
-		HttpResult httpResult = new HttpResult();
-
 		if (!image.isEmpty()) {
 			attachmentService.insert(image, carousel.getCarouselId(), "3");
 		} else {
-			httpResult.setResultCenter("操作失败");
-			return httpResult;
+			return this.getHttpResult(BaseController.OPERATION_FAILED,"");
 		}
-
-		if (carouselService.insert(carousel)) {
-			httpResult.setResultCenter("上传成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
-
+		return this.getFrequentlyUsedReturnResultByBool(carouselService.insert(carousel));
 	}
 
 	@RequestMapping(value = "/top5")
 	@ResponseBody
 	public HttpResult selectTop5() {
-		return new HttpResult<List<Carousel>> (carouselService.selectTop5());
+		return this.getHttpResult ("",carouselService.selectTop5());
 	}
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public HttpResult deleteByCarouselId(String carouselId) {
-
-		HttpResult httpResult = new HttpResult();
-
-		if (carouselService.deleteByCarouselId(carouselId)) {
-			httpResult.setResultCenter("删除成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
-
+		return this.getFrequentlyUsedReturnResultByBool(carouselService.deleteByCarouselId(carouselId));
 	}
 
 	@RequestMapping(value = "/update")
 	@ResponseBody
 	public HttpResult updateByCarouselId(Carousel carousel) {
-
-		HttpResult httpResult = new HttpResult();
-
-		if (carouselService.updateByCarouselId(carousel)) {
-			httpResult.setResultCenter("更新成功");
-		} else
-			httpResult.setResultCenter("操作失败");
-		return httpResult;
-
+		return this.getFrequentlyUsedReturnResultByBool(carouselService.updateByCarouselId(carousel));
 	}
 
 }

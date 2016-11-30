@@ -16,7 +16,7 @@ public interface SentenceService {
 	 * @param sentenceQueryCondition 查询条件
 	 * @return 返回list
 	 */
-	List<SentenceBean> selectSentencesByCondition(SentenceQueryCondition sentenceQueryCondition);
+		List<SentenceBean> selectSentencesByCondition(SentenceQueryCondition sentenceQueryCondition);
 
 	/**
 	 * 插入

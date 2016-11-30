@@ -1,5 +1,7 @@
 package com.usedmarket.controller.app;
 
+import com.usedmarket.controller.BaseController;
+import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.SubjectHead;
 import com.usedmarket.service.SubjectHeadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,33 +16,33 @@ import java.util.List;
  */
 /*@Controller
 @RequestMapping("/SubjectHead")*/
-public class SubjectHeadController {
+public class SubjectHeadController extends BaseController{
 
 	@Autowired
 	private SubjectHeadService subjectHeadService;
 
 	@RequestMapping("/getHead")
 	@ResponseBody
-	public List<SubjectHead> selectAll() {
-		return subjectHeadService.selectAll();
+	public HttpResult selectAll() {
+		return this.getHttpResult("",subjectHeadService.selectAll());
 	}
 
 	@RequestMapping("/insert")
 	@ResponseBody
-	public void insert(SubjectHead subjectHead) {
-		this.subjectHeadService.insert(subjectHead);
+	public HttpResult insert(SubjectHead subjectHead) {
+		return this.getFrequentlyUsedReturnResultByBool(this.subjectHeadService.insert(subjectHead));
 	}
 
 	@RequestMapping("/delete")
 	@ResponseBody
-	public void deleteBySubjectHeadId(String subjectHeadId) {
-		this.subjectHeadService.deleteBySubjectHeadId(subjectHeadId);
+	public HttpResult deleteBySubjectHeadId(String subjectHeadId) {
+		return this.getFrequentlyUsedReturnResultByBool(this.subjectHeadService.deleteBySubjectHeadId(subjectHeadId));
 	}
 
 	@RequestMapping("/update")
 	@ResponseBody
-	public void updateBySubjectHeadId(SubjectHead subjectHead) {
-		this.subjectHeadService.updateBySubjectHeadId(subjectHead);
+	public HttpResult updateBySubjectHeadId(SubjectHead subjectHead) {
+		return this.getFrequentlyUsedReturnResultByBool(this.subjectHeadService.updateBySubjectHeadId(subjectHead));
 	}
 
 }
