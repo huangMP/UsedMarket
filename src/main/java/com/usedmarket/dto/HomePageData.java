@@ -3,6 +3,7 @@ package com.usedmarket.dto;
 import com.usedmarket.entity.Carousel;
 import com.usedmarket.entity.SentenceBean;
 import com.usedmarket.entity.Store;
+import com.usedmarket.entity.SubjectHead;
 
 import java.util.List;
 
@@ -42,16 +43,22 @@ public class HomePageData {
 	 */
 	private List<Store> storeList;
 
+	/**
+	 * 标题头
+	 */
+	private List<SubjectHead> subjectHeadList;
+
 	public HomePageData() {
 	}
 
-	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<CommodityCategoryCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<Store> storeList) {
+	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<CommodityCategoryCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<Store> storeList, List<SubjectHead> subjectHeadList) {
 		this.carouselList = carouselList;
 		this.sentenceBeanList = sentenceBeanList;
 		this.secondHandSpecialCustomList = secondHandSpecialCustomList;
 		this.crowdfundingCustomList = crowdfundingCustomList;
 		this.dynamicsCustomList = dynamicsCustomList;
 		this.storeList = storeList;
+		this.subjectHeadList = subjectHeadList;
 	}
 
 	public List<Store> getStoreList() {
@@ -102,15 +109,24 @@ public class HomePageData {
 		this.dynamicsCustomList = dynamicsCustomList;
 	}
 
+	public List<SubjectHead> getSubjectHeadList() {
+		return subjectHeadList;
+	}
+
+	public void setSubjectHeadList(List<SubjectHead> subjectHeadList) {
+		this.subjectHeadList = subjectHeadList;
+	}
+
 	@Override
 	public String toString() {
 		return "HomePageData{" +
-				"storeList=" + storeList +
-				", dynamicsCustomList=" + dynamicsCustomList +
-				", crowdfundingCustomList=" + crowdfundingCustomList +
-				", secondHandSpecialCustomList=" + secondHandSpecialCustomList +
+				"carouselList=" + carouselList +
 				", sentenceBeanList=" + sentenceBeanList +
-				", carouselList=" + carouselList +
+				", secondHandSpecialCustomList=" + secondHandSpecialCustomList +
+				", crowdfundingCustomList=" + crowdfundingCustomList +
+				", dynamicsCustomList=" + dynamicsCustomList +
+				", storeList=" + storeList +
+				", subjectHeadList=" + subjectHeadList +
 				'}';
 	}
 }
