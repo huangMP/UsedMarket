@@ -16,7 +16,7 @@ public interface DonationService {
      * @param donation
      * @return 插入成功的数量
      */
-    public int insertDonation(Donation donation) ;
+    boolean insertDonation(Donation donation) ;
 
     /**
      * 按要求查找

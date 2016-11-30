@@ -17,7 +17,7 @@ public interface CrowdfundingService {
 	 * @param crowdfunding
 	 * @rturn 插入成功的数量
 	 */
-	int insert(Crowdfunding crowdfunding) ;
+	boolean insert(Crowdfunding crowdfunding) ;
 
 	/**
 	 * 查找通过crowdfundingId
@@ -38,14 +38,14 @@ public interface CrowdfundingService {
 	 * @param crowdfunding
 	 * @return 成功修改的信息条数
 	 */
-	int update(Crowdfunding crowdfunding);
+	boolean update(Crowdfunding crowdfunding);
 
 	/**
 	 * 删除一条信息
 	 * @param crowdfundingId
 	 * @return 成功删除的信息条数
 	 */
-	int delete(String crowdfundingId);
+	boolean delete(String crowdfundingId);
 	/**
 	 * 按条件查找
 	 * @param queryCondition

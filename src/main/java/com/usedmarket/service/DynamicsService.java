@@ -17,7 +17,7 @@ public interface DynamicsService {
      * @param dynamics
      * @return 插入成功的数量
      */
-    public int insert(Dynamics dynamics);
+    boolean insert(Dynamics dynamics);
 
     /**
      * @param dynamicsId
@@ -30,7 +30,7 @@ public interface DynamicsService {
      * @param dynamics
      * @return
      */
-    Dynamics update(Dynamics dynamics);
+    boolean update(Dynamics dynamics);
 
     /**
      * 按列查找 动态查找

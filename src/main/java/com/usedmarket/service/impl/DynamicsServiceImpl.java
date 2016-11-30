@@ -26,8 +26,11 @@ public class DynamicsServiceImpl implements DynamicsService {
      * @return 插入成功的数量
      */
     @Override
-    public int insert(Dynamics dynamics) {
-        return dynamicsDao.insert(dynamics);
+    public boolean insert(Dynamics dynamics) {
+        if( dynamicsDao.insert(dynamics) == 1 ){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -49,11 +52,10 @@ public class DynamicsServiceImpl implements DynamicsService {
     }
 
     @Override
-    public Dynamics update(Dynamics dynamics) {
-        int i= dynamicsDao.update( dynamics );
-        if( 0 < i ){
-            return dynamics;
+    public boolean update(Dynamics dynamics) {
+        if( 0 <= dynamicsDao.update( dynamics ) ){
+            return false;
         }
-        return null;
+        return true;
     }
 }

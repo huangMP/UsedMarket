@@ -15,7 +15,7 @@ public interface RoleService {
      * @param role
      * @return 插入成功的数量
      */
-    int insert(Role role) ;
+    boolean insert(Role role) ;
 
     /**
      * 通过roleName查找
@@ -43,14 +43,14 @@ public interface RoleService {
      * @param role
      * @return 成功修改的信息条数
      */
-    int update(Role role);
+    boolean update(Role role);
 
     /**
      * 删除一条信息
      * @param roleId
      * @return 成功删除的信息条数
      */
-    int delete(String roleId);
+    boolean delete(String roleId);
 
     /**
      * 按条件查找

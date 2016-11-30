@@ -60,7 +60,7 @@ public class DynamicsController extends BaseController{
     @RequestMapping(value = "/findDynamicsByQueryCondition")
     @ResponseBody
     public HttpResult findDynamicsByQueryCondition(QueryCondition queryCondition) {
-        return getHttpResult("查找完成",dynamicsService.findDynamicsByQueryCondition(queryCondition));
+        return getHttpResult(this.OPERATION_SUCCESS,dynamicsService.findDynamicsByQueryCondition(queryCondition));
     }
 
     /**

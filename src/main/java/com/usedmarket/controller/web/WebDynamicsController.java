@@ -58,14 +58,11 @@ public class WebDynamicsController extends BaseController{
      */
     @RequestMapping(value = "/insertSchool")
     @ResponseBody
-    public Dynamics insertSchool(Dynamics dynamics){
+    public HttpResult insertSchool(Dynamics dynamics){
         dynamics.setDynamicsId( UuidUtil.get32UUID() );
         dynamics.setType( 1 );
         dynamics.setAddDate( new Date());
-        if( 0 < dynamicsService.insert(dynamics)){
-            return dynamics;
-        }
-        return null;
+        return getFrequentlyUsedReturnResultByBool(dynamicsService.insert(dynamics));
     }
 
     /**
@@ -114,14 +111,11 @@ public class WebDynamicsController extends BaseController{
      */
     @RequestMapping(value = "/insertDonation")
     @ResponseBody
-    public Dynamics insertDonation(Dynamics dynamics){
+    public HttpResult insertDonation(Dynamics dynamics){
         dynamics.setDynamicsId( UuidUtil.get32UUID() );
         dynamics.setType( 2 );
         dynamics.setAddDate( new Date());
-        if( 0 < dynamicsService.insert(dynamics)){
-            return dynamics;
-        }
-        return null;
+        return getFrequentlyUsedReturnResultByBool(dynamicsService.insert(dynamics));
     }
 
     /**
@@ -146,8 +140,8 @@ public class WebDynamicsController extends BaseController{
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Dynamics update(Dynamics dynamics) {
-        return dynamicsService.update(dynamics);
+    public HttpResult update(Dynamics dynamics) {
+        return getFrequentlyUsedReturnResultByBool(dynamicsService.update(dynamics));
     }
 
     /**
@@ -158,7 +152,7 @@ public class WebDynamicsController extends BaseController{
     @RequestMapping(value = "/findDynamicsByQueryCondition")
     @ResponseBody
     public HttpResult findDynamicsByQueryCondition(QueryCondition queryCondition) {
-        return getHttpResult("查找完成",dynamicsService.findDynamicsByQueryCondition(queryCondition));
+        return getHttpResult(this.OPERATION_SUCCESS,dynamicsService.findDynamicsByQueryCondition(queryCondition));
     }
 
     /**

@@ -71,11 +71,7 @@ public class DonationController extends BaseController{
                 attachmentService.insert(image, donation.getDonationId(), "2");
             }
         }
-
-        if( 0 != donationService.insertDonation(donation)){
-            return getHttpResult("操作成功",null);
-        } else
-        return getHttpResult("操作失败",null);
+        return getFrequentlyUsedReturnResultByBool(donationService.insertDonation(donation));
 
     }
 
@@ -87,7 +83,7 @@ public class DonationController extends BaseController{
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition) {
-        return getHttpResult("操作完成",donationService.findByQueryCondition(queryCondition));
+        return getHttpResult(this.OPERATION_SUCCESS,donationService.findByQueryCondition(queryCondition));
     }
     /**
      * 按条件修改
@@ -99,7 +95,7 @@ public class DonationController extends BaseController{
     @RequestMapping(value = "/edit")
     @ResponseBody
     public HttpResult editByCondition(String donationId ,String type ,String futrueValue ,String currentValue ,boolean isCheck) {
-        return getHttpResult("操作完成",donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck ));
+        return getHttpResult(this.OPERATION_SUCCESS,donationService.editByCondition(donationId ,type ,futrueValue , currentValue ,isCheck ));
     }
 
 }

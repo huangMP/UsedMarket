@@ -20,8 +20,8 @@ public class RoleServiceImpl implements RoleService {
     RoleDao roleDao;
 
     @Override
-    public int insert(com.usedmarket.entity.Role role) {
-        return roleDao.insert(role);
+    public boolean insert(com.usedmarket.entity.Role role) {
+        return 1 == roleDao.insert(role) ? true : false ;
     }
 
     @Override
@@ -40,13 +40,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public int update(Role role) {
-        return roleDao.update(role);
+    public boolean update(Role role) {
+        return 1 == roleDao.update(role) ? true : false ;
     }
 
     @Override
-    public int delete(String roleId) {
-        return roleDao.delete(roleId);
+    public boolean delete(String roleId) {
+        return 1 == roleDao.delete(roleId) ? true : false ;
     }
 
     /**

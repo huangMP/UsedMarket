@@ -30,8 +30,8 @@ public class DonationServiceImpl implements DonationService {
      * @return 插入成功的数量
      */
     @Override
-    public int insertDonation(Donation donation) {
-        return donationDao.insert(donation);
+    public boolean insertDonation(Donation donation) {
+        return 1 == donationDao.insert(donation) ? true : false;
     }
 
     @Override

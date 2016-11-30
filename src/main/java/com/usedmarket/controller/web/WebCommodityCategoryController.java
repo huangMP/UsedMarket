@@ -52,10 +52,7 @@ public class WebCommodityCategoryController extends BaseController{
         String attachmentId = attachmentService.insert(picture, commodityCategory.getCommodityCategoryId(), "3");
         commodityCategory.setAttachmentId(attachmentId);    //设置附件Id
 
-        if( 1 == commodityCategoryService.insert(commodityCategory)){
-            return getHttpResult("添加成功",commodityCategory);
-        }
-        return getHttpResult("添加失败",commodityCategory);
+        return getFrequentlyUsedReturnResultByBool(commodityCategoryService.insert(commodityCategory));
     }
 
     /**
@@ -66,8 +63,7 @@ public class WebCommodityCategoryController extends BaseController{
     @ResponseBody
     public HttpResult delete(String commodityCategoryId) {
         attachmentService.deleteByContentId(commodityCategoryId);
-        commodityCategoryService.delete(commodityCategoryId);
-        return getHttpResult("删除失败",null);
+        return getFrequentlyUsedReturnResultByBool(commodityCategoryService.delete(commodityCategoryId));
     }
 
     /**
@@ -78,7 +74,7 @@ public class WebCommodityCategoryController extends BaseController{
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition) {
-        return getHttpResult("查找完成",commodityCategoryService.findByQueryCondition(queryCondition));
+        return getHttpResult(this.OPERATION_SUCCESS,commodityCategoryService.findByQueryCondition(queryCondition));
     }
 
     /**
@@ -102,10 +98,7 @@ public class WebCommodityCategoryController extends BaseController{
         String attachmentId = attachmentService.insert(picture, commodityCategoryInDatabase.getCommodityCategoryId(), "3");
         commodityCategoryInDatabase.setAttachmentId(attachmentId);    //设置附件Id
 
-        if( 1 == commodityCategoryService.update(commodityCategoryInDatabase) ){
-            return getHttpResult("修改成功",commodityCategoryInDatabase);
-        }
-        return getHttpResult("修改失败",commodityCategoryInDatabase);
+        return getFrequentlyUsedReturnResultByBool(commodityCategoryService.update(commodityCategoryInDatabase));
     }
 
 

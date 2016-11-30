@@ -23,8 +23,8 @@ public class CrowdfundingServiceImpl implements CrowdfundingService {
     CrowdfundingDao crowdfundingDao;
 
     @Override
-    public int insert(Crowdfunding crowdfunding) {
-        return crowdfundingDao.insert(crowdfunding);
+    public boolean insert(Crowdfunding crowdfunding) {
+        return  crowdfundingDao.insert(crowdfunding) == 1 ? true : false ;
     }
 
     @Override
@@ -38,13 +38,13 @@ public class CrowdfundingServiceImpl implements CrowdfundingService {
     }
 
     @Override
-    public int update(Crowdfunding crowdfunding) {
-        return crowdfundingDao.update(crowdfunding);
+    public boolean update(Crowdfunding crowdfunding) {
+        return  crowdfundingDao.update(crowdfunding) == 1 ? true : false ;
     }
 
     @Override
-    public int delete(String crowdfundingId) {
-        return crowdfundingDao.delete(crowdfundingId);
+    public boolean delete(String crowdfundingId) {
+        return crowdfundingDao.delete(crowdfundingId) == 1 ? true : false ;
     }
 
     /**

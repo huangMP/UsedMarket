@@ -17,14 +17,14 @@ public interface CommodityCategoryService {
      * @param commodityCategory
      * @return 插入成功的数量
      */
-    int insert(CommodityCategory commodityCategory) ;
+    boolean insert(CommodityCategory commodityCategory) ;
 
     /**
      * 删除一条信息
      * @param commodityCategoryId
      * @return 成功删除的信息条数
      */
-    int delete(String commodityCategoryId);
+    boolean delete(String commodityCategoryId);
 
     /**
      * @param commodityCategoryId
@@ -48,7 +48,7 @@ public interface CommodityCategoryService {
      * @param commodityCategory
      * @return
      */
-    int update(CommodityCategory commodityCategory);
+    boolean update(CommodityCategory commodityCategory);
 
     /**
      * 条件查询

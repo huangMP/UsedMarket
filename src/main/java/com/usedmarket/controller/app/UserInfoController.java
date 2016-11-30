@@ -68,7 +68,7 @@ public class UserInfoController extends BaseController{
                         (sex != 0 && sex != 1) ||
                         (headPortrait == null || headPortrait.isEmpty())
                 ){
-            return getHttpResult("接收到的信息不完全",null);
+            return getHttpResult(this.OPERATION_FAILED,null);
         }
 
         //通过用户名向数据库查询UserInfo
@@ -76,7 +76,7 @@ public class UserInfoController extends BaseController{
 
         //如果该用户名已存在
         if( null != userInfoInDatabase ){
-            return getHttpResult("用户已存在",null);
+            return getHttpResult(this.OPERATION_FAILED,null);
         }
 
         UserInfo userInfo = new UserInfo();
@@ -96,7 +96,7 @@ public class UserInfoController extends BaseController{
 
         //向数据库添加一条用户信息
         userInfoService.insertUserInfo( userInfo );
-        return getHttpResult("注册成功",userInfo);
+        return getHttpResult(this.OPERATION_SUCCESS,userInfo);
     }
 
     /**
@@ -113,20 +113,20 @@ public class UserInfoController extends BaseController{
                 null == userInfo.getUsername().trim() || "".equals(userInfo.getUsername().trim()) ||
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim())
                 ) {
-            return getHttpResult("登录失败",userInfo);
+            return getHttpResult(this.OPERATION_FAILED,userInfo);
         }
 
         //通过用户名向数据库查询UserInfo
         List<UserInfoCustom> userInfoCustoms = userInfoService.findByQueryCondition(new QueryCondition("username", userInfo.getUsername().trim(), "", "", "", 0, 10));
         if(userInfoCustoms.size()!=1){
-            return getHttpResult("登录失败",userInfo);
+            return getHttpResult(this.OPERATION_FAILED,userInfo);
         }
         UserInfoCustom userInfoCustom = userInfoCustoms.get(0);
         //判断密码是否输入正确
         if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
-            return getHttpResult("登录成功",userInfoCustom);
+            return getHttpResult(this.OPERATION_SUCCESS,userInfoCustom);
         }
-        return getHttpResult("登录失败",userInfo);
+        return getHttpResult(this.OPERATION_FAILED,userInfo);
     }
 
     /**
@@ -144,7 +144,7 @@ public class UserInfoController extends BaseController{
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim()) ||
                 null == newPassword.trim() || "".equals( newPassword.trim() )
                 ){
-            return getHttpResult("接收到的信息不完全",null);
+            return getHttpResult(this.OPERATION_FAILED,null);
         }
 
         //通过用户Id向数据库查询UserInfo
@@ -152,7 +152,7 @@ public class UserInfoController extends BaseController{
 
         //判断该用户是否存在
         if( null == userInfoInDatabase ){
-            return getHttpResult("该用户不存在",null);
+            return getHttpResult(this.OPERATION_SUCCESS,null);
         }
 
         if( userInfoInDatabase.getPassword().trim().equals( userInfo.getPassword().trim() ) ){
@@ -162,9 +162,9 @@ public class UserInfoController extends BaseController{
             userInfoInDatabase.setPassword( newPassword.trim() );
             //保存到数据库
             userInfoService.updateUserInfo( userInfoInDatabase );
-            return getHttpResult("密码不正确",userInfoInDatabase);
+            return getFrequentlyUsedReturnResultByBool(userInfoService.updateUserInfo( userInfoInDatabase ));
         }
-        return getHttpResult("密码不正确",null);
+        return getHttpResult(this.OPERATION_FAILED,null);
     }
 
     /**
@@ -185,7 +185,7 @@ public class UserInfoController extends BaseController{
                 ("".equals(userId.trim()) || null == userId) ||
                         (headPortrait == null || headPortrait.isEmpty())
                 ) {
-            return getHttpResult("接收到的信息不完全",null);
+            return getHttpResult(this.OPERATION_FAILED,null);
         }
 
         //通过用户Id向数据库查询UserInfo
@@ -193,7 +193,7 @@ public class UserInfoController extends BaseController{
 
         //判断该用户是否存在
         if (null == userInfoInDatabase) {
-            return getHttpResult("该用户不存在",null);
+            return getHttpResult(this.OPERATION_SUCCESS,null);
         }
 
         //更新附件路径
@@ -202,7 +202,7 @@ public class UserInfoController extends BaseController{
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);
 
-        return getHttpResult("修改成功",userInfoInDatabase);
+        return getFrequentlyUsedReturnResultByBool(userInfoService.updateUserInfo(userInfoInDatabase));
     }
 
     /**
@@ -217,11 +217,7 @@ public class UserInfoController extends BaseController{
     @RequestMapping(value = "/edit")
     @ResponseBody
     public HttpResult edit(String userId, String index, String currentValue, String futureValue) {
-        UserInfoCustom userInfoCustom = userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
-        if(userInfoCustom == null) {
-            return new HttpResult("操作失败");
-        }
-        return getHttpResult("修改成功",userInfoCustom);
+        return getFrequentlyUsedReturnResultByBool(userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim()) != null);
     }
 
     /**
@@ -237,7 +233,7 @@ public class UserInfoController extends BaseController{
         commodityQueryCondition.setType("t_commodity.user_id");
         commodityQueryCondition.setIndex(index);
         commodityQueryCondition.setQueryValue(userId.trim());
-        return getHttpResult("查找完成",commodityService.findCommodityByQueryCondition(commodityQueryCondition));
+        return getHttpResult(this.OPERATION_SUCCESS,commodityService.findCommodityByQueryCondition(commodityQueryCondition));
     }
 
     /**
@@ -248,7 +244,7 @@ public class UserInfoController extends BaseController{
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     HttpResult findByQueryCondition(QueryCondition queryCondition){
-        return getHttpResult("查找完成",userInfoService.findByQueryCondition(queryCondition));
+        return getHttpResult(this.OPERATION_SUCCESS,userInfoService.findByQueryCondition(queryCondition));
     }
 
 }

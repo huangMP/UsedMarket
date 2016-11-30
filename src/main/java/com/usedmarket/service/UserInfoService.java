@@ -16,28 +16,28 @@ public interface UserInfoService {
      * @param userInfo
      * @return 插入成功的数量
      */
-    public int insertUserInfo(UserInfo userInfo) ;
+    int insertUserInfo(UserInfo userInfo) ;
 
     /**
      * 通过UserId查找UserInfo
      * @param userId
      * @return UserInfo
      */
-    public UserInfo findByUserId(String userId) ;
+    UserInfo findByUserId(String userId) ;
 
     /**
      * 通过Username查找UserInfo
      * @param username
      * @return UserInfo
      */
-    public UserInfo findByUsername(String username) ;
+    UserInfo findByUsername(String username) ;
 
     /**
      * 修改用户信息
      * @param userInfo
      * @return 成功修改的信息条数
      */
-    public int updateUserInfo(UserInfo userInfo);
+    boolean updateUserInfo(UserInfo userInfo);
 
     /**
      * 按列修改用户信息
@@ -47,14 +47,14 @@ public interface UserInfoService {
      * @param futureValue
      * @return UserInfo
      */
-    public UserInfoCustom update(String userId, String index, String currentValue, String futureValue);
+    UserInfoCustom update(String userId, String index, String currentValue, String futureValue);
 
     /**
      * 删除一条信息
      * @param userId
      * @return 成功删除的信息条数
      */
-    public int delete(String userId);
+    int delete(String userId);
 
     /**
      * 按条件查找

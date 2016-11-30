@@ -59,34 +59,24 @@ public class WebCrowdfundingController extends BaseController{
                 attachmentService.insert(image, crowdfunding.getCrowdfundingId(), "1");
             }
         }
-        if( 1 == crowdfundingService.insert(crowdfunding) ){
-            return getHttpResult("操作完成",null);
-        }
-        return getHttpResult("操作失败",null);
+        return getFrequentlyUsedReturnResultByBool(crowdfundingService.insert(crowdfunding));
     }
 
     @RequestMapping(value = "/update")
     @ResponseBody
     public HttpResult update(Crowdfunding crowdfunding) {
-        if( 1 == crowdfundingService.update(crowdfunding) ){
-            return getHttpResult("操作失败",null);
-        }
-        return getHttpResult("操作失败",null);
+        return getFrequentlyUsedReturnResultByBool(crowdfundingService.update(crowdfunding));
     }
 
     @RequestMapping(value = "/delete")
     @ResponseBody
     public HttpResult delete(String crowdfundingId) {
-        if( 1==crowdfundingService.delete(crowdfundingId)){
-            return getHttpResult("操作完成",null);
-        }else{
-            return getHttpResult("操作失败",null);
-        }
+        return getFrequentlyUsedReturnResultByBool(crowdfundingService.delete(crowdfundingId));
     }
 
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition){
-        return getHttpResult("操作完成",crowdfundingService.findByQueryCondition(queryCondition) );
+        return getHttpResult(this.OPERATION_SUCCESS,crowdfundingService.findByQueryCondition(queryCondition) );
     }
 }

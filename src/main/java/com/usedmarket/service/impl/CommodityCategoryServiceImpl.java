@@ -21,13 +21,13 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
     CommodityCategoryDao commodityCategoryDao;
 
     @Override
-    public int insert(CommodityCategory commodityCategory) {
-        return commodityCategoryDao.insert(commodityCategory);
+    public boolean insert(CommodityCategory commodityCategory) {
+        return 1 == commodityCategoryDao.insert(commodityCategory)? true : false ;
     }
 
     @Override
-    public int delete(String commodityCategoryId) {
-        return commodityCategoryDao.delete(commodityCategoryId);
+    public boolean delete(String commodityCategoryId) {
+        return 1 == commodityCategoryDao.delete(commodityCategoryId) ? true : false ;
     }
 
     @Override
@@ -50,8 +50,8 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
      * @param commodityCategory
      * @return
      */
-    public int update(CommodityCategory commodityCategory){
-        return commodityCategoryDao.update(commodityCategory);
+    public boolean update(CommodityCategory commodityCategory){
+        return 1 == commodityCategoryDao.update(commodityCategory) ? true : false ;
     }
 
 

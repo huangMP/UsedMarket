@@ -54,8 +54,8 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param userInfo
      * @return 成功修改的信息条数
      */
-    public int updateUserInfo(UserInfo userInfo){
-        return userInfoDao.update(userInfo);
+    public boolean updateUserInfo(UserInfo userInfo){
+        return 1 == userInfoDao.update(userInfo) ? true : false;
     }
 
     /**
@@ -94,7 +94,11 @@ public class UserInfoServiceImpl implements UserInfoService {
                 return null;
             }
 
-        } else {
+        } if("sex".equals(index)){
+            System.out.println("修改 : " + index + ",无需验证");
+            map.put(index, Integer.valueOf(futureValue));
+        }
+        else {
             System.out.println("修改 : " + index + ",无需验证");
             map.put(index, futureValue);
         }

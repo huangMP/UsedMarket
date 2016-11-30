@@ -31,10 +31,10 @@ public class WebRoleController extends BaseController{
     @ResponseBody
     public HttpResult insert(Role role) {
         role.setRoleId(UuidUtil.get32UUID());
-        if(1 == roleService.insert(role)){
-            return getHttpResult("角色添加成功",role);
+        if( roleService.insert(role) ){
+            return getHttpResult(this.OPERATION_SUCCESS,role);
         }
-        return getHttpResult("角色添加失败",role);
+        return getHttpResult(this.OPERATION_FAILED,role);
     }
 
     /**
@@ -45,8 +45,7 @@ public class WebRoleController extends BaseController{
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition){
-        System.out.println(queryCondition.toString());
-        return getHttpResult("查找完成",roleService.findByQueryCondition(queryCondition) );
+        return getHttpResult(this.OPERATION_SUCCESS,roleService.findByQueryCondition(queryCondition) );
     }
 
 
@@ -59,11 +58,7 @@ public class WebRoleController extends BaseController{
     @RequestMapping(value = "/update")
     @ResponseBody
     public HttpResult update(Role role){
-        if( 1 == roleService.update(role) ){
-            return getHttpResult("更新完成",role);
-        }
-        return getHttpResult("更新失败",null);
-
+        return getFrequentlyUsedReturnResultByBool(roleService.update(role));
     }
 
     /**
@@ -74,9 +69,9 @@ public class WebRoleController extends BaseController{
     @RequestMapping(value = "/delete")
     @ResponseBody
     public HttpResult delete(String roleId){
-        if( 1 == roleService.delete(roleId) ){
-            return getHttpResult("删除完成",null);
+        if( roleService.delete(roleId) ){
+            return getHttpResult(this.OPERATION_SUCCESS,null);
         }
-        return getHttpResult("删除失败",null);
+        return getHttpResult(this.OPERATION_FAILED,null);
     }
 }

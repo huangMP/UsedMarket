@@ -23,15 +23,12 @@ public class CrowdfundingController extends BaseController{
     @RequestMapping(value = "/delete")
     @ResponseBody
     public HttpResult delete(String crowdfundingId) {
-        if( 1 == crowdfundingService.delete(crowdfundingId) ){
-            return getHttpResult("操作完成",null);
-        }
-        return getHttpResult("操作失败",null);
+        return getFrequentlyUsedReturnResultByBool(crowdfundingService.delete(crowdfundingId));
     }
 
     @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
     public HttpResult findByQueryCondition(QueryCondition queryCondition){
-        return getHttpResult("操作完成",crowdfundingService.findByQueryCondition(queryCondition) );
+        return getHttpResult(this.OPERATION_SUCCESS,crowdfundingService.findByQueryCondition(queryCondition) );
     }
 }
