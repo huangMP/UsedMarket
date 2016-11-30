@@ -22,6 +22,16 @@ public class QueryCondition {
 	private String queryValue;
 
 	/**
+	 * 二级查询类型
+	 */
+	private String secondType;
+
+	/**
+	 * 二级查询值
+	 */
+	private String secondQueryValue;
+
+	/**
 	 * 查询位置
 	 */
 	private int index;
@@ -44,6 +54,16 @@ public class QueryCondition {
 	public QueryCondition() {
 	}
 
+	/**
+	 * 只有一级查询
+	 * @param type
+	 * @param queryValue
+	 * @param indistinctField
+	 * @param order
+	 * @param orderBy
+	 * @param index
+     * @param size
+     */
 	public QueryCondition(String type, String queryValue, String indistinctField,String order, String orderBy, int index,  int size) {
 		this.type = type;
 		this.indistinctField = indistinctField;
@@ -52,6 +72,46 @@ public class QueryCondition {
 		this.order = order;
 		this.orderBy = orderBy;
 		this.size = size;
+	}
+
+	/**
+	 * 有两级查询
+	 * @param type
+	 * @param indistinctField
+	 * @param queryValue
+	 * @param secondType
+	 * @param secondQueryValue
+	 * @param index
+	 * @param order
+     * @param orderBy
+     * @param size
+     */
+	public QueryCondition(String type, String queryValue, String secondType, String secondQueryValue, String indistinctField, int index, String order, String orderBy, int size) {
+		this.type = type;
+		this.indistinctField = indistinctField;
+		this.queryValue = queryValue;
+		this.secondType = secondType;
+		this.secondQueryValue = secondQueryValue;
+		this.index = index;
+		this.order = order;
+		this.orderBy = orderBy;
+		this.size = size;
+	}
+
+	public String getSecondType() {
+		return secondType;
+	}
+
+	public void setSecondType(String secondType) {
+		this.secondType = secondType;
+	}
+
+	public String getSecondQueryValue() {
+		return secondQueryValue;
+	}
+
+	public void setSecondQueryValue(String secondQueryValue) {
+		this.secondQueryValue = secondQueryValue;
 	}
 
 	public int getSize() {

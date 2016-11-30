@@ -1,16 +1,13 @@
 package com.usedmarket.controller.app;
 
-import com.usedmarket.dto.CommodityCustom;
-import com.usedmarket.dto.CommodityQueryCondition;
-import com.usedmarket.dto.HttpResult;
-import com.usedmarket.dto.UserInfoCustom;
+import com.usedmarket.controller.BaseController;
+import com.usedmarket.dto.*;
 import com.usedmarket.entity.Role;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
 import com.usedmarket.service.RoleService;
 import com.usedmarket.service.UserInfoService;
-import com.usedmarket.util.JsonUtil;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/UserInfo")
-public class UserInfoController {
+public class UserInfoController extends BaseController{
 
     @Autowired
     CommodityService commodityService;
@@ -116,36 +113,25 @@ public class UserInfoController {
     @ResponseBody
     public HttpResult login(UserInfo userInfo) {
 
-        HttpResult httpResult = new HttpResult();
-
         //判断接受到的信息是否正确
         if (
                 null == userInfo.getUsername().trim() || "".equals(userInfo.getUsername().trim()) ||
                         null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim())
                 ) {
-            System.out.println("接收到的信息不完全");
-            httpResult.setResultCenter("接收到的信息不完全");
-            return httpResult;
+            return getHttpResult("接收到的信息不完全",userInfo);
         }
 
         //通过用户名向数据库查询UserInfo
-        UserInfoCustom userInfoCustom = userInfoService.findUserInfoCustomByUsername(userInfo.getUsername().trim());
-
-        //判断该用户是否存在
-        if (null == userInfoCustom) {
-            System.out.println("该用户不存在");
-            httpResult.setResultCenter("该用户不存在");
-            return httpResult;
+        List<UserInfoCustom> userInfoCustoms = userInfoService.findByQueryCondition(new QueryCondition("username", userInfo.getUsername().trim(), "", "", "", 0, 10));
+        if(userInfoCustoms.size()!=1){
+            return getHttpResult("该用户不存在",userInfo);
         }
-
+        UserInfoCustom userInfoCustom = userInfoCustoms.get(0);
         //判断密码是否输入正确
         if (userInfoCustom.getPassword().trim().equals(userInfo.getPassword().trim())) {
-            System.out.println("登录成功");
-            return new HttpResult<UserInfoCustom>("登录成功", userInfoCustom);
+            return getHttpResult("登录成功",userInfoCustom);
         }
-        System.out.println("密码不正确");
-        httpResult.setResultCenter("密码不正确");
-        return httpResult;
+        return getHttpResult("密码不正确",userInfo);
     }
 
     /**
@@ -275,15 +261,14 @@ public class UserInfoController {
     }
 
     /**
-     * 根据 userId 查找得到 UserInfoCustom
-     *
-     * @param userId
-     * @return UserInfoCustom
+     * 按条件查找
+     * @param queryCondition
+     * @return
      */
-    @RequestMapping(value = "/findUserInfoCustomByUserId")
+    @RequestMapping(value = "/findByQueryCondition")
     @ResponseBody
-    public HttpResult findUserInfoCustomByUserId(String userId){
-        return new HttpResult<UserInfoCustom>(userInfoService.findUserInfoCustomByUserId(userId.trim()));
+    HttpResult findByQueryCondition(QueryCondition queryCondition){
+        return getHttpResult("查找完成",userInfoService.findByQueryCondition(queryCondition));
     }
 
 }

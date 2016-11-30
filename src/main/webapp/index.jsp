@@ -134,6 +134,55 @@
             <input type="submit" value="修改">
         </form>
 
+
+        <span>----------用户查找-----------------------------------</span>
+        <h4>条件查找 </h4>
+        <form action="UserInfo/findByQueryCondition" method="post">
+            <table>
+                <tr>
+                    <td>类型</td>
+                    <td>
+                        <select name="type">
+                            <option value="all">all</option>
+                            <option value="user_id">user_id：用户Id</option>
+                            <option value="username">username：用户名</option>
+                            <option value="phone">phone：手机</option>
+                            <option value="sex">sex：性别</option>
+                            <option value="year_of_birth">year_of_birth：出生年</option>
+                            <option value="ID_num">ID_num：身份证号码</option>
+                            <option value="real_name">real_name：真实姓名</option>
+                            <option value="school">school：学校</option>
+                            <option value="shipping_address">shipping_address：收获地址</option>
+                            <option value="constellation星座">constellation星座</option>
+                            <option value="blood_type">blood_type：血型</option>
+                            <option value="signature">signature：个性签名</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询值</td>
+                    <td><input name="queryValue"/></td>
+                </tr>
+                <tr>
+                    <td>排序依据</td>
+                    <td>
+                        <select name="orderBy">
+                            <option value="registration_date">注册时间：registration_date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>查询位置</td>
+                    <td><input name="index"  value="0"/></td>
+                </tr>
+                <tr>
+                    <td>查询条数</td>
+                    <td><input name="size"  value="10"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="提交">
+        </form>
+
         <span>----------------------------------------------</span>
         <h4>根据userId查询该用户发布的二手商品及数量</h4>
         <form action="UserInfo/findCommodityCustomByUserId" method="post">
@@ -150,18 +199,6 @@
             <input type="submit" value="提交">
         </form>
 
-        <span>----------------------------------------------</span>
-        <h3>根据用户Id查询返回用户信息</h3><br/>
-        <h4>注意：该用户存在返回dto的UserInfoCustom，没有该用户返回null</h4><br/>
-        <form action="UserInfo/findUserInfoCustomByUserId" method="post">
-            <table>
-                <tr>
-                    <td>用户Id</td>
-                    <td><input name="userId" /></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
         <span>----------------------------------------------</span>
         <h4>上传</h4>
         <form action="Commodity/upload" method="post" enctype="multipart/form-data">
@@ -429,124 +466,6 @@
         </form>
 
 
-
-<!--
-        <span>-----------捐赠动态-----------------------------------</span>
-        <h4>添加捐赠动态</h4>
-        <h4>添加成功返回 添加的Dynamics；否则返回null </h4>
-        <form action="Dynamics/insert" method="post">
-            <table>
-                <tr>
-                    <td>动态类别</td>
-                    <td>
-                        <select name="type">
-                            <option value="1">校园动态:1</option>
-                            <option value="2">捐赠动态:2</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>标题</td>
-                    <td><input name="title"/></td>
-                </tr>
-                <tr>
-                    <td>正文</td>
-                    <td><input name="text"/></td>
-                </tr>
-                <tr>
-                    <td>来源</td>
-                    <td><input name="origin"/></td>
-                </tr>
-                <tr>
-                    <td>添加人id</td>
-                    <td><input name="add_user"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
--->
-
-        <span>-----------捐赠动态-----------------------------------</span>
-        <h4>跳转到新增动态页面 (web使用的)</h4>
-        <form action="/WebDonationDynamics/toInsert" method="post">
-            <input type="submit" value="点击按钮跳转">
-        </form>
-
-        <span>-----------捐赠动态-----------------------------------</span>
-        <h4>通过 dynamicsId 展示某条动态</h4>
-        <form action="/DonationDynamics/display" method="post">
-            <table>
-                <tr>
-                    <td>动态Id</td>
-                    <td><input name="dynamicsId"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
-
-
-        <span>-----------捐赠动态-----------------------------------</span>
-        <h4>通过 dynamicsId 修改某条动态 (web使用的) </h4>
-        <form action="/WebDonationDynamics/toEdit" method="post">
-            <table>
-                <tr>
-                    <td>动态Id</td>
-                    <td><input name="dynamicsId"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
-
-
-        <span>-----------捐赠动态-----------------------------------</span>
-        <h4>条件查找 </h4>
-        <h4>找得到返回 Dynamics的list集合 </h4>
-        <form action="/DonationDynamics/listForAndroid" method="post">
-            <table>
-                <tr>
-                    <td>类型</td>
-                    <td>
-                        <select name="type">
-                            <option value="dynamics_id">捐赠动态Id:dynamics_id</option>
-                            <option value="add_user">发布用户Id:add_user</option>
-                            <option value="title">捐赠动态标题:title</option>
-                            <option value="origin">来源:origin</option>
-                            <option value="all">不指定列 : all</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>查询值</td>
-                    <td><input name="queryValue"/></td>
-                </tr>
-                <tr>
-                    <td>排序方式</td>
-                    <td>
-                        <select name="order">
-                            <option value="ASC">升序:ASC</option>
-                            <option value="DESC">降序:DESC</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>排序依据</td>
-                    <td>
-                        <select name="orderBy">
-                            <option value="add_date">发布动态的时间:add_date</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>模糊查询字段</td>
-                    <td><input name="indistinctField"/></td>
-                </tr>
-                <tr>
-                    <td>查询位置</td>
-                    <td><input name="index"  value="0"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="提交">
-        </form>
         <span>-----------收藏物品-----------------------------------</span>
         <h4>收藏</h4>
         <h5>添加收藏</h5>

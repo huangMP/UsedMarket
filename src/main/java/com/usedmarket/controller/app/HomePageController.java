@@ -76,7 +76,7 @@ public class HomePageController extends BaseController{
 		//五条众筹
 		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findCrowdfundingQueryCondition(new CrowdfundingQueryCondition("all", "", "", 0, "DESC", "add_date", "5"));
 		//五条动态
-		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new DynamicsQueryCondition("all", "", "", 0, "DESC", "add_date", ""));
+		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0,10));
 		//店铺
 		List<Store> storeList = storeService.findAll();
 		//标题头

@@ -18,23 +18,23 @@
 <head>
     <title>校园动态</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.all.min.js"> </script>
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
-    <link href="/static/css/templatemo_style.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/css/templatemo_style.css" rel="stylesheet" media="screen">
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="/static/images/ico/favicon.ico">
+    <link rel="shortcut icon" href="/UsedMarket/static/images/ico/favicon.ico">
 
     <!-- JavaScripts -->
-    <script src="/static/js/jquery-3.0.0.js"></script>
-    <script src="/static/js/modernizr.js"></script>
+    <script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
+    <script src="/UsedMarket/static/js/modernizr.js"></script>
 
 </head>
 <body>

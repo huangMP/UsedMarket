@@ -18,7 +18,7 @@
 
 <h3>角色设置</h3>
 <h4>----------------添加角色----------------</h4>
-<form action="/WebRole/insert" method="post">
+<form action="/UsedMarket/WebRole/insert" method="post">
     <table>
         <tr>
             <td>角色英文名称</td>
@@ -42,7 +42,7 @@
 </form>
 
 <h4>----------------查找角色----------------</h4>
-<form action="/WebRole/findByRoleName" method="post">
+<form action="/UsedMarket/WebRole/findByRoleName" method="post">
     <table>
         <tr>
             <td>角色英文名称</td>
@@ -53,7 +53,7 @@
 </form>
 
 <h4>----------------查找角色----------------</h4>
-<form action="/WebRole/findByRoleId" method="post">
+<form action="/UsedMarket/WebRole/findByRoleId" method="post">
     <table>
         <tr>
             <td>角色Id</td>
@@ -64,7 +64,7 @@
 </form>
 
 <h4>----------------查找角色----------------</h4>
-<form action="/WebRole/findByStatus" method="post">
+<form action="/UsedMarket/WebRole/findByStatus" method="post">
     <table>
         <tr>
             <td>角色状态</td>
@@ -80,7 +80,7 @@
 </form>
 
 <h4>----------------修改角色----------------</h4>
-<form action="/WebRole/update" method="post">
+<form action="/UsedMarket/WebRole/update" method="post">
     <table>
         <tr>
             <td>角色Id</td>
@@ -108,7 +108,7 @@
 </form>
 
 <h4>----------------删除角色----------------</h4>
-<form action="/WebRole/delete" method="post">
+<form action="/UsedMarket/WebRole/delete" method="post">
     <table>
         <tr>
             <td>角色Id</td>
@@ -124,7 +124,7 @@
 
 </body>
 
-<script src="/static/js/jquery-3.0.0.js"></script>
+<script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
 </script>
 </html>

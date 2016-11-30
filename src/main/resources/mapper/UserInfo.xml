@@ -157,4 +157,29 @@
         WHERE user_id=#{userId}
     </update>
 
+
+    <select id="findByQueryCondition" resultType="UserInfoCustom" parameterType="QueryCondition">
+        SELECT
+        <include refid="FieldAlias"></include>,
+        t_attachment.file_path "picturePath",
+        t_attachment.narrow_image_path "narrowPicturePath",
+        t_role.role_name roleName
+        FROM (t_user_info INNER JOIN t_attachment ON t_user_info.user_id=t_attachment.content_id)
+        INNER JOIN t_role ON t_user_info.role_id=t_role.role_id
+        WHERE 1=1
+        <if test="type != null and type != '' and type != 'all' ">
+        AND `t_user_info`.${type} = #{queryValue}
+    </if>
+        <if test="secondType != null and secondType != '' and secondType != 'all' ">
+            AND `t_user_info`.${secondType} = #{secondQueryValue}
+        </if>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND `t_user_info`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy} ${order}
+        </if>
+        LIMIT ${index},${size}
+    </select>
+
 </mapper>

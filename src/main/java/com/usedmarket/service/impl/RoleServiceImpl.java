@@ -1,6 +1,7 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.RoleDao;
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Role;
 import com.usedmarket.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int delete(String roleId) {
         return roleDao.delete(roleId);
+    }
+
+    /**
+     * 按条件查找
+     * @param queryCondition
+     * @return
+     */
+    public List<Role> findByQueryCondition(QueryCondition queryCondition){
+        return roleDao.findByQueryCondition(queryCondition);
     }
 }

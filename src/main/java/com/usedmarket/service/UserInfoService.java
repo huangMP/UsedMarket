@@ -1,7 +1,10 @@
 package com.usedmarket.service;
 
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
+
+import java.util.List;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -54,14 +57,9 @@ public interface UserInfoService {
     public int delete(String userId);
 
     /**
-     * @param username
-     * @return UserInfoCustom
+     * 按条件查找
+     * @param queryCondition
+     * @return
      */
-    public UserInfoCustom findUserInfoCustomByUsername(String username);
-
-    /**
-     * @param userId
-     * @return UserInfoCustom
-     */
-    public UserInfoCustom findUserInfoCustomByUserId(String userId);
+    List<UserInfoCustom> findByQueryCondition(QueryCondition queryCondition);
 }

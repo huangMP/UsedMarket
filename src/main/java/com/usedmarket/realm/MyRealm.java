@@ -1,7 +1,7 @@
 package com.usedmarket.realm;
 
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
-import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.UserInfoService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -12,6 +12,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * Description：enter your comment
@@ -35,10 +37,11 @@ public class MyRealm extends AuthorizingRealm {
 		//得到用户名
 		String username = (String) principalCollection.getPrimaryPrincipal();
 
-		/*
-		通过用户名去找到该用户的角色
-		 */
-		UserInfoCustom userInfoCustom = userInfoService.findUserInfoCustomByUsername( username );
+		List<UserInfoCustom> userInfoCustomInDatabases = userInfoService.findByQueryCondition(new QueryCondition("username", username, "", "", "", 0, 10));
+		if( 1 != userInfoCustomInDatabases.size()){
+			return null;
+		}
+		UserInfoCustom userInfoCustom = userInfoCustomInDatabases.get(0);
 
 		//付给该用户的角色权限
 		authorizationInfo.addRole( userInfoCustom.getRoleName() );
@@ -56,12 +59,11 @@ public class MyRealm extends AuthorizingRealm {
 		//得到用户名
 		String username =(String) token.getPrincipal();
 
-		UserInfo userInfoInDatabase = userInfoService.findByUsername(username);
-
-		if( null == userInfoInDatabase){
+		List<UserInfoCustom> userInfoInDatabases = userInfoService.findByQueryCondition(new QueryCondition("username", username, "", "", "", 0, 10));
+		if( 1 != userInfoInDatabases.size()){
 			return null;
 		}
-
+		UserInfoCustom userInfoInDatabase = userInfoInDatabases.get(0);
 		String password = userInfoInDatabase.getPassword();
 
 		//当前 Realm 的 name

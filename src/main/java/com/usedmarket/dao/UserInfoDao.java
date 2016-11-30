@@ -1,7 +1,10 @@
 package com.usedmarket.dao;
 
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
+
+import java.util.List;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -57,5 +60,12 @@ public interface UserInfoDao {
      * @return 成功删除的信息条数
      */
     public int delete(String userId);
+
+    /**
+     * 按条件查找
+     * @param queryCondition
+     * @return
+     */
+    List<UserInfoCustom> findByQueryCondition(QueryCondition queryCondition);
 
 }

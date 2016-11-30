@@ -101,23 +101,25 @@
     </update>
 
 
-    <select id="findByQueryCondition" resultType="CommodityCategoryCustom">
+    <select id="findByQueryCondition" resultType="CommodityCategoryCustom" parameterType="QueryCondition">
         SELECT
         <include refid="FieldAlias"></include>,
         t_attachment.file_path "picturePath",
         t_attachment.narrow_image_path "narrowPicturePath"
         FROM t_commodity_category INNER JOIN t_attachment ON t_commodity_category.attachment_id=t_attachment.attachment_id
         WHERE 1=1
-        <choose>
-            <when test="type == 'all'"/>
-            <otherwise>
-                AND `t_commodity_category`.${type} = #{queryValue}
-            </otherwise>
-        </choose>
+        <if test="type != null and type != '' and type != 'all' ">
+            AND `t_commodity_category`.${type} = #{queryValue}
+        </if>
+        <if test="secondType != null and secondType != '' and secondType != 'all' ">
+            AND `t_commodity_category`.${secondType} = #{secondQueryValue}
+        </if>
         <if test="indistinctField != null and indistinctField != '' ">
             AND `t_commodity_category`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
         </if>
-        ORDER BY ${orderBy} ${order}
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy} ${order}
+        </if>
         LIMIT ${index},${size}
     </select>
 

@@ -1,5 +1,6 @@
 package com.usedmarket.service;
 
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Role;
 
 import java.util.List;
@@ -50,4 +51,11 @@ public interface RoleService {
      * @return 成功删除的信息条数
      */
     int delete(String roleId);
+
+    /**
+     * 按条件查找
+     * @param queryCondition
+     * @return
+     */
+    List<Role> findByQueryCondition(QueryCondition queryCondition);
 }
