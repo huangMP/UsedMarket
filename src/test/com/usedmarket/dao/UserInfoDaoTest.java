@@ -24,9 +24,9 @@ public class UserInfoDaoTest {
     public void testInsert() {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(UuidUtil.get32UUID());
-        userInfo.setUsername("hmp");
+        userInfo.setUsername("123123123");
         //将密码进行md5编码
-        userInfo.setPassword( MD5.md5( "hmp" ) );
+        userInfo.setPassword( MD5.md5( "hm123p" ) );
 
         userInfoDao.insert(userInfo);
         userInfo.toString();

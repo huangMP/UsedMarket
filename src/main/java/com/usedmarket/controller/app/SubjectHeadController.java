@@ -25,7 +25,7 @@ public class SubjectHeadController {
 		return subjectHeadService.selectAll();
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/insert")
 	@ResponseBody
 	public void insert(SubjectHead subjectHead) {
 		this.subjectHeadService.insert(subjectHead);

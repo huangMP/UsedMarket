@@ -28,7 +28,7 @@ public class CommodityCategoryDaoTest {
         CommodityCategory commodityCategory = new CommodityCategory();
         commodityCategory.setCommodityCategoryId(UuidUtil.get32UUID());
         commodityCategory.setAddDate(new Date());
-        commodityCategory.setCommodityCategoryName("分类1");
+       // commodityCategory.setCommodityCategoryName("分类1");
         commodityCategoryDao.insert(commodityCategory);
         System.out.println("操作完成");
     }
