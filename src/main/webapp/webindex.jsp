@@ -15,7 +15,6 @@
 <body>
 <div>
     <div>
-
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>跳转到新增动态页面 (web使用的)</h4>
         <form action="WebDynamics/toInsertDonation" method="post">
@@ -33,7 +32,6 @@
             </table>
             <input type="submit" value="提交">
         </form>
-
 
         <span>-----------捐赠动态-----------------------------------</span>
         <h4>通过 dynamicsId 修改某条动态 (web使用的) </h4>
@@ -521,7 +519,7 @@
             <input type="submit" value="提交">
         </form>
 
-        <h4>----------------添加推荐/跑马条----------------</h4>
+        <h4>----------------推荐/跑马条----------------</h4>
         <form action="/UsedMarket/Sentence/add" method="post">
             <table>
                 <tr>

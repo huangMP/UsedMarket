@@ -498,9 +498,26 @@
             </table>
             <input type="submit" value="提交">
         </form>
-
         <span>-----------首页数据展示-----------------------------------</span>
         <form action="HomePage/display" method="post">
+            <table>
+                <tr>
+                    <td>跑马条数目</td>
+                    <td><input type="number" name="sentenceSize"></td>
+                </tr>
+                <tr>
+                    <td>二手专题数目</td>
+                    <td><input type="number" name="commodityCategorySize"></td>
+                </tr>
+                <tr>
+                    <td>众筹数目</td>
+                    <td><input type="number" name="crowdfundinSize"></td>
+                </tr>
+                <tr>
+                    <td>动态数目</td>
+                    <td><input type="number" name="dynamicsSize"></td>
+                </tr>
+            </table>
             <input type="submit" value="请求">
         </form>
 
@@ -757,9 +774,10 @@
             </table>
             <input type="submit" value="提交">
         </form>
-
-
-
+        <span>-----------首页数据管理-----------------------------------</span>
+        <div>
+            <a href="homepagemngmt.jsp"><button style="color:red;"><h2>跳转到首页数据管理</h2></button></a>
+        </div>
     </div>
 </div>
 

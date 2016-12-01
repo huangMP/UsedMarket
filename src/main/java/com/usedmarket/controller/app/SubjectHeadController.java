@@ -5,6 +5,7 @@ import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.SubjectHead;
 import com.usedmarket.service.SubjectHeadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,8 +15,8 @@ import java.util.List;
  * Description：标题头controller
  * Created by Peivxuan on 2016/11/29.
  */
-/*@Controller
-@RequestMapping("/SubjectHead")*/
+@Controller
+@RequestMapping("/SubjectHead")
 public class SubjectHeadController extends BaseController{
 
 	@Autowired
@@ -30,6 +31,7 @@ public class SubjectHeadController extends BaseController{
 	@RequestMapping("/insert")
 	@ResponseBody
 	public HttpResult insert(SubjectHead subjectHead) {
+		subjectHead.setSubjectHeadId(this.get32UUID());
 		return this.getFrequentlyUsedReturnResultByBool(this.subjectHeadService.insert(subjectHead));
 	}
 

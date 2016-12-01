@@ -7,9 +7,11 @@ import com.usedmarket.entity.SentenceBean;
 import com.usedmarket.entity.Store;
 import com.usedmarket.entity.SubjectHead;
 import com.usedmarket.service.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -66,17 +68,21 @@ public class HomePageController extends BaseController{
 
 	@RequestMapping("/display")
 	@ResponseBody
-	public HttpResult HomePageDataDisplay() {
+	public HttpResult HomePageDataDisplay(
+			@RequestParam(value = "sentenceSize", defaultValue = "5") Integer sentenceSize,
+			@RequestParam(value = "commodityCategorySize", defaultValue = "4") Integer commodityCategorySize,
+			@RequestParam(value = "crowdfundinSize", defaultValue = "5")Integer crowdfundinSize,
+			@RequestParam(value = "dynamicsSize", defaultValue = "5")Integer dynamicsSize) {
 		//五条轮播图
 		List<Carousel> carouselList = carouselService.selectTop5();
 		//五条跑马条
-		List<SentenceBean> sentenceBeanList = sentenceService.selectSentencesByCondition(new SentenceQueryCondition(1, 0, 5, false));
+		List<SentenceBean> sentenceBeanList = sentenceService.selectSentencesByCondition(new SentenceQueryCondition(1, 0, sentenceSize, false));
 		//全部二手专题
-		List<CommodityCategoryCustom> commoditycCategoryCustomList = commodityCategoryService.findByQueryCondition(new QueryCondition("type", "2", "", "DESC", "sort", 0, 10));
+		List<CommodityCategoryCustom> commoditycCategoryCustomList = commodityCategoryService.findByQueryCondition(new QueryCondition("type", "2", "", "DESC", "sort", 0, commodityCategorySize));
 		//五条众筹
-		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0, 5));
+		List<CrowdfundingCustom> crowdfundingCustomList = crowdfundingService.findByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0, crowdfundinSize));
 		//五条动态
-		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0,10));
+		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0,dynamicsSize));
 		//店铺
 		List<Store> storeList = storeService.findAll();
 		//标题头
