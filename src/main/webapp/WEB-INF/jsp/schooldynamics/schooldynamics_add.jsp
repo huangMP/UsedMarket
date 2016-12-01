@@ -61,7 +61,7 @@
     //点击提交按钮时，将富文本框的内容，赋值给 正文input输入框
     $("#submitButton").click(function(){
         //alert(UE.getEditor('editor').getContent());
-        $("#text").val(UE.getEditor('editor').getContent());
+        $("#text").attr("value",UE.getEditor('editor').getContent());
         return true;
     });
 

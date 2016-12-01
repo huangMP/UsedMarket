@@ -1,5 +1,6 @@
 package com.usedmarket.dao;
 
+import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Role;
 import com.usedmarket.util.UuidUtil;
 import org.junit.Test;
@@ -68,5 +69,10 @@ public class RoleDaoTest {
         }
         System.out.println("操作完成");
 
+    }
+
+    @Test
+    public void testfindByQueryCondition(){
+        roleDao.findByQueryCondition( new QueryCondition("status", "0", "", "DESC", "", 0,10) );
     }
 }

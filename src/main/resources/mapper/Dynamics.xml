@@ -66,9 +66,14 @@
 
     <sql id="findDynamicsSql">
         SELECT
-        <include refid="FieldAlias"/>,
+        <include refid="FieldAlias"/>
+        <!--
+        ,
         `t_user_info`.`username` `username`
         FROM `t_dynamics` INNER JOIN `t_user_info` ON `t_dynamics`.`add_user` = `t_user_info`.`user_id`
+        -->
+        FROM
+          <include refid="tableName"/>
     </sql>
 
     <!-- 按要求查找 1.校园动态 2.捐赠动态-->
