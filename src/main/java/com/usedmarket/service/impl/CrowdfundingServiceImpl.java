@@ -59,7 +59,7 @@ public class CrowdfundingServiceImpl implements CrowdfundingService {
         List<CrowdfundingCustom> crowdfundingCustoms = crowdfundingDao.findByQueryCondition(queryCondition);
 
         if (crowdfundingCustoms.size() == 0) {
-            return null;
+            return crowdfundingCustoms;
         }
 
         System.out.println("找到捐赠物品条目:"+crowdfundingCustoms.size());

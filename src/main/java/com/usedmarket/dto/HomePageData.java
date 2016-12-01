@@ -41,7 +41,7 @@ public class HomePageData {
 	/**
 	 * 店铺
 	 */
-	private List<Store> storeList;
+	private List<StoreCustom> storeCustomsList;
 
 	/**
 	 * 标题头
@@ -51,22 +51,22 @@ public class HomePageData {
 	public HomePageData() {
 	}
 
-	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<CommodityCategoryCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<Store> storeList, List<SubjectHead> subjectHeadList) {
+	public HomePageData(List<Carousel> carouselList, List<SentenceBean> sentenceBeanList, List<CommodityCategoryCustom> secondHandSpecialCustomList, List<CrowdfundingCustom> crowdfundingCustomList, List<DynamicsCustom> dynamicsCustomList, List<StoreCustom> storeCustomsList, List<SubjectHead> subjectHeadList) {
 		this.carouselList = carouselList;
 		this.sentenceBeanList = sentenceBeanList;
 		this.secondHandSpecialCustomList = secondHandSpecialCustomList;
 		this.crowdfundingCustomList = crowdfundingCustomList;
 		this.dynamicsCustomList = dynamicsCustomList;
-		this.storeList = storeList;
+		this.storeCustomsList = storeCustomsList;
 		this.subjectHeadList = subjectHeadList;
 	}
 
-	public List<Store> getStoreList() {
-		return storeList;
+	public List<StoreCustom> getStoreCustomsList() {
+		return storeCustomsList;
 	}
 
-	public void setStoreList(List<Store> storeList) {
-		this.storeList = storeList;
+	public void setStoreCustomsList(List<StoreCustom> storeCustomsList) {
+		this.storeCustomsList = storeCustomsList;
 	}
 
 	public List<Carousel> getCarouselList() {
@@ -125,7 +125,7 @@ public class HomePageData {
 				", secondHandSpecialCustomList=" + secondHandSpecialCustomList +
 				", crowdfundingCustomList=" + crowdfundingCustomList +
 				", dynamicsCustomList=" + dynamicsCustomList +
-				", storeList=" + storeList +
+				", storeCustomsList=" + storeCustomsList +
 				", subjectHeadList=" + subjectHeadList +
 				'}';
 	}

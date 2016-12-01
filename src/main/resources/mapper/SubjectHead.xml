@@ -23,7 +23,7 @@
     <sql id="FieldValue">
         #{subjectHeadId},
         #{title},
-        #{addUserId},
+        #{addUser},
         #{addDate},
         #{moreDes},
         #{type}

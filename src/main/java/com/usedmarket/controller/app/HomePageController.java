@@ -72,7 +72,8 @@ public class HomePageController extends BaseController{
 			@RequestParam(value = "sentenceSize", defaultValue = "5") Integer sentenceSize,
 			@RequestParam(value = "commodityCategorySize", defaultValue = "4") Integer commodityCategorySize,
 			@RequestParam(value = "crowdfundinSize", defaultValue = "5")Integer crowdfundinSize,
-			@RequestParam(value = "dynamicsSize", defaultValue = "5")Integer dynamicsSize) {
+			@RequestParam(value = "storeSize", defaultValue = "4")Integer storeSize,
+			@RequestParam(value = "dynamicsSize", defaultValue = "5")Integer dynamicsSize){
 		//五条轮播图
 		List<Carousel> carouselList = carouselService.selectTop5();
 		//五条跑马条
@@ -84,7 +85,7 @@ public class HomePageController extends BaseController{
 		//五条动态
 		List<DynamicsCustom> dynamicsCustomList = dynamicsService.findDynamicsByQueryCondition(new QueryCondition("all", "", "", "DESC", "add_date", 0,dynamicsSize));
 		//店铺
-		List<Store> storeList = storeService.findAll();
+		List<StoreCustom> storeList = storeService.findByQueryCondition(new QueryCondition("all", "", "", "DESC", "registration_date", 0, storeSize));
 		//标题头
 		List<SubjectHead> subjectHeadList = subjectHeadService.selectAll();
 

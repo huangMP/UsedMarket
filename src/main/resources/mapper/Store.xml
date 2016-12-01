@@ -56,6 +56,14 @@
         )
     </insert>
 
+    <sql id="findSql">
+        SELECT
+        <include refid="FieldAlias"></include>,
+        t_attachment.file_path "picturePath",
+        t_attachment.narrow_image_path "narrowPicturePath"
+        FROM t_store INNER JOIN t_attachment ON t_store.store_id=t_attachment.content_id
+    </sql>
+
     <!-- 查找所有 -->
     <select id="findAll" resultType="StoreCustom">
         SELECT
@@ -64,6 +72,24 @@
         t_attachment.narrow_image_path "narrowPicturePath"
         FROM t_store INNER JOIN t_attachment ON t_store.store_id=t_attachment.content_id
         WHERE 1=1
+    </select>
+
+    <select id="findByQueryCondition" parameterType="QueryCondition" resultType="StoreCustom">
+        <include refid="findSql"/>
+        WHERE 1=1
+        <if test="type != null and type != '' and type != 'all' ">
+            AND <include refid="tableName"/>.${type} = #{queryValue}
+        </if>
+        <if test="secondType != null and secondType != '' and secondType != 'all'  ">
+            AND <include refid="tableName"/>.${secondType} = #{secondQueryValue}
+        </if>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND <include refid="tableName"/>.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy} ${order}
+        </if>
+        LIMIT ${index},${size}
     </select>
 
 </mapper>

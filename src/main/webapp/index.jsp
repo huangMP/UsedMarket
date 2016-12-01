@@ -517,6 +517,10 @@
                     <td>动态数目</td>
                     <td><input type="number" name="dynamicsSize"></td>
                 </tr>
+                <tr>
+                    <td>商店数目</td>
+                    <td><input type="number" name="storeSize"></td>
+                </tr>
             </table>
             <input type="submit" value="请求">
         </form>

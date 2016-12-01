@@ -1,5 +1,7 @@
 package com.usedmarket.entity;
 
+import java.util.Date;
+
 /**
  * Description：推荐的头部
  * Created by Peivxuan on 2016/11/29.
@@ -25,6 +27,16 @@ public class SubjectHead {
 	 * 类型
 	 */
 	private Integer type;
+
+	/**
+	 * 添加日期
+	 */
+	private Date addDate;
+
+	/**
+	 * 添加人
+	 */
+	private String addUser;
 
 	public SubjectHead() {
 	}
@@ -68,6 +80,22 @@ public class SubjectHead {
 		this.type = type;
 	}
 
+	public Date getAddDate() {
+		return addDate;
+	}
+
+	public void setAddDate(Date addDate) {
+		this.addDate = addDate;
+	}
+
+	public String getAddUser() {
+		return addUser;
+	}
+
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+
 	@Override
 	public String toString() {
 		return "SubjectHead{" +
@@ -75,6 +103,8 @@ public class SubjectHead {
 				", title='" + title + '\'' +
 				", moreDes='" + moreDes + '\'' +
 				", type=" + type +
+				", addDate=" + addDate +
+				", addUser='" + addUser + '\'' +
 				'}';
 	}
 }

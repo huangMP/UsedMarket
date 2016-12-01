@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,8 @@ public class SubjectHeadController extends BaseController{
 	@ResponseBody
 	public HttpResult insert(SubjectHead subjectHead) {
 		subjectHead.setSubjectHeadId(this.get32UUID());
+		subjectHead.setAddDate(new Date());
+		subjectHead.setAddUser("tester");
 		return this.getFrequentlyUsedReturnResultByBool(this.subjectHeadService.insert(subjectHead));
 	}
 

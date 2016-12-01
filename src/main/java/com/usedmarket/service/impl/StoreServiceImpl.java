@@ -1,6 +1,8 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.StoreDao;
+import com.usedmarket.dto.QueryCondition;
+import com.usedmarket.dto.StoreCustom;
 import com.usedmarket.entity.Store;
 import com.usedmarket.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,9 @@ public class StoreServiceImpl implements StoreService{
     @Override
     public List<Store> findAll() {
         return storeDao.findAll();
+    }
+
+    public List<StoreCustom> findByQueryCondition(QueryCondition queryCondition) {
+        return storeDao.findByQueryCondition(queryCondition);
     }
 }

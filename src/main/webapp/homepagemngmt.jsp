@@ -14,7 +14,7 @@
     <div>
         <span>-----------轮播图-----------------------------------</span>
         <h4>添加</h4>
-        <form action="/Carousel/upload" method="post" enctype="multipart/form-data">
+        <form action="Carousel/upload" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>轮播图标题</td>
@@ -30,7 +30,7 @@
 
         <span>-----------推荐/跑马条-----------------------------------</span>
         <h4>添加</h4>
-        <form action="/Sentence/add" method="post">
+        <form action="Sentence/add" method="post">
             <table>
                 <tr>
                     <td>类型</td>
@@ -130,7 +130,7 @@
 
         <span>-----------商店-----------------------------------</span>
         <h4>添加</h4>
-        <form action="/WebStore/insert" method="post" enctype="multipart/form-data">
+        <form action="WebStore/insert" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>描述</td>
@@ -150,7 +150,7 @@
 
         <span>-----------标题头-----------------------------------</span>
         <h4>添加</h4>
-        <form action="/SubjectHead/insert" method="post">
+        <form action="SubjectHead/insert" method="post">
             <table>
                 <tr>
                     <td>类型</td>
