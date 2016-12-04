@@ -6,6 +6,7 @@ import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Crowdfunding;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CrowdfundingService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,7 @@ public class WebCrowdfundingController extends BaseController{
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images) {
                 //执行上传
-                attachmentService.insert(image, crowdfunding.getCrowdfundingId(), "1");
+                attachmentService.insert(image, crowdfunding.getCrowdfundingId(), "1" , NarrowImage.normalNarrowTarget);
             }
         }
         return getFrequentlyUsedReturnResultByBool(crowdfundingService.insert(crowdfunding));

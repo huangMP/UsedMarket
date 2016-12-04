@@ -1,13 +1,12 @@
 package com.usedmarket.controller.app;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.usedmarket.controller.BaseController;
-import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Description：商品的控制器
@@ -83,7 +81,7 @@ public class CommodityController extends BaseController{
 		if (!images[0].isEmpty()) {
 			for (MultipartFile image : images) {
 				//执行上传
-				attachmentService.insert(image, commodity.getCommodityId(), "1");
+				attachmentService.insert(image, commodity.getCommodityId(), "1" , NarrowImage.normalNarrowTarget);
 			}
 		}
 

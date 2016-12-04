@@ -5,6 +5,7 @@ import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Carousel;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CarouselService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Description：轮播图Controller
@@ -25,10 +25,9 @@ import java.util.List;
 public class CarouselController extends BaseController{
 
 	@Autowired
-	private CarouselService carouselService;
-
-	@Autowired
 	AttachmentService attachmentService;
+	@Autowired
+	private CarouselService carouselService;
 
 	@RequestMapping(value = "/upload")
 	@ResponseBody
@@ -44,7 +43,7 @@ public class CarouselController extends BaseController{
 		carousel.setAddUserId("test");
 
 		if (!image.isEmpty()) {
-			attachmentService.insert(image, carousel.getCarouselId(), "3");
+			attachmentService.insert(image, carousel.getCarouselId(), "3", NarrowImage.bigNarrowTarget);
 		} else {
 			return this.getHttpResult(BaseController.OPERATION_FAILED,"");
 		}

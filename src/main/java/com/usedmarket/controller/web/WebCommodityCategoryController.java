@@ -6,6 +6,7 @@ import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.CommodityCategory;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityCategoryService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,7 @@ public class WebCommodityCategoryController extends BaseController{
         //设置添加人 获取当前登录的用户
         //commodityCategory.setAddUserId();
 
-        String attachmentId = attachmentService.insert(picture, commodityCategory.getCommodityCategoryId(), "3");
+        String attachmentId = attachmentService.insert(picture, commodityCategory.getCommodityCategoryId(), "3" , NarrowImage.normalNarrowTarget);
         commodityCategory.setAttachmentId(attachmentId);    //设置附件Id
 
         return getFrequentlyUsedReturnResultByBool(commodityCategoryService.insert(commodityCategory));
@@ -95,7 +96,7 @@ public class WebCommodityCategoryController extends BaseController{
         if( 1 != attachmentService.delete(commodityCategoryInDatabase.getAttachmentId())){
             return getHttpResult("修改失败",commodityCategoryInDatabase);
         }
-        String attachmentId = attachmentService.insert(picture, commodityCategoryInDatabase.getCommodityCategoryId(), "3");
+        String attachmentId = attachmentService.insert(picture, commodityCategoryInDatabase.getCommodityCategoryId(), "3" , NarrowImage.normalNarrowTarget);
         commodityCategoryInDatabase.setAttachmentId(attachmentId);    //设置附件Id
 
         return getFrequentlyUsedReturnResultByBool(commodityCategoryService.update(commodityCategoryInDatabase));

@@ -4,6 +4,7 @@ import com.usedmarket.dto.HttpResult;
 import com.usedmarket.entity.Store;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.StoreService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class WebStoreController {
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images) {
                 //执行上传
-                attachmentService.insert(image, store.getStoreId(), "5");
+                attachmentService.insert(image, store.getStoreId(), "5" , NarrowImage.normalNarrowTarget);
             }
         }
 

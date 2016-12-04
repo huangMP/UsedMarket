@@ -35,14 +35,14 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @param file
      * @return attachmentId
      */
-    public String insert(MultipartFile file, String contentId,String fileType) {
+    public String insert(MultipartFile file, String contentId,String fileType,int narrowTarget) {
 
         Attachment attachment = new Attachment();
         attachment.setAttachmentId(UuidUtil.get32UUID());
         attachment.setFileType(fileType);
         attachment.setContentId(contentId);
 
-        attachment = uploadPictureFile(file,attachment);
+        attachment = uploadPictureFile(file,attachment,narrowTarget);
 
         attachmentDao.insert(attachment);
 
@@ -65,7 +65,7 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @param file
      * @return 成功修改的信息条数
      */
-    public int update(String attachmentId, MultipartFile file) {
+    public int update(String attachmentId, MultipartFile file,int narrowTarget) {
         Attachment attachment = findByAttachmentId(attachmentId);
         if(null == attachment){
             return 0;
@@ -74,7 +74,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             return attachmentDao.delete(attachmentId);
         }
 
-        attachment = uploadPictureFile(file,attachment);
+        attachment = uploadPictureFile(file,attachment,narrowTarget);
 
         return attachmentDao.update(attachment);
     }
@@ -120,13 +120,13 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @param attachment
      * @return
      */
-    Attachment uploadPictureFile(MultipartFile file,Attachment attachment){
+    Attachment uploadPictureFile(MultipartFile file,Attachment attachment,int narrowTarget){
         //执行上传 返回真实文件名
         String fileName = FileUpload.fileUp(file, fileAbsoluteathPath, UuidUtil.get32UUID());
         //得到压缩图文件名
         String narrowImageFileName = "_" + fileName;
         //进行压缩
-        NarrowImage.imageNarrow(fileAbsoluteathPath, narrowImageFileName, fileName, 5);
+        NarrowImage.imageNarrow(fileAbsoluteathPath, narrowImageFileName, fileName, narrowTarget);
         attachment.setFilePath(fileRelativePath + fileName);
         attachment.setNarrowImagePath(fileRelativePath + narrowImageFileName);
         return attachment;

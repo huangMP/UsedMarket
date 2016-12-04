@@ -11,6 +11,7 @@ import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.CommodityService;
 import com.usedmarket.service.RoleService;
 import com.usedmarket.service.UserInfoService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,7 +92,7 @@ public class UserInfoController extends BaseController{
         userInfo.setRoleId( role.getRoleId() );
 
 
-        String attachmentId = attachmentService.insert(headPortrait, userInfo.getUserId(), "0");
+        String attachmentId = attachmentService.insert(headPortrait, userInfo.getUserId(), "0",NarrowImage.smallNarrowTarget);
         userInfo.setAttachmentId(attachmentId);    //设置附件Id
 
         //向数据库添加一条用户信息
@@ -197,7 +198,7 @@ public class UserInfoController extends BaseController{
         }
 
         //更新附件路径
-        attachmentService.update(userInfoInDatabase.getAttachmentId(), headPortrait);
+        attachmentService.update(userInfoInDatabase.getAttachmentId(), headPortrait,NarrowImage.smallNarrowTarget);
 
         //保存到数据库
         userInfoService.updateUserInfo(userInfoInDatabase);

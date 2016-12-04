@@ -14,7 +14,7 @@ public interface AttachmentService {
      * @param fileType
      * @return attachmentId
      */
-    public String insert(MultipartFile file, String contentId, String fileType);
+    String insert(MultipartFile file, String contentId,String fileType,int narrowTarget);
 
     /**
      * 查找通过attachmentId
@@ -22,7 +22,7 @@ public interface AttachmentService {
      * @param attachmentId
      * @return Attachment
      */
-    public Attachment findByAttachmentId(String attachmentId);
+    Attachment findByAttachmentId(String attachmentId);
 
     /**
      * 修改
@@ -30,7 +30,7 @@ public interface AttachmentService {
      * @param file
      * @return 成功修改的信息条数
      */
-    public int update(String attachmentId, MultipartFile file);
+    int update(String attachmentId, MultipartFile file,int narrowTarget);
 
     /**
      * 删除一条信息
@@ -38,7 +38,7 @@ public interface AttachmentService {
      * @param attachmentId
      * @return 成功删除的信息条数
      */
-    public int delete(String attachmentId);
+    int delete(String attachmentId);
 
     /**
      * 删除一条信息
@@ -46,5 +46,5 @@ public interface AttachmentService {
      * @param contentId
      * @return 成功删除的信息条数
      */
-    public int deleteByContentId(String contentId);
+    int deleteByContentId(String contentId);
 }

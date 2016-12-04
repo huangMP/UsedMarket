@@ -1,16 +1,22 @@
 package com.usedmarket.util;
 
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGEncodeParam;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import javax.imageio.ImageIO;
-
 public class NarrowImage {
 
+	/**
+	 * 压缩目标值
+	 */
+	public static final int bigNarrowTarget = 100;
+	public static final int normalNarrowTarget = 40;
+	public static final int smallNarrowTarget = 20;
 
 	public static void main(String args[]) {
 

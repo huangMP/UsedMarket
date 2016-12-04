@@ -6,6 +6,7 @@ import com.usedmarket.dto.QueryCondition;
 import com.usedmarket.entity.Donation;
 import com.usedmarket.service.AttachmentService;
 import com.usedmarket.service.DonationService;
+import com.usedmarket.util.NarrowImage;
 import com.usedmarket.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +69,7 @@ public class DonationController extends BaseController{
         if (!images[0].isEmpty()) {
             for (MultipartFile image : images) {
                 //执行上传
-                attachmentService.insert(image, donation.getDonationId(), "2");
+                attachmentService.insert(image, donation.getDonationId(), "2" , NarrowImage.normalNarrowTarget);
             }
         }
         return getFrequentlyUsedReturnResultByBool(donationService.insertDonation(donation));
