@@ -86,7 +86,7 @@ public class QueryCondition {
      * @param orderBy
      * @param size
      */
-	public QueryCondition(String type, String queryValue, String secondType, String secondQueryValue, String indistinctField, int index, String order, String orderBy, int size) {
+	public QueryCondition(String type, String queryValue, String secondType, String secondQueryValue, String indistinctField, String order, String orderBy, int index, int size) {
 		this.type = type;
 		this.indistinctField = indistinctField;
 		this.queryValue = queryValue;

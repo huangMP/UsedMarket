@@ -31,17 +31,24 @@
 </head>
 <body>
 <h3>添加校园动态</h3>
-<form action="/UsedMarket/WebDynamics/insertSchool" method="post" >
+<form action="/UsedMarket/WebDynamics/insertSchool" method="post" enctype="multipart/form-data">
     <table class="table">
         <tr>
             <td>标题</td>
             <td><input name="title" /></td>
         </tr>
         <tr>
+            <td>列表展示图片</td>
+            <td>
+                <input name="images" id="images" type="file" />
+            </td>
+        </tr>
+        <tr>
             <td>正文</td>
             <td>
                 <input name="text" id="text" hidden="hidden" />
                 <script id="editor" type="text/plain" style="width:100%;"></script>
+                <input name="pureText" id="pureText" hidden="hidden" />
             </td>
         </tr>
         <tr>
@@ -62,6 +69,7 @@
     $("#submitButton").click(function(){
         //alert(UE.getEditor('editor').getContent());
         $("#text").attr("value",UE.getEditor('editor').getContent());
+        $("#pureText").val(UE.getEditor('editor').getContentTxt());
         return true;
     });
 

@@ -24,6 +24,11 @@ public class Dynamics {
      */
     private String text;
     /**
+     * 纯文本
+     */
+    private String pureText;
+
+    /**
      * 来源
      */
     private String origin;
@@ -40,6 +45,14 @@ public class Dynamics {
      * 用于排序
      */
     private String sort;
+
+    public String getPureText() {
+        return pureText;
+    }
+
+    public void setPureText(String pureText) {
+        this.pureText = pureText;
+    }
 
     public String getSort() {
         return sort;

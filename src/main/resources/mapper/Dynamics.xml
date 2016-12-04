@@ -15,6 +15,7 @@
         type,
         title,
         text,
+        pure_text,
         origin,
         add_user,
         add_date,
@@ -27,6 +28,7 @@
         #{type},
         #{title},
         #{text},
+        #{pureText},
         #{origin},
         #{addUser},
         #{addDate},
@@ -35,14 +37,15 @@
 
     <!-- 别名 -->
     <sql id="FieldAlias">
-        t_dynamics.dynamics_id "dynamicsId",
-        t_dynamics.type "type",
-        t_dynamics.title "title",
-        t_dynamics.text "text",
-        t_dynamics.origin "origin",
-        t_dynamics.add_user "addUser",
-        t_dynamics.add_date "addDate",
-        t_dynamics.sort "sort"
+        <include refid="tableName"/>.dynamics_id "dynamicsId",
+        <include refid="tableName"/>.type "type",
+        <include refid="tableName"/>.title "title",
+        <include refid="tableName"/>.text "text",
+        <include refid="tableName"/>.pure_text "pureText",
+        <include refid="tableName"/>.origin "origin",
+        <include refid="tableName"/>.add_user "addUser",
+        <include refid="tableName"/>.add_date "addDate",
+        <include refid="tableName"/>.sort "sort"
     </sql>
 
     <!-- 新增-->
@@ -63,37 +66,35 @@
         WHERE dynamics_id=#{dynamicsId}
     </select>
 
-
     <sql id="findDynamicsSql">
         SELECT
         <include refid="FieldAlias"/>
-        <!--
-        ,
-        `t_user_info`.`username` `username`
-        FROM `t_dynamics` INNER JOIN `t_user_info` ON `t_dynamics`.`add_user` = `t_user_info`.`user_id`
-        -->
-        FROM
-          <include refid="tableName"/>
+        FROM <include refid="tableName"/>
     </sql>
-
     <!-- 按要求查找 1.校园动态 2.捐赠动态-->
-    <select id="findDynamicsByQueryCondition" resultType="DynamicsCustom" parameterType="QueryCondition">
+    <select id="findDynamicsByQueryCondition" resultMap="loadImagesByContentId" parameterType="QueryCondition">
         <include refid="findDynamicsSql"/>
         WHERE 1=1
         <if test="type != null and type != '' and type != 'all' ">
-            AND `t_dynamics`.${type} = #{queryValue}
+            AND <include refid="tableName"/>.${type} = #{queryValue}
         </if>
         <if test="secondType != null and secondType != '' and secondType != 'all' ">
-            AND `t_dynamics`.${secondType} = #{secondQueryValue}
+            AND <include refid="tableName"/>.${secondType} = #{secondQueryValue}
         </if>
         <if test="secondType != null and secondType != '' and secondType != 'all' ">
-            AND `t_dynamics`.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+            AND <include refid="tableName"/>.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
         </if>
         <if test="orderBy != null and orderBy != '' ">
             ORDER BY ${orderBy} ${order}
         </if>
         LIMIT ${index},${size}
     </select>
+    <resultMap id="loadImagesByContentId" type="DynamicsCustom" autoMapping="true">
+        <id column="dynamicsId" property="dynamicsId"/>
+        <collection property="images" javaType="ArrayList" ofType="Attachment" autoMapping="true" column="dynamicsId" select="com.usedmarket.dao.AttachmentDao.findByContentId">
+            <id column="attachment_id" property="attachmentId"/>
+        </collection>
+    </resultMap>
 
     <!-- 更新 -->
     <update id="update" parameterType="Donation">
@@ -102,6 +103,7 @@
         type=#{type},
         title=#{title},
         text=#{text},
+        pureText=#{pureText},
         origin=#{origin},
         add_user=#{addUser},
         add_date=#{addDate},
