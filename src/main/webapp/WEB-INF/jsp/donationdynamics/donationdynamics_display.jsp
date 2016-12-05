@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<!--[if lt IE 7]>
 <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
 <![endif]-->
 <!--[if IE 7]>
@@ -17,15 +19,13 @@
 <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <title>校园动态</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/ueditor.all.min.js"> </script>
-    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-    <script type="text/javascript" charset="utf-8" src="/UsedMarket/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="templatemo">
+    <meta charset="UTF-8">
 
     <!-- CSS Bootstrap & Custom -->
-    <link href="/UsedMarket/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/UsedMarket/static/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/UsedMarket/static/css/font-awesome.min.css" rel="stylesheet" media="screen">
     <link href="/UsedMarket/static/css/templatemo_style.css" rel="stylesheet" media="screen">
 
@@ -35,7 +35,6 @@
     <!-- JavaScripts -->
     <script src="/UsedMarket/static/js/jquery-3.0.0.js"></script>
     <script src="/UsedMarket/static/js/modernizr.js"></script>
-
 </head>
 <body>
 
@@ -74,8 +73,8 @@
 
         </div> <!-- /.row -->
 
-        </div>
-    </div> <!-- /.container -->
+    </div>
+</div> <!-- /.container -->
 </div> <!-- /.main-content -->
 
 
