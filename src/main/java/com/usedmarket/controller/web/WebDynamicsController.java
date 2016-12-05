@@ -32,8 +32,6 @@ public class WebDynamicsController extends BaseController{
     @RequestMapping(value = "/toInsertSchool")
     @ResponseBody
     public ModelAndView toInsertSchool(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("schooldynamics/schooldynamics_add");
         return getModelAndView("schooldynamics/schooldynamics_add" ,"", null);
     }
 
