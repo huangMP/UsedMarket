@@ -34,14 +34,14 @@ public class UserInfo {
     private int sex;
 
     /**
-     * 头像
+     * 附件Id
      */
-    private String headPortrait;
+    private String attachmentId;
 
     /**
      * 生日
      */
-    private Date birthday;
+    private String yearOfBirth;
 
     /**
      * 身份证号码
@@ -62,11 +62,47 @@ public class UserInfo {
      * 所属学校
      */
     private String school;
+
     /**
      * 收获地址
+
      */
     private String shippingAddress;
+    /**
+     * 星座
+     */
+    private String constellation;
+    /**
+     * 血型
+     */
+    private String bloodType;
 
+    /**
+     * 个性签名
+     */
+    private String signature;
+
+    /**
+     * 角色Id
+     * @return
+     */
+    private String roleId;
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getUserId() {
         return userId;
@@ -108,20 +144,20 @@ public class UserInfo {
         this.sex = sex;
     }
 
-    public String getHeadPortrait() {
-        return headPortrait;
+    public String getAttachmentId() {
+        return attachmentId;
     }
 
-    public void setHeadPortrait(String headPortrait) {
-        this.headPortrait = headPortrait;
+    public void setAttachmentId(String attachmentId) {
+        this.attachmentId = attachmentId;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getYearOfBirth() {
+        return yearOfBirth;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
     public String getIDNum() {
         return IDNum;
@@ -163,6 +199,23 @@ public class UserInfo {
         this.shippingAddress = shippingAddress;
     }
 
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -171,13 +224,17 @@ public class UserInfo {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", sex=" + sex +
-                ", headPortrait='" + headPortrait + '\'' +
-                ", birthday=" + birthday +
+                ", attachmentId='" + attachmentId + '\'' +
+                ", yearOfBirth='" + yearOfBirth + '\'' +
                 ", IDNum='" + IDNum + '\'' +
                 ", realName='" + realName + '\'' +
                 ", registrationDate=" + registrationDate +
                 ", school='" + school + '\'' +
                 ", shippingAddress='" + shippingAddress + '\'' +
+                ", constellation='" + constellation + '\'' +
+                ", bloodType='" + bloodType + '\'' +
+                ", signature='" + signature + '\'' +
+                ", roleId='" + roleId + '\'' +
                 '}';
     }
 }

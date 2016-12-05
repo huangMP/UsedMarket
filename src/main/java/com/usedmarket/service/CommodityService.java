@@ -1,8 +1,8 @@
 package com.usedmarket.service;
 
+import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
 import com.usedmarket.entity.Commodity;
-import com.usedmarket.entity.UserInfo;
 
 import java.util.List;
 
@@ -24,28 +24,35 @@ public interface CommodityService {
      * @param commodityId 商品id
      * @return
      */
-    boolean deleteByCommodityId(int commodityId);
+    boolean deleteByCommodityId(String commodityId);
 
     /**
      * 通过商品id更新商品
      * @param commodityId 商品id
      * @return
      */
-    boolean updateByCommodityId(int commodityId);
+    boolean updateByCommodityId(String commodityId);
 
     /**
      * 通过商品id查找商品
      * @param commodityId
      * @return
      */
-    Commodity findByCommodityId(int commodityId);
+    Commodity findByCommodityId(String commodityId);
 
 
     /**
-     *
+     * 通过条件查找商品
      * @param commodityQueryCondition 查询条件
      * @return
      */
-    List<Commodity> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
+    List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition);
+
+    /**
+     * 更新常用数据 --> 数量、销量、收藏人数、价格
+     * @param commodity 商品
+     * @return
+     */
+    boolean updateNumByCommodityId(Commodity commodity);
 
 }

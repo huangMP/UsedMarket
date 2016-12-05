@@ -1,6 +1,8 @@
 package com.usedmarket.dao;
 
 
+import com.usedmarket.dto.CommentCustom;
+import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.entity.Comment;
 
 import java.util.List;
@@ -15,55 +17,59 @@ public interface CommentDao {
      * @param comment
      * @return 插入成功的数量
      */
-    public int insert(Comment comment) ;
+    boolean insert(Comment comment) ;
 
     /**
-     * 通过commodityId查找Comment
+     * 通过commodityId查找CommentCustom
      * @param commodityId
      * @return List<Comment>
      */
-    public List<Comment> findByCommodityId(String commodityId) ;
+    List<CommentCustom> findByCommodityId(String commodityId) ;
 
     /**
      * 通过crowdfundingId查找Comment
      * @param crowdfundingId
      * @return List<Comment>
      */
-    public List<Comment> findByCrowdfundingId(String crowdfundingId) ;
+    List<Comment> findByCrowdfundingId(String crowdfundingId) ;
 
     /**
      * 通过commentId查找Comment
      * @param commentId
      * @return Comment
      */
-    public Comment findByCommentId(String commentId) ;
+    Comment findByCommentId(String commentId) ;
 
     /**
      * 修改用户信息
      * @param comment
      * @return 成功修改的信息条数
      */
-    public int update(Comment comment);
+    int update(Comment comment);
 
     /**
      * 删除通过commentId
      * @param commentId
      * @return 成功删除的信息条数
      */
-    public int deleteByCommentId(String commentId);
+    boolean deleteByCommentId(String commentId);
 
     /**
      * 删除通过commodityId
      * @param commodityId
      * @return 成功删除的信息条数
      */
-    public int deleteByCommodityId(String commodityId) ;
+    boolean deleteByCommodityId(String commodityId) ;
 
     /**
      * 删除通过crowdfundingId
      * @param crowdfundingId
      * @return 成功删除的信息条数
      */
-    public int deleteByCrowdfundingId(String crowdfundingId) ;
+    boolean deleteByCrowdfundingId(String crowdfundingId) ;
 
+	/**
+	 * 通过一组商品id查找他们对应的评论
+     */
+    List<CommodityCustom> findCommentsByCommodityIds(List<CommodityCustom> commodityCustoms);
 }

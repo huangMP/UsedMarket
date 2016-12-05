@@ -1,7 +1,10 @@
 package com.usedmarket.service.impl;
 
+import com.usedmarket.dao.CommentDao;
 import com.usedmarket.dao.CommodityDao;
+import com.usedmarket.dto.CommodityCustom;
 import com.usedmarket.dto.CommodityQueryCondition;
+import com.usedmarket.dto.ImageCustom;
 import com.usedmarket.entity.Commodity;
 import com.usedmarket.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Description：enter your comment
+ * Description：商品service实现类
  * Created by Peivxuan on 2016/10/24.
  */
 @Service
@@ -18,6 +21,9 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Autowired
 	CommodityDao commodityDao;
+
+	@Autowired
+	CommentDao commentDao;
 
 	/**
 	 * 添加商品
@@ -37,7 +43,7 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public boolean deleteByCommodityId(int commodityId) {
+	public boolean deleteByCommodityId(String commodityId) {
 		return commodityDao.deleteByCommodityId(commodityId);
 	}
 
@@ -48,7 +54,7 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public boolean updateByCommodityId(int commodityId) {
+	public boolean updateByCommodityId(String commodityId) {
 		return commodityDao.updateByCommodityId(commodityId);
 	}
 
@@ -59,17 +65,72 @@ public class CommodityServiceImpl implements CommodityService {
 	 * @return
 	 */
 	@Override
-	public Commodity findByCommodityId(int commodityId) {
+	public Commodity findByCommodityId(String commodityId) {
 		return commodityDao.findByCommodityId(commodityId);
 	}
 
-
 	/**
+	 * 通过条件查找商品
+	 *
 	 * @param commodityQueryCondition 查询条件
 	 * @return
 	 */
 	@Override
-	public List<Commodity> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
-		return commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
+	public List<CommodityCustom> findCommodityByQueryCondition(CommodityQueryCondition commodityQueryCondition) {
+		if (commodityQueryCondition.getOrder() == null || "".equals(commodityQueryCondition.getOrder().trim())) {
+			commodityQueryCondition.setOrder("DESC");
+		}
+		if (commodityQueryCondition.getOrderBy() == null || "".equals(commodityQueryCondition.getOrderBy().trim())) {
+			commodityQueryCondition.setOrderBy("launch_date");
+		}
+		if (commodityQueryCondition.getType() != null && !"all".equals(commodityQueryCondition.getType().trim())) {
+			if ("launch_date".equals(commodityQueryCondition.getOrderBy().trim())) {
+				if("ASC".equals(commodityQueryCondition.getOrder())) {
+					commodityQueryCondition.setOrder("DESC");
+				} else {
+					commodityQueryCondition.setOrder("ASC");
+				}
+			}
+		}
+		//取出10条commodity
+		List<CommodityCustom> commodityCustoms = commodityDao.findCommodityByQueryCondition(commodityQueryCondition);
+		//找出10条commodity的图片
+		if (commodityCustoms.size() == 0) {
+			return commodityCustoms;
+		}
+		List<ImageCustom> imageCustoms = commodityDao.loadImages(commodityCustoms);
+		List<CommodityCustom> commentsByCommodityIds = commentDao.findCommentsByCommodityIds(commodityCustoms);
+		//10commodity填入images与comment
+		for (int i = 0; i < commodityCustoms.size(); i++) {
+			//对比commodityId填入image
+			for (int j = 0; j < imageCustoms.size(); j++) {
+				if (commodityCustoms.get(i).getCommodityId().equals(imageCustoms.get(j).getCommodityId())) {
+					commodityCustoms.get(i).setImages(imageCustoms.get(j).getImages());
+					break;
+				}
+			}
+			//对比commodityId填入comment
+			for (int k = 0; k < commentsByCommodityIds.size(); k++) {
+				if (commodityCustoms.get(i).getCommodityId().equals(commentsByCommodityIds.get(k).getCommodityId())) {
+					commodityCustoms.get(i).setComments(commentsByCommodityIds.get(k).getComments());
+					break;
+				}
+			}
+		}
+
+		return commodityCustoms;
 	}
+
+	/**
+	 * 更新常用数据 --> 数量、销量、收藏人数、价格
+	 *
+	 * @param commodity 商品
+	 * @return
+	 */
+	@Override
+	public boolean updateNumByCommodityId(Commodity commodity) {
+		return commodityDao.updateNumByCommodityId(commodity);
+	}
+
+
 }

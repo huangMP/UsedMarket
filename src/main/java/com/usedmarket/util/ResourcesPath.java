@@ -9,7 +9,7 @@ public class ResourcesPath {
     /**
      * 头像存放的相对路径
      */
-    final public static String headPortraitRelativePath =  "static/headportrait";
+    final public static String headPortraitRelativePath = "static/headportrait/";
 
     /**
      * 头像存放的绝对路径
@@ -19,11 +19,22 @@ public class ResourcesPath {
     /**
      * 商品图片相对路径
      */
-    final public static String commodityImagesRelativePath = "static/commodityImages";
+    final public static String commodityImagesRelativePath = "static/commodityImages/";
 
     /**
      * 商品图片绝对路径
      */
     final public static String commodityImagesAbsoluteath = PathUtil.getClasspath()+ commodityImagesRelativePath;
+
+
+    /**
+     * 附件相对路径
+     */
+    final public static String attachmentRelativePath = "static/attachment/";
+
+    /**
+     * 附件绝对路径
+     */
+    final public static String attachmentAbsoluteathPath = PathUtil.getClasspath() + attachmentRelativePath;
 
 }

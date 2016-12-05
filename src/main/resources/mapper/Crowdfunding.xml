@@ -39,6 +39,21 @@
         #{addDate}
     </sql>
 
+    <!-- 别名 -->
+    <sql id="FieldAlias">
+        t_crowdfunding.crowdfunding_id "crowdfundingId",
+        t_crowdfunding.crowdfunding_type "crowdfundingType",
+        t_crowdfunding.title "title",
+        t_crowdfunding.description "description",
+        t_crowdfunding.origin "origin",
+        t_crowdfunding.target_amount "targetAmount",
+        t_crowdfunding.now_amount "nowAmount",
+        t_crowdfunding.support_num "supportNum",
+        t_crowdfunding.add_user "addUser",
+        t_crowdfunding.add_date "addDate"
+    </sql>
+
+
     <!-- 通过 crowdfundingId 查找 Crowdfunding -->
     <select id="findByCrowdfundingId" resultType="Crowdfunding">
         SELECT * FROM
@@ -77,7 +92,6 @@
     <update id="update" parameterType="Crowdfunding">
         UPDATE <include refid="tableName"></include>
         SET
-        crowdfunding_id=#{crowdfundingId},
         crowdfunding_type=#{crowdfundingType},
         images=#{images},
         title=#{title},
@@ -90,4 +104,44 @@
         add_date=#{addDate}
         WHERE crowdfunding_id=#{crowdfundingId}
     </update>
+
+
+    <sql id="findSql">
+        SELECT
+        <include refid="FieldAlias"/>,
+        `t_user_info`.`username` `username`,
+        `t_attachment`.`narrow_image_path` `headPortrait`
+        FROM (`t_crowdfunding` INNER JOIN `t_user_info` ON `t_crowdfunding`.`add_user` = `t_user_info`.`user_id`)
+        INNER JOIN `t_attachment` ON `t_crowdfunding`.`add_user` = `t_attachment`.`content_id`
+    </sql>
+
+    <!-- 按要求查找 -->
+    <select id="findByQueryCondition" resultType="CrowdfundingCustom" parameterType="QueryCondition">
+        <include refid="findSql"/>
+        WHERE 1=1
+        <if test="type != null and type != '' and type != 'all' ">
+            AND <include refid="tableName"/>.${type} = #{queryValue}
+        </if>
+        <if test="secondType != null and secondType != '' and secondType != 'all'  ">
+            AND <include refid="tableName"/>.${secondType} = #{secondQueryValue}
+        </if>
+        <if test="indistinctField != null and indistinctField != '' ">
+            AND <include refid="tableName"/>.`title` like CONCAT(CONCAT('%', #{indistinctField}),'%')
+        </if>
+        <if test="orderBy != null and orderBy != '' ">
+            ORDER BY ${orderBy} ${order}
+        </if>
+        LIMIT ${index},${size}
+
+    </select>
+    <!-- 根据传入的id，读取相应的图片 -->
+    <select id="loadImages" parameterType="CrowdfundingCustom" resultType="Attachment" >
+        SELECT *
+        FROM `t_attachment`
+        WHERE `t_attachment`.content_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item.crowdfundingId}
+        </foreach>
+    </select>
+
 </mapper>

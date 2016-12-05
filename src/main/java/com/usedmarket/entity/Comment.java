@@ -19,6 +19,7 @@ public class Comment {
      * 众筹Id
      */
     private String crowdfundingId;
+
     /**
      * 留言内容
      */
@@ -31,7 +32,12 @@ public class Comment {
     /**
      * 添加人
      */
-    private String commentUser;
+    private String userId;
+
+    /**
+     * 定位
+     */
+    private String commentLocation;
 
     public String getCommentId() {
         return commentId;
@@ -65,22 +71,28 @@ public class Comment {
         this.commentText = commentText;
     }
 
-    public String getCommentUser() {
-        return commentUser;
-    }
-
-    public void setCommentUser(String commentUser) {
-
-        this.commentUser = commentUser;
-    }
-
-
     public Date getCommentDate() {
         return commentDate;
     }
 
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCommentLocation() {
+        return commentLocation;
+    }
+
+    public void setCommentLocation(String commentLocation) {
+        this.commentLocation = commentLocation;
     }
 
     @Override
@@ -91,7 +103,8 @@ public class Comment {
                 ", crowdfundingId='" + crowdfundingId + '\'' +
                 ", commentText='" + commentText + '\'' +
                 ", commentDate=" + commentDate +
-                ", commentUser='" + commentUser + '\'' +
+                ", userId='" + userId + '\'' +
+                ", commentLocation='" + commentLocation + '\'' +
                 '}';
     }
 }

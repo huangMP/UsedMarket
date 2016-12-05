@@ -1,10 +1,16 @@
 package com.usedmarket.service.impl;
 
 import com.usedmarket.dao.UserInfoDao;
+import com.usedmarket.dto.QueryCondition;
+import com.usedmarket.dto.UserInfoCustom;
 import com.usedmarket.entity.UserInfo;
 import com.usedmarket.service.UserInfoService;
+import com.usedmarket.util.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangMP on 2016/10/22.
@@ -48,8 +54,58 @@ public class UserInfoServiceImpl implements UserInfoService {
      * @param userInfo
      * @return 成功修改的信息条数
      */
-    public int updateUserInfo(UserInfo userInfo){
-        return userInfoDao.update(userInfo);
+    public boolean updateUserInfo(UserInfo userInfo){
+        return 1 == userInfoDao.update(userInfo) ? true : false;
+    }
+
+    /**
+     * 按列修改
+     *
+     * @param userId
+     * @param index
+     * @param currentValue
+     * @param futureValue
+     * @return UserInfo
+     */
+    public UserInfoCustom update(String userId, String index, String currentValue, String futureValue) {
+
+        List<UserInfoCustom> userInfoCustomList = findByQueryCondition(new QueryCondition("user_id", userId, "", "", "", 0, 10));
+        UserInfoCustom userInfoCustom = userInfoCustomList.size() != 0 ? userInfoCustomList.get(0) : null;
+        if( userInfoCustom == null ){
+            return null;
+        }
+
+        Map map = MapUtils.transBean2Map(userInfoCustom);
+
+        if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {
+            System.out.println("此处不能修改 : " + index);
+            return null;
+        } else if ("password".equals(index) || "phone".equals(index) || "IDNum".equals(index) || "realName".equals(index)) {
+
+            String currentValueInDatabase = (String) map.get(index);    //获取数据库保存的当前值
+            if (null == currentValueInDatabase || "".equals(currentValueInDatabase)) {
+                System.out.println("第一次添加 : " + index + ",无需验证");
+                map.put(index, futureValue);
+            } else if (currentValueInDatabase.equals(currentValue)) {
+                System.out.println(index + "验证成功,修改为" + futureValue);
+                map.put(index, futureValue);
+            } else {
+                System.out.println(index + "验证失败.");
+                return null;
+            }
+
+        } if("sex".equals(index)){
+            System.out.println("修改 : " + index + ",无需验证");
+            map.put(index, Integer.valueOf(futureValue));
+        }
+        else {
+            System.out.println("修改 : " + index + ",无需验证");
+            map.put(index, futureValue);
+        }
+        userInfoCustom = (UserInfoCustom) MapUtils.transMap2Bean(map, userInfoCustom);
+        userInfoDao.update(userInfoCustom);
+        System.out.println("修改完成");
+        return userInfoCustom;
     }
 
     /**
@@ -59,5 +115,15 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     public int delete(String userId) {
         return userInfoDao.delete(userId);
+    }
+
+
+    /**
+     * 按条件查找
+     * @param queryCondition
+     * @return
+     */
+    public List<UserInfoCustom> findByQueryCondition(QueryCondition queryCondition){
+        return userInfoDao.findByQueryCondition(queryCondition);
     }
 }
