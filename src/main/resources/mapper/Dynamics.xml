@@ -89,6 +89,7 @@
         </if>
         LIMIT ${index},${size}
     </select>
+
     <resultMap id="loadImagesByContentId" type="DynamicsCustom" autoMapping="true">
         <id column="dynamicsId" property="dynamicsId"/>
         <collection property="images" javaType="ArrayList" ofType="Attachment" autoMapping="true" column="dynamicsId" select="com.usedmarket.dao.AttachmentDao.findByContentId">

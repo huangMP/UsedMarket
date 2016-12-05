@@ -180,7 +180,10 @@ public class UserInfoController extends BaseController{
     @RequestMapping(value = "/edit")
     @ResponseBody
     public HttpResult edit(String userId, String index, String currentValue, String futureValue) {
-        return getHttpResult(this.OPERATION_SUCCESS,userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim()));
+        UserInfoCustom userInfoCustom = userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim());
+        return userInfoCustom != null ?
+                getHttpResult(this.OPERATION_SUCCESS,userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim())) :
+                getHttpResult(this.OPERATION_FAILED,userInfoCustom);
     }
 
     /**

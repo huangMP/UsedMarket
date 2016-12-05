@@ -69,12 +69,12 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     public UserInfoCustom update(String userId, String index, String currentValue, String futureValue) {
 
-        UserInfoCustom userInfoCustom = findByQueryCondition(new QueryCondition("user_id",userId,"","","",0,10)).get(0);
-
+        List<UserInfoCustom> userInfoCustomList = findByQueryCondition(new QueryCondition("user_id", userId, "", "", "", 0, 10));
+        UserInfoCustom userInfoCustom = userInfoCustomList.size() != 0 ? userInfoCustomList.get(0) : null;
         if( userInfoCustom == null ){
             return null;
         }
-        System.out.println(userInfoCustom.toString());
+
         Map map = MapUtils.transBean2Map(userInfoCustom);
 
         if ("userId".equals(index) || "username".equals(index) || "attachmentId".equals(index) || "registrationDate".equals(index)) {
