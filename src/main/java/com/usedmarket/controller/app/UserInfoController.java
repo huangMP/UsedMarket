@@ -131,44 +131,6 @@ public class UserInfoController extends BaseController{
     }
 
     /**
-     * 修改密码
-     * @param userInfo //用户Id：userId  密码：password  新密码：newPassword
-     * @return
-     */
-    @RequestMapping(value = "/editPassword")
-    @ResponseBody
-    public HttpResult editPassword(UserInfo userInfo, String newPassword) {
-
-        //判断接受到的信息是否正确
-        if(
-                null == userInfo.getUserId().trim() || "".equals(userInfo.getUserId().trim()) ||
-                        null == userInfo.getPassword().trim() || "".equals(userInfo.getPassword().trim()) ||
-                null == newPassword.trim() || "".equals( newPassword.trim() )
-                ){
-            return getHttpResult(this.OPERATION_FAILED,null);
-        }
-
-        //通过用户Id向数据库查询UserInfo
-        UserInfo userInfoInDatabase = userInfoService.findByUserId(userInfo.getUserId().trim());
-
-        //判断该用户是否存在
-        if( null == userInfoInDatabase ){
-            return getHttpResult(this.OPERATION_SUCCESS,null);
-        }
-
-        if( userInfoInDatabase.getPassword().trim().equals( userInfo.getPassword().trim() ) ){
-            System.out.println("认证成功");
-            userInfoInDatabase.setPassword( userInfo.getPassword().trim() );
-            //设置密码
-            userInfoInDatabase.setPassword( newPassword.trim() );
-            //保存到数据库
-            userInfoService.updateUserInfo( userInfoInDatabase );
-            return getFrequentlyUsedReturnResultByBool(userInfoService.updateUserInfo( userInfoInDatabase ));
-        }
-        return getHttpResult(this.OPERATION_FAILED,null);
-    }
-
-    /**
      * 修改头像
      *
      * @param headPortrait //用户Id：userId  头像：headPortrait
@@ -218,7 +180,7 @@ public class UserInfoController extends BaseController{
     @RequestMapping(value = "/edit")
     @ResponseBody
     public HttpResult edit(String userId, String index, String currentValue, String futureValue) {
-        return getFrequentlyUsedReturnResultByBool(userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim()) != null);
+        return getHttpResult(this.OPERATION_SUCCESS,userInfoService.update(userId.trim(), index.trim(), currentValue.trim(), futureValue.trim()));
     }
 
     /**
